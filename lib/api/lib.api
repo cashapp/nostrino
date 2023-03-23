@@ -1,0 +1,427 @@
+public final class app/cash/nostrino/client/ConnectionState : java/lang/Enum {
+	public static final field Connected Lapp/cash/nostrino/client/ConnectionState;
+	public static final field Connecting Lapp/cash/nostrino/client/ConnectionState;
+	public static final field Disconnected Lapp/cash/nostrino/client/ConnectionState;
+	public static final field Disconnecting Lapp/cash/nostrino/client/ConnectionState;
+	public static final field Failing Lapp/cash/nostrino/client/ConnectionState;
+	public static fun valueOf (Ljava/lang/String;)Lapp/cash/nostrino/client/ConnectionState;
+	public static fun values ()[Lapp/cash/nostrino/client/ConnectionState;
+}
+
+public abstract interface class app/cash/nostrino/client/ConnectionStateListener {
+	public abstract fun update (Lapp/cash/nostrino/client/ConnectionState;)V
+}
+
+public abstract class app/cash/nostrino/client/Relay {
+	public fun <init> ()V
+	public abstract fun getAllEvents ()Lkotlinx/coroutines/flow/Flow;
+	public final fun getDirectMessages ()Lkotlinx/coroutines/flow/Flow;
+	public final fun getNotes ()Lkotlinx/coroutines/flow/Flow;
+	public final fun getUserMetaData ()Lkotlinx/coroutines/flow/Flow;
+	public abstract fun send (Lapp/cash/nostrino/model/Event;)V
+	public abstract fun start ()V
+	public abstract fun stop ()V
+	public final fun subscribe (Lapp/cash/nostrino/model/Filter;Lapp/cash/nostrino/client/Subscription;)Lapp/cash/nostrino/client/Subscription;
+	public abstract fun subscribe (Ljava/util/Set;Lapp/cash/nostrino/client/Subscription;)Lapp/cash/nostrino/client/Subscription;
+	public static synthetic fun subscribe$default (Lapp/cash/nostrino/client/Relay;Lapp/cash/nostrino/model/Filter;Lapp/cash/nostrino/client/Subscription;ILjava/lang/Object;)Lapp/cash/nostrino/client/Subscription;
+	public static synthetic fun subscribe$default (Lapp/cash/nostrino/client/Relay;Ljava/util/Set;Lapp/cash/nostrino/client/Subscription;ILjava/lang/Object;)Lapp/cash/nostrino/client/Subscription;
+	public abstract fun unsubscribe (Lapp/cash/nostrino/client/Subscription;)V
+}
+
+public final class app/cash/nostrino/client/RelayClient : app/cash/nostrino/client/Relay, app/cash/nostrino/client/ConnectionStateListener {
+	public static final field Companion Lapp/cash/nostrino/client/RelayClient$Companion;
+	public fun <init> (Ljava/lang/String;Lokhttp3/OkHttpClient;)V
+	public synthetic fun <init> (Ljava/lang/String;Lokhttp3/OkHttpClient;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getAllEvents ()Lkotlinx/coroutines/flow/Flow;
+	public fun send (Lapp/cash/nostrino/model/Event;)V
+	public fun start ()V
+	public fun stop ()V
+	public fun subscribe (Ljava/util/Set;Lapp/cash/nostrino/client/Subscription;)Lapp/cash/nostrino/client/Subscription;
+	public fun unsubscribe (Lapp/cash/nostrino/client/Subscription;)V
+	public fun update (Lapp/cash/nostrino/client/ConnectionState;)V
+}
+
+public final class app/cash/nostrino/client/RelayClient$Companion {
+	public final fun getLogger ()Lmu/KLogger;
+}
+
+public final class app/cash/nostrino/client/RelayListener : okhttp3/WebSocketListener {
+	public static final field Companion Lapp/cash/nostrino/client/RelayListener$Companion;
+	public fun <init> (Ljava/lang/String;Lapp/cash/nostrino/client/ConnectionStateListener;)V
+	public final fun messages ()Lkotlinx/coroutines/flow/Flow;
+	public fun onClosed (Lokhttp3/WebSocket;ILjava/lang/String;)V
+	public fun onClosing (Lokhttp3/WebSocket;ILjava/lang/String;)V
+	public fun onFailure (Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V
+	public fun onMessage (Lokhttp3/WebSocket;Ljava/lang/String;)V
+	public fun onOpen (Lokhttp3/WebSocket;Lokhttp3/Response;)V
+}
+
+public final class app/cash/nostrino/client/RelayListener$Companion {
+	public final fun getLogger ()Lmu/KLogger;
+}
+
+public final class app/cash/nostrino/client/RelaySet : app/cash/nostrino/client/Relay {
+	public fun <init> (Ljava/util/Set;)V
+	public final fun component1 ()Ljava/util/Set;
+	public final fun copy (Ljava/util/Set;)Lapp/cash/nostrino/client/RelaySet;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/client/RelaySet;Ljava/util/Set;ILjava/lang/Object;)Lapp/cash/nostrino/client/RelaySet;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAllEvents ()Lkotlinx/coroutines/flow/Flow;
+	public final fun getRelays ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun send (Lapp/cash/nostrino/model/Event;)V
+	public fun start ()V
+	public fun stop ()V
+	public fun subscribe (Ljava/util/Set;Lapp/cash/nostrino/client/Subscription;)Lapp/cash/nostrino/client/Subscription;
+	public fun toString ()Ljava/lang/String;
+	public fun unsubscribe (Lapp/cash/nostrino/client/Subscription;)V
+}
+
+public final class app/cash/nostrino/client/Subscription {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/cash/nostrino/client/Subscription;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/client/Subscription;Ljava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/client/Subscription;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/crypto/Bech32Serde {
+	public static final field INSTANCE Lapp/cash/nostrino/crypto/Bech32Serde;
+	public static final fun decodeBytes (Ljava/lang/String;Z)Lkotlin/Triple;
+	public static synthetic fun decodeBytes$default (Ljava/lang/String;ZILjava/lang/Object;)Lkotlin/Triple;
+	public static final fun eight2five (Lokio/ByteString;)[Ljava/lang/Byte;
+	public static final fun encodeBytes (Ljava/lang/String;Lokio/ByteString;Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;)Ljava/lang/String;
+	public static final fun five2eight ([Ljava/lang/Byte;I)[B
+}
+
+public final class app/cash/nostrino/crypto/Bech32Serde$Encoding : java/lang/Enum {
+	public static final field Bech32 Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
+	public static final field Bech32m Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
+	public static final field Beck32WithoutChecksum Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
+	public final fun getConstant ()I
+	public static fun valueOf (Ljava/lang/String;)Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
+	public static fun values ()[Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
+}
+
+public final class app/cash/nostrino/crypto/CipherText {
+	public static final field Companion Lapp/cash/nostrino/crypto/CipherText$Companion;
+	public fun <init> (Lokio/ByteString;Lokio/ByteString;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun component2 ()Lokio/ByteString;
+	public final fun copy (Lokio/ByteString;Lokio/ByteString;)Lapp/cash/nostrino/crypto/CipherText;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/crypto/CipherText;Lokio/ByteString;Lokio/ByteString;ILjava/lang/Object;)Lapp/cash/nostrino/crypto/CipherText;
+	public final fun decipher (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/SecKey;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCipherText ()Lokio/ByteString;
+	public final fun getIv ()Lokio/ByteString;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/crypto/CipherText$Companion {
+	public final fun parse (Ljava/lang/String;)Lapp/cash/nostrino/crypto/CipherText;
+}
+
+public abstract interface class app/cash/nostrino/crypto/Key {
+	public static final field Companion Lapp/cash/nostrino/crypto/Key$Companion;
+	public abstract fun encoded ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/crypto/Key$Companion {
+	public final fun parse (Ljava/lang/String;)Lapp/cash/nostrino/crypto/Key;
+}
+
+public final class app/cash/nostrino/crypto/PubKey : app/cash/nostrino/crypto/Key {
+	public static final field Companion Lapp/cash/nostrino/crypto/PubKey$Companion;
+	public fun <init> (Lokio/ByteString;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun copy (Lokio/ByteString;)Lapp/cash/nostrino/crypto/PubKey;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;ILjava/lang/Object;)Lapp/cash/nostrino/crypto/PubKey;
+	public fun encoded ()Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKey ()Lokio/ByteString;
+	public final fun getNpub ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/crypto/PubKey$Companion {
+	public final fun parse (Ljava/lang/String;)Lapp/cash/nostrino/crypto/PubKey;
+}
+
+public final class app/cash/nostrino/crypto/SecKey : app/cash/nostrino/crypto/Key {
+	public static final field Companion Lapp/cash/nostrino/crypto/SecKey$Companion;
+	public fun <init> (Lokio/ByteString;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun copy (Lokio/ByteString;)Lapp/cash/nostrino/crypto/SecKey;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/crypto/SecKey;Lokio/ByteString;ILjava/lang/Object;)Lapp/cash/nostrino/crypto/SecKey;
+	public fun encoded ()Ljava/lang/String;
+	public final fun encrypt (Lapp/cash/nostrino/crypto/PubKey;Ljava/lang/String;)Lapp/cash/nostrino/crypto/CipherText;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKey ()Lokio/ByteString;
+	public final fun getNsec ()Ljava/lang/String;
+	public final fun getPubKey ()Lapp/cash/nostrino/crypto/PubKey;
+	public fun hashCode ()I
+	public final fun sharedSecretWith (Lapp/cash/nostrino/crypto/PubKey;)[B
+	public final fun sign (Lokio/ByteString;)Lokio/ByteString;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/crypto/SecKey$Companion {
+	public final fun parse (Ljava/lang/String;)Lapp/cash/nostrino/crypto/SecKey;
+}
+
+public final class app/cash/nostrino/crypto/SecKeyGenerator {
+	public static final field Companion Lapp/cash/nostrino/crypto/SecKeyGenerator$Companion;
+	public fun <init> ()V
+	public final fun generate ()Lapp/cash/nostrino/crypto/SecKey;
+}
+
+public final class app/cash/nostrino/crypto/SecKeyGenerator$Companion {
+}
+
+public final class app/cash/nostrino/message/NostrMessageAdapter {
+	public static final field Companion Lapp/cash/nostrino/message/NostrMessageAdapter$Companion;
+	public fun <init> ()V
+	public final fun byteStringFromJson (Ljava/lang/String;)Lokio/ByteString;
+	public final fun byteStringToJson (Lokio/ByteString;)Ljava/lang/String;
+	public final fun commandResultFromJson (Lcom/squareup/moshi/JsonReader;)Lapp/cash/nostrino/message/relay/CommandResult;
+	public final fun commandResultToJson (Lapp/cash/nostrino/message/relay/CommandResult;)Ljava/util/List;
+	public final fun eoseFromJson (Lcom/squareup/moshi/JsonReader;)Lapp/cash/nostrino/message/relay/EndOfStoredEvents;
+	public final fun eoseToJson (Lapp/cash/nostrino/message/relay/EndOfStoredEvents;)Ljava/util/List;
+	public final fun eventMessageFromJson (Lcom/squareup/moshi/JsonReader;Lcom/squareup/moshi/JsonAdapter;)Lapp/cash/nostrino/message/relay/EventMessage;
+	public final fun eventMessageToJson (Lapp/cash/nostrino/message/relay/EventMessage;)Ljava/util/List;
+	public final fun instantFromJson (J)Ljava/time/Instant;
+	public final fun instantToJson (Ljava/time/Instant;)J
+	public final fun noticeFromJson (Lcom/squareup/moshi/JsonReader;)Lapp/cash/nostrino/message/relay/Notice;
+	public final fun noticeToJson (Lapp/cash/nostrino/message/relay/Notice;)Ljava/util/List;
+	public final fun relayMessageFromJson (Lcom/squareup/moshi/JsonReader;Lcom/squareup/moshi/JsonAdapter;Lcom/squareup/moshi/JsonAdapter;Lcom/squareup/moshi/JsonAdapter;Lcom/squareup/moshi/JsonAdapter;)Lapp/cash/nostrino/message/relay/RelayMessage;
+	public final fun relayMessageToJson (Lapp/cash/nostrino/message/relay/RelayMessage;)Ljava/util/List;
+	public final fun textNoteFromJson (Ljava/lang/String;)Lapp/cash/nostrino/model/TextNote;
+	public final fun textNoteToJson (Lapp/cash/nostrino/model/TextNote;)Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/message/NostrMessageAdapter$Companion {
+	public final fun getMoshi ()Lcom/squareup/moshi/Moshi;
+}
+
+public final class app/cash/nostrino/message/relay/CommandResult : app/cash/nostrino/message/relay/RelayMessage {
+	public fun <init> (Lokio/ByteString;ZLjava/lang/String;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Lokio/ByteString;ZLjava/lang/String;)Lapp/cash/nostrino/message/relay/CommandResult;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/message/relay/CommandResult;Lokio/ByteString;ZLjava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/message/relay/CommandResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEventId ()Lokio/ByteString;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getSuccess ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/message/relay/EndOfStoredEvents : app/cash/nostrino/message/relay/RelayMessage {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/cash/nostrino/message/relay/EndOfStoredEvents;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/message/relay/EndOfStoredEvents;Ljava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/message/relay/EndOfStoredEvents;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSubscriptionId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/message/relay/EventMessage : app/cash/nostrino/message/relay/RelayMessage {
+	public fun <init> (Ljava/lang/String;Lapp/cash/nostrino/model/Event;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/cash/nostrino/model/Event;
+	public final fun copy (Ljava/lang/String;Lapp/cash/nostrino/model/Event;)Lapp/cash/nostrino/message/relay/EventMessage;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/message/relay/EventMessage;Ljava/lang/String;Lapp/cash/nostrino/model/Event;ILjava/lang/Object;)Lapp/cash/nostrino/message/relay/EventMessage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEvent ()Lapp/cash/nostrino/model/Event;
+	public final fun getSubscriptionId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/message/relay/Notice : app/cash/nostrino/message/relay/RelayMessage {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/cash/nostrino/message/relay/Notice;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/message/relay/Notice;Ljava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/message/relay/Notice;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class app/cash/nostrino/message/relay/RelayMessage {
+}
+
+public final class app/cash/nostrino/model/EncryptedDm : app/cash/nostrino/model/EventContent {
+	public static final field Companion Lapp/cash/nostrino/model/EncryptedDm$Companion;
+	public static final field kind I
+	public fun <init> (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/CipherText;)V
+	public fun <init> (Lapp/cash/nostrino/crypto/SecKey;Lapp/cash/nostrino/crypto/PubKey;Ljava/lang/String;)V
+	public final fun component1 ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun component2 ()Lapp/cash/nostrino/crypto/CipherText;
+	public final fun copy (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/CipherText;)Lapp/cash/nostrino/model/EncryptedDm;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/EncryptedDm;Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/CipherText;ILjava/lang/Object;)Lapp/cash/nostrino/model/EncryptedDm;
+	public final fun decipher (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/SecKey;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCipherText ()Lapp/cash/nostrino/crypto/CipherText;
+	public fun getKind ()I
+	public final fun getTo ()Lapp/cash/nostrino/crypto/PubKey;
+	public fun hashCode ()I
+	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+	public fun tags ()Ljava/util/List;
+	public fun toJsonString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/EncryptedDm$Companion {
+}
+
+public final class app/cash/nostrino/model/Event {
+	public static final field Companion Lapp/cash/nostrino/model/Event$Companion;
+	public fun <init> (Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun component2 ()Lokio/ByteString;
+	public final fun component3 ()Ljava/time/Instant;
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Lokio/ByteString;
+	public final fun content ()Lapp/cash/nostrino/model/EventContent;
+	public final fun copy (Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;)Lapp/cash/nostrino/model/Event;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Event;Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;ILjava/lang/Object;)Lapp/cash/nostrino/model/Event;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getCreatedAt ()Ljava/time/Instant;
+	public final fun getId ()Lokio/ByteString;
+	public final fun getKind ()I
+	public final fun getPubKey ()Lokio/ByteString;
+	public final fun getSig ()Lokio/ByteString;
+	public final fun getTags ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/Event$Companion {
+}
+
+public abstract interface class app/cash/nostrino/model/EventContent {
+	public static final field Companion Lapp/cash/nostrino/model/EventContent$Companion;
+	public abstract fun getKind ()I
+	public abstract fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+	public abstract fun tags ()Ljava/util/List;
+	public abstract fun toJsonString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/EventContent$Companion {
+	public final fun getJsonListAdapter ()Lcom/squareup/moshi/JsonAdapter;
+}
+
+public final class app/cash/nostrino/model/EventContent$DefaultImpls {
+	public static fun sign (Lapp/cash/nostrino/model/EventContent;Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+}
+
+public final class app/cash/nostrino/model/Filter {
+	public static final field Companion Lapp/cash/nostrino/model/Filter$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Set;
+	public final fun component2 ()Ljava/time/Instant;
+	public final fun component3 ()Ljava/util/Set;
+	public final fun component4 ()Ljava/util/Set;
+	public final fun component5 ()Ljava/util/Set;
+	public final fun component6 ()Ljava/util/Set;
+	public final fun component7 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Filter;Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuthors ()Ljava/util/Set;
+	public final fun getETags ()Ljava/util/Set;
+	public final fun getIds ()Ljava/util/Set;
+	public final fun getKinds ()Ljava/util/Set;
+	public final fun getLimit ()Ljava/lang/Integer;
+	public final fun getPTags ()Ljava/util/Set;
+	public final fun getSince ()Ljava/time/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/Filter$Companion {
+	public final fun directMessages (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun directMessages$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+	public final fun getGlobalFeedNotes ()Lapp/cash/nostrino/model/Filter;
+	public final fun userMetaData (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun userMetaData$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+	public final fun userNotes (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
+	public final fun userNotes (Ljava/util/Set;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun userNotes$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun userNotes$default (Lapp/cash/nostrino/model/Filter$Companion;Ljava/util/Set;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+}
+
+public final class app/cash/nostrino/model/TagsKt {
+	public static final fun pubKey (Ljava/util/List;)Lapp/cash/nostrino/crypto/PubKey;
+}
+
+public final class app/cash/nostrino/model/TextNote : app/cash/nostrino/model/EventContent {
+	public static final field Companion Lapp/cash/nostrino/model/TextNote$Companion;
+	public static final field kind I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/cash/nostrino/model/TextNote;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/TextNote;Ljava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/model/TextNote;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getKind ()I
+	public final fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+	public fun tags ()Ljava/util/List;
+	public fun toJsonString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/TextNote$Companion {
+}
+
+public final class app/cash/nostrino/model/UserMetaData : app/cash/nostrino/model/EventContent {
+	public static final field Companion Lapp/cash/nostrino/model/UserMetaData$Companion;
+	public static final field kind I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lapp/cash/nostrino/model/UserMetaData;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/UserMetaData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/model/UserMetaData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAbout ()Ljava/lang/String;
+	public final fun getBanner ()Ljava/lang/String;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public fun getKind ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNip05 ()Ljava/lang/String;
+	public final fun getPicture ()Ljava/lang/String;
+	public final fun getWebsite ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+	public fun tags ()Ljava/util/List;
+	public fun toJsonString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/UserMetaData$Companion {
+}
+
