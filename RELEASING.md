@@ -31,7 +31,7 @@ Releasing
 
     ```sh
     git commit -am "Prepare for release $RELEASE_VERSION."
-    git tag -a quiver-$RELEASE_VERSION -m "Version $RELEASE_VERSION"
+    git tag -a nostrino-$RELEASE_VERSION -m "Version $RELEASE_VERSION"
     git push && git push --tags
     # Then create PR and merge it
     ``` 
