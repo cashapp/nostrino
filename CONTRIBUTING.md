@@ -11,9 +11,14 @@ Before your code can be accepted into the project you must also sign the
 
 ## Building
 
-Install Hermit, see instructions at https://cashapp.github.io/hermit/
+Nostrino uses CashApp's [Hermit](https://cashapp.github.io/hermit/). Hermit ensures that your team, your contributors,
+and your CI have the same consistent tooling. Here are the [installation instructions](https://cashapp.github.io/hermit/usage/get-started/#installing-hermit).
 
-Use gradle to run all Kotlin tests locally:
+[Activate Hermit](https://cashapp.github.io/hermit/usage/get-started/#activating-an-environment) either
+by [enabling the shell hooks](https://cashapp.github.io/hermit/usage/shell/) (one-time only, recommended) or manually
+sourcing the env with `. ./bin/activate-hermit`.
+
+Use gradle to run all tests
 
 ```shell
 gradle build
