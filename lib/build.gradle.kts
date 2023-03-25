@@ -42,7 +42,6 @@ dependencies {
 }
 
 tasks.withType<DokkaTask>().configureEach {
-  dependsOn("copyDocumentationImages")
   dokkaSourceSets {
     named("main") {
       moduleName.set("Nostrino Nostr SDK")
