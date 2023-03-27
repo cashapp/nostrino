@@ -42,14 +42,14 @@ data class Filter(
       limit = 500
     )
 
-    fun userNotes(pubKey: PubKey, since: Instant = Instant.EPOCH) = userNotes(
-      pubKeys = setOf(pubKey),
+    fun userNotes(author: PubKey, since: Instant = Instant.EPOCH) = userNotes(
+      authors = setOf(author),
       since = since
     )
 
-    fun userNotes(pubKeys: Set<PubKey>, since: Instant = Instant.EPOCH) = Filter(
+    fun userNotes(authors: Set<PubKey>, since: Instant = Instant.EPOCH) = Filter(
       since = since,
-      authors = pubKeys.map { it.key.hex() }.toSet(),
+      authors = authors.map { it.key.hex() }.toSet(),
       kinds = setOf(TextNote.kind),
       limit = 500
     )
@@ -66,16 +66,17 @@ data class Filter(
       authors = setOf(pubKey.key.hex())
     )
 
-    fun reactions(pubKey: PubKey, since: Instant = Instant.EPOCH) = Filter(
+    fun reactions(
+      author: PubKey? = null,
+      eventId: ByteString? = null,
+      eventAuthor: PubKey? = null,
+      since: Instant = Instant.EPOCH
+    ) = Filter(
       since = since,
       kinds = setOf(Reaction.kind),
-      authors = setOf(pubKey.key.hex())
-    )
-
-    fun reactions(eventId: ByteString, since: Instant = Instant.EPOCH) = Filter(
-      since = since,
-      kinds = setOf(Reaction.kind),
-      eTags = setOf(eventId.hex())
+      authors = author?.let { setOf(it.key.hex()) },
+      pTags = eventAuthor?.let { setOf(it.key.hex()) },
+      eTags = eventId?.let { setOf(it.hex()) },
     )
   }
 }

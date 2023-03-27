@@ -388,10 +388,8 @@ public final class app/cash/nostrino/model/Filter$Companion {
 	public final fun directMessages (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
 	public static synthetic fun directMessages$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun getGlobalFeedNotes ()Lapp/cash/nostrino/model/Filter;
-	public final fun reactions (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
-	public final fun reactions (Lokio/ByteString;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
-	public static synthetic fun reactions$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
-	public static synthetic fun reactions$default (Lapp/cash/nostrino/model/Filter$Companion;Lokio/ByteString;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+	public final fun reactions (Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun reactions$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun userMetaData (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
 	public static synthetic fun userMetaData$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun userNotes (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;

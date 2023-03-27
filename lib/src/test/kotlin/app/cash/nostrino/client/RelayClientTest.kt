@@ -18,7 +18,6 @@
 package app.cash.nostrino.client
 
 import app.cash.nostrino.crypto.SecKeyGenerator
-import app.cash.nostrino.model.EmojiReact
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Filter
 import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
@@ -75,7 +74,7 @@ class RelayClientTest : StringSpec({
     }
   }
 
-  "can publish and consume reactions for a user" {
+  "can publish and consume reactions the publishing user" {
     val alice = SecKeyGenerator().generate()
 
     val reaction = arbReaction.next()
@@ -83,7 +82,7 @@ class RelayClientTest : StringSpec({
 
     with(RelayClient("ws://localhost:7707")) {
       start()
-      subscribe(Filter.reactions(alice.pubKey))
+      subscribe(Filter.reactions(author = alice.pubKey))
       send(event)
 
       val actualEvent = reactions.first()
@@ -95,7 +94,7 @@ class RelayClientTest : StringSpec({
     }
   }
 
-  "can publish and consume reactions for an event" {
+  "can consume reactions for an event" {
     val alice = SecKeyGenerator().generate()
 
     val reaction = arbReaction.next()
@@ -103,7 +102,27 @@ class RelayClientTest : StringSpec({
 
     with(RelayClient("ws://localhost:7707")) {
       start()
-      subscribe(Filter.reactions(reaction.eventId))
+      subscribe(Filter.reactions(eventId = reaction.eventId))
+      send(event)
+
+      val actualEvent = reactions.first()
+      actualEvent shouldBe event
+      actualEvent.content shouldBe reaction.toJsonString()
+      actualEvent.content() shouldBe reaction
+
+      stop()
+    }
+  }
+
+  "can consume reactions to an event author" {
+    val alice = SecKeyGenerator().generate()
+
+    val reaction = arbReaction.next()
+    val event = reaction.sign(alice)
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      subscribe(Filter.reactions(eventAuthor = reaction.authorPubKey))
       send(event)
 
       val actualEvent = reactions.first()
