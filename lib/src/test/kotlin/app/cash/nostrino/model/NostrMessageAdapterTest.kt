@@ -23,28 +23,21 @@ import app.cash.nostrino.message.relay.EventMessage
 import app.cash.nostrino.message.relay.Notice
 import app.cash.nostrino.message.relay.RelayMessage
 import app.cash.nostrino.model.EventTest.Companion.arbEvent
+import app.cash.nostrino.model.Primitives.arbByteString32
+import app.cash.nostrino.model.Primitives.arbUUID
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldStartWith
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.arbitrary
 import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.boolean
-import io.kotest.property.arbitrary.byte
 import io.kotest.property.arbitrary.choice
-import io.kotest.property.arbitrary.instant
-import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.orNull
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
-import okio.ByteString
-import okio.ByteString.Companion.toByteString
-import java.time.Instant
-import java.time.temporal.ChronoUnit
-import java.util.UUID
 
 class NostrMessageAdapterTest : StringSpec({
 
@@ -104,15 +97,6 @@ class NostrMessageAdapterTest : StringSpec({
       .add(NostrMessageAdapter())
       .addLast(KotlinJsonAdapterFactory())
       .build()
-
-    val arbByteString32: Arb<ByteString> = Arb.list(Arb.byte(), 32..32)
-      .map { it.toByteArray().toByteString() }
-    val arbByteString64: Arb<ByteString> = Arb.list(Arb.byte(), 64..64)
-      .map { it.toByteArray().toByteString() }
-    val arbInstantSeconds: Arb<Instant> =
-      Arb.instant(Instant.EPOCH, Instant.now().plus(5000, ChronoUnit.DAYS))
-        .map { it.truncatedTo(ChronoUnit.SECONDS) }
-    val arbUUID = arbitrary { UUID.randomUUID() }
 
     val arbSubscriptionId = arbUUID.map { it.toString() }
     val arbEndOfStoredEvents = arbSubscriptionId.map { EndOfStoredEvents(it) }

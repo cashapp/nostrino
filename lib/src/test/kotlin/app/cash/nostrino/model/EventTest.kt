@@ -17,9 +17,10 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.model.EncryptedDmTest.Companion.arbEncryptedDm
-import app.cash.nostrino.model.NostrMessageAdapterTest.Companion.arbByteString32
-import app.cash.nostrino.model.NostrMessageAdapterTest.Companion.arbByteString64
-import app.cash.nostrino.model.NostrMessageAdapterTest.Companion.arbInstantSeconds
+import app.cash.nostrino.model.Primitives.arbByteString32
+import app.cash.nostrino.model.Primitives.arbByteString64
+import app.cash.nostrino.model.Primitives.arbInstantSeconds
+import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
 import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
 import io.kotest.core.spec.style.StringSpec
@@ -39,7 +40,13 @@ class EventTest : StringSpec({
   }
 }) {
   companion object {
-    val arbEventContent = Arb.choice(arbTextNote, arbEncryptedDm, arbUserMetaData)
+    val arbEventContent = Arb.choice(
+      arbTextNote,
+      arbEncryptedDm,
+      arbUserMetaData,
+      arbReaction
+    )
+
     val arbEventWithContent: Arb<Pair<Event, EventContent>> by lazy {
       Arb.bind(
         arbByteString32,

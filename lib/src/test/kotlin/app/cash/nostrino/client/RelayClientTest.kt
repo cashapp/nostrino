@@ -18,8 +18,10 @@
 package app.cash.nostrino.client
 
 import app.cash.nostrino.crypto.SecKeyGenerator
+import app.cash.nostrino.model.EmojiReact
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Filter
+import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
 import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
 import io.kotest.assertions.fail
@@ -68,6 +70,46 @@ class RelayClientTest : StringSpec({
       actualEvent shouldBe event
       actualEvent.content shouldBe dm.cipherText.toString()
       actualEvent.content() shouldBe dm
+
+      stop()
+    }
+  }
+
+  "can publish and consume reactions for a user" {
+    val alice = SecKeyGenerator().generate()
+
+    val reaction = arbReaction.next()
+    val event = reaction.sign(alice)
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      subscribe(Filter.reactions(alice.pubKey))
+      send(event)
+
+      val actualEvent = reactions.first()
+      actualEvent shouldBe event
+      actualEvent.content shouldBe reaction.toJsonString()
+      actualEvent.content() shouldBe reaction
+
+      stop()
+    }
+  }
+
+  "can publish and consume reactions for an event" {
+    val alice = SecKeyGenerator().generate()
+
+    val reaction = arbReaction.next()
+    val event = reaction.sign(alice)
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      subscribe(Filter.reactions(reaction.eventId))
+      send(event)
+
+      val actualEvent = reactions.first()
+      actualEvent shouldBe event
+      actualEvent.content shouldBe reaction.toJsonString()
+      actualEvent.content() shouldBe reaction
 
       stop()
     }

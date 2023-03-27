@@ -17,10 +17,29 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.PubKey
+import okio.ByteString
 import okio.ByteString.Companion.decodeHex
 
+/** If the tag list contains at least one event id `["e", hex-encoded-id]]` then extract the first. */
+fun List<List<String>>.firstEventId(): ByteString? =
+  firstOrNull { it.firstOrNull() == "e" }
+    ?.let { it.getOrNull(1) }
+    ?.let { it.decodeHex() }
+
+/** If the tag list contains at least one event id `["e", hex-encoded-id]]` then extract the last. */
+fun List<List<String>>.lastEventId(): ByteString? =
+  lastOrNull { it.firstOrNull() == "e" }
+    ?.let { it.getOrNull(1) }
+    ?.let { it.decodeHex() }
+
 /** If the tag list contains at least one pubkey `["p", hex-encoded-key]]` then extract the first. */
-fun List<List<String>>.pubKey(): PubKey? =
-  firstOrNull { it.firstOrNull() == "p" }?.let {
-    it.getOrNull(1)
-  }?.let { PubKey(it.decodeHex()) }
+fun List<List<String>>.firstPubKey(): PubKey? =
+  firstOrNull { it.firstOrNull() == "p" }
+    ?.let { it.getOrNull(1) }
+    ?.let { PubKey(it.decodeHex()) }
+
+/** If the tag list contains at least one pubkey `["p", hex-encoded-key]]` then extract the last. */
+fun List<List<String>>.lastPubKey(): PubKey? =
+  lastOrNull { it.firstOrNull() == "p" }
+    ?.let { it.getOrNull(1) }
+    ?.let { PubKey(it.decodeHex()) }

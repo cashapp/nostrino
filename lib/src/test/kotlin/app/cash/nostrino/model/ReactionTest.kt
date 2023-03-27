@@ -2,7 +2,7 @@ package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
 import app.cash.nostrino.crypto.SecKeyTest
-import app.cash.nostrino.model.NostrMessageAdapterTest.Companion.arbByteString32
+import app.cash.nostrino.model.Primitives.arbByteString32
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
@@ -16,7 +16,7 @@ import io.kotest.property.checkAll
 
 class ReactionTest : StringSpec({
 
-  "foo" {
+  "can construct signed reaction events" {
     checkAll(testData) { (reaction, sec) ->
       val event = reaction.sign(sec)
       event.content shouldBe reaction.toJsonString()
@@ -37,7 +37,7 @@ class ReactionTest : StringSpec({
         Arb.choose(
           3 to Upvote(e, p),
           3 to Downvote(e, p),
-          1 to EmojiReact("${Character.toChars(c)}", e, p)
+          1 to EmojiReact(String(Character.toChars(c)), e, p)
         )
       }
     private val testData = Arb.pair(arbReaction, SecKeyTest.arbSecKey)

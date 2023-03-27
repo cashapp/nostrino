@@ -19,6 +19,7 @@ package app.cash.nostrino.client
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Event
 import app.cash.nostrino.model.Filter
+import app.cash.nostrino.model.Reaction
 import app.cash.nostrino.model.TextNote
 import app.cash.nostrino.model.UserMetaData
 import kotlinx.coroutines.flow.Flow
@@ -62,4 +63,7 @@ abstract class Relay {
 
   /** The subset of allEvents that are of type UserMetaData */
   val userMetaData: Flow<Event> by lazy { allEvents.filter { it.kind == UserMetaData.kind } }
+
+  /** The subset of allEvents that are of type Reaction */
+  val reactions: Flow<Event> by lazy { allEvents.filter { it.kind == Reaction.kind } }
 }

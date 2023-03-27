@@ -18,6 +18,7 @@ package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.PubKey
 import com.squareup.moshi.Json
+import okio.ByteString
 import java.time.Instant
 import kotlin.time.Duration.Companion.hours
 
@@ -63,6 +64,18 @@ data class Filter(
       since = since,
       kinds = setOf(UserMetaData.kind),
       authors = setOf(pubKey.key.hex())
+    )
+
+    fun reactions(pubKey: PubKey, since: Instant = Instant.EPOCH) = Filter(
+      since = since,
+      kinds = setOf(Reaction.kind),
+      authors = setOf(pubKey.key.hex())
+    )
+
+    fun reactions(eventId: ByteString, since: Instant = Instant.EPOCH) = Filter(
+      since = since,
+      kinds = setOf(Reaction.kind),
+      eTags = setOf(eventId.hex())
     )
   }
 }

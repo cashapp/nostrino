@@ -5,10 +5,11 @@ import okio.ByteString
 
 /** A reaction to an event. Event kind 7 as defined in nip-25. */
 sealed class Reaction(
-  val codePoint: Int,
-  val eventId: ByteString,
-  val authorPubKey: PubKey,
+  codePoint: Int,
+  open val eventId: ByteString,
+  open val authorPubKey: PubKey,
 ) : EventContent {
+  private val jsonString = String(Character.toChars(codePoint))
 
   override val kind: Int = Reaction.kind
 
@@ -17,17 +18,33 @@ sealed class Reaction(
     listOf("p", authorPubKey.key.hex()),
   )
 
-  override fun toJsonString(): String = Character.toChars(codePoint).joinToString()
+  override fun toJsonString(): String = jsonString
 
   override fun toString() = "${javaClass.simpleName}(${toJsonString()}, ${eventId.hex()}, ${authorPubKey.npub})"
 
   companion object {
     const val kind = 7
+
+    fun from(content: String, eventId: ByteString, key: PubKey) = when (content) {
+      "+" -> Upvote(eventId, key)
+      "-" -> Downvote(eventId, key)
+      else -> EmojiReact(content, eventId, key)
+    }
   }
 }
 
-class Upvote(eventId: ByteString, authorPubKey: PubKey) : Reaction('+'.code, eventId, authorPubKey)
-class Downvote(eventId: ByteString, authorPubKey: PubKey) : Reaction('-'.code, eventId, authorPubKey)
-class EmojiReact(emoji: String, eventId: ByteString, authorPubKey: PubKey) : Reaction(
-  emoji.codePointAt(0), eventId, authorPubKey
-)
+data class Upvote(
+  override val eventId: ByteString,
+  override val authorPubKey: PubKey
+) : Reaction('+'.code, eventId, authorPubKey)
+
+data class Downvote(
+  override val eventId: ByteString,
+  override val authorPubKey: PubKey
+) : Reaction('-'.code, eventId, authorPubKey)
+
+data class EmojiReact(
+  val emoji: String,
+  override val eventId: ByteString,
+  override val authorPubKey: PubKey
+) : Reaction(emoji.codePointAt(0), eventId, authorPubKey)
