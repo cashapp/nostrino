@@ -32,7 +32,6 @@ subprojects {
 
   repositories {
     mavenCentral()
-    maven(url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/release")
   }
 
   apply(plugin = "java")
@@ -86,6 +85,7 @@ subprojects {
   }
 
   tasks.withType<Test> {
+    dependsOn("apiCheck")
     useJUnitPlatform()
     testLogging {
       events("started", "passed", "skipped", "failed")

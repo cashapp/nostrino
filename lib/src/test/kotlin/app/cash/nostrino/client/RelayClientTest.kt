@@ -20,6 +20,7 @@ package app.cash.nostrino.client
 import app.cash.nostrino.crypto.SecKeyGenerator
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Filter
+import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
 import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
 import io.kotest.assertions.fail
@@ -68,6 +69,66 @@ class RelayClientTest : StringSpec({
       actualEvent shouldBe event
       actualEvent.content shouldBe dm.cipherText.toString()
       actualEvent.content() shouldBe dm
+
+      stop()
+    }
+  }
+
+  "can publish and consume reactions the publishing user" {
+    val alice = SecKeyGenerator().generate()
+
+    val reaction = arbReaction.next()
+    val event = reaction.sign(alice)
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      subscribe(Filter.reactions(author = alice.pubKey))
+      send(event)
+
+      val actualEvent = reactions.first()
+      actualEvent shouldBe event
+      actualEvent.content shouldBe reaction.toJsonString()
+      actualEvent.content() shouldBe reaction
+
+      stop()
+    }
+  }
+
+  "can consume reactions for an event" {
+    val alice = SecKeyGenerator().generate()
+
+    val reaction = arbReaction.next()
+    val event = reaction.sign(alice)
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      subscribe(Filter.reactions(eventId = reaction.eventId))
+      send(event)
+
+      val actualEvent = reactions.first()
+      actualEvent shouldBe event
+      actualEvent.content shouldBe reaction.toJsonString()
+      actualEvent.content() shouldBe reaction
+
+      stop()
+    }
+  }
+
+  "can consume reactions to an event author" {
+    val alice = SecKeyGenerator().generate()
+
+    val reaction = arbReaction.next()
+    val event = reaction.sign(alice)
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      subscribe(Filter.reactions(eventAuthor = reaction.authorPubKey))
+      send(event)
+
+      val actualEvent = reactions.first()
+      actualEvent shouldBe event
+      actualEvent.content shouldBe reaction.toJsonString()
+      actualEvent.content() shouldBe reaction
 
       stop()
     }

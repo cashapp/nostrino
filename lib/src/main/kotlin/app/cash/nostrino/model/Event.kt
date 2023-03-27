@@ -37,13 +37,14 @@ data class Event(
 
   fun content(): EventContent = when (this.kind) {
     TextNote.kind -> TextNote(content)
-    EncryptedDm.kind -> EncryptedDm(this.tags.pubKey()!!, CipherText.parse(content))
+    EncryptedDm.kind -> EncryptedDm(this.tags.firstPubKey()!!, CipherText.parse(content))
+    Reaction.kind -> Reaction.from(content, tags.lastEventId()!!, tags.lastPubKey()!!)
     else -> adapters[this.kind]?.fromJson(content)!!
   }
 
   companion object {
     private val adapters = mapOf(
-      UserMetaData.kind to moshi.adapter(UserMetaData::class.java)
+      UserMetaData.kind to moshi.adapter(UserMetaData::class.java),
     )
   }
 }
