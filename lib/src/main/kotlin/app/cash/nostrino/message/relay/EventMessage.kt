@@ -18,6 +18,10 @@ package app.cash.nostrino.message.relay
 
 import app.cash.nostrino.model.Event
 
+/**
+ * An event sent from relay to client for a specific subscription, as defined in
+ * [nip-01](https://github.com/nostr-protocol/nips/blob/master/01.md#from-relay-to-client-sending-events-and-notices)
+ */
 data class EventMessage(
   val subscriptionId: String,
   val event: Event

@@ -31,7 +31,7 @@ class PubKeyTest : StringSpec({
 
   "shows value as hex in toString" {
     checkAll(arbPubKey) { pub ->
-      pub.toString() shouldMatch "PubKey\\(key=[a-z0-9]{64}\\)"
+      pub.toString() shouldMatch "PubKey\\(key=[a-f0-9]{64}\\)"
     }
   }
 

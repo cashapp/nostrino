@@ -22,7 +22,10 @@ import com.squareup.moshi.Json
 import okio.ByteString
 import java.time.Instant
 
-/** The primitive type understood by relays, as per nip-01 */
+/**
+ * The primitive type understood by relays, as per
+ * [nip-01](https://github.com/nostr-protocol/nips/blob/master/01.md#events-and-signatures).
+ */
 data class Event(
   val id: ByteString,
   @Json(name = "pubkey")
@@ -35,6 +38,7 @@ data class Event(
   val sig: ByteString
 ) {
 
+  /** Convert the content string into an instance of `EventContent` */
   fun content(): EventContent = when (this.kind) {
     TextNote.kind -> TextNote(content)
     EncryptedDm.kind -> EncryptedDm(this.tags.firstPubKey()!!, CipherText.parse(content))

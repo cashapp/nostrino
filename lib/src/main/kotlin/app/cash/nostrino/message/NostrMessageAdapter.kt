@@ -33,6 +33,7 @@ import okio.ByteString
 import okio.ByteString.Companion.decodeHex
 import java.time.Instant
 
+/** Moshi adapters for serialisation and deserialisation of relay and client messages */
 class NostrMessageAdapter {
 
   // === RelayMessages

@@ -4,8 +4,7 @@ Nostrino is a Nostr SDK for Kotlin.
 
 It is a work in progress, but currently implements the following NIPs.
 
-1, 4, 15, 19, 20
-... TODO
+1, 4, 15, 19, 20, 25
 
 ## Getting Started
 
@@ -16,7 +15,6 @@ of `lib` and follow the instructions for inclusion in your build tool.
 
 The API documentation is published with each release
 at [https://cashapp.github.io/nostrino](https://cashapp.github.io/nostrino)
-... TODO
 
 ## Building
 

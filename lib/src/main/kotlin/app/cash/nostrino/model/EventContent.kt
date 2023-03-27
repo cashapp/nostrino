@@ -32,14 +32,21 @@ interface EventContent {
 
   fun toJsonString(): String
 
-  fun sign(sec: SecKey): Event {
-    val createdAt = Instant.now().truncatedTo(ChronoUnit.SECONDS).truncatedTo(ChronoUnit.SECONDS)
+  /**
+   * Signing with a `SecKey` will result in a valid signed `Event` where the author is the `PubKey` associated
+   * with the `SecKey`.
+   */
+  fun sign(
+    sec: SecKey,
+    createdAt: Instant = Instant.now()
+  ): Event {
+    val createdAtSecondsOnly = createdAt.truncatedTo(ChronoUnit.SECONDS).truncatedTo(ChronoUnit.SECONDS)
     val contentJson = toJsonString()
-    val elements = listOf(0, sec.pubKey.key.hex(), createdAt.epochSecond, kind, tags(), contentJson)
+    val elements = listOf(0, sec.pubKey.key.hex(), createdAtSecondsOnly.epochSecond, kind, tags(), contentJson)
     val toJson = jsonListAdapter.toJson(elements)
     val id = toJson.encodeUtf8().sha256()
     val sig = sec.sign(id)
-    return Event(id, sec.pubKey.key, createdAt, kind, tags(), contentJson, sig)
+    return Event(id, sec.pubKey.key, createdAtSecondsOnly, kind, tags(), contentJson, sig)
   }
 
   companion object {

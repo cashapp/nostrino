@@ -16,5 +16,8 @@
 
 package app.cash.nostrino.message.relay
 
-/** Informational notice from the relay to the client */
+/**
+ * Informational notice from the relay to the client, as defined in
+ * [nip-01](https://github.com/nostr-protocol/nips/blob/master/01.md#from-relay-to-client-sending-events-and-notices)
+ */
 data class Notice(val message: String) : RelayMessage
