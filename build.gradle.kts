@@ -85,6 +85,7 @@ subprojects {
   }
 
   tasks.withType<Test> {
+    dependsOn("apiCheck")
     useJUnitPlatform()
     testLogging {
       events("started", "passed", "skipped", "failed")

@@ -17,6 +17,7 @@ public abstract class app/cash/nostrino/client/Relay {
 	public abstract fun getAllEvents ()Lkotlinx/coroutines/flow/Flow;
 	public final fun getDirectMessages ()Lkotlinx/coroutines/flow/Flow;
 	public final fun getNotes ()Lkotlinx/coroutines/flow/Flow;
+	public final fun getReactions ()Lkotlinx/coroutines/flow/Flow;
 	public final fun getUserMetaData ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun send (Lapp/cash/nostrino/model/Event;)V
 	public abstract fun start ()V
@@ -261,6 +262,34 @@ public final class app/cash/nostrino/message/relay/Notice : app/cash/nostrino/me
 public abstract interface class app/cash/nostrino/message/relay/RelayMessage {
 }
 
+public final class app/cash/nostrino/model/Downvote : app/cash/nostrino/model/Reaction {
+	public fun <init> (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun component2 ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun copy (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;)Lapp/cash/nostrino/model/Downvote;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Downvote;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;ILjava/lang/Object;)Lapp/cash/nostrino/model/Downvote;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAuthorPubKey ()Lapp/cash/nostrino/crypto/PubKey;
+	public fun getEventId ()Lokio/ByteString;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/EmojiReact : app/cash/nostrino/model/Reaction {
+	public fun <init> (Ljava/lang/String;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lokio/ByteString;
+	public final fun component3 ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun copy (Ljava/lang/String;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;)Lapp/cash/nostrino/model/EmojiReact;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/EmojiReact;Ljava/lang/String;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;ILjava/lang/Object;)Lapp/cash/nostrino/model/EmojiReact;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAuthorPubKey ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun getEmoji ()Ljava/lang/String;
+	public fun getEventId ()Lokio/ByteString;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class app/cash/nostrino/model/EncryptedDm : app/cash/nostrino/model/EventContent {
 	public static final field Companion Lapp/cash/nostrino/model/EncryptedDm$Companion;
 	public static final field kind I
@@ -359,6 +388,10 @@ public final class app/cash/nostrino/model/Filter$Companion {
 	public final fun directMessages (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
 	public static synthetic fun directMessages$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun getGlobalFeedNotes ()Lapp/cash/nostrino/model/Filter;
+	public final fun reactions (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
+	public final fun reactions (Lokio/ByteString;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun reactions$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun reactions$default (Lapp/cash/nostrino/model/Filter$Companion;Lokio/ByteString;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun userMetaData (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
 	public static synthetic fun userMetaData$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun userNotes (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
@@ -367,8 +400,28 @@ public final class app/cash/nostrino/model/Filter$Companion {
 	public static synthetic fun userNotes$default (Lapp/cash/nostrino/model/Filter$Companion;Ljava/util/Set;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 }
 
+public abstract class app/cash/nostrino/model/Reaction : app/cash/nostrino/model/EventContent {
+	public static final field Companion Lapp/cash/nostrino/model/Reaction$Companion;
+	public static final field kind I
+	public synthetic fun <init> (ILokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getAuthorPubKey ()Lapp/cash/nostrino/crypto/PubKey;
+	public fun getEventId ()Lokio/ByteString;
+	public fun getKind ()I
+	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+	public fun tags ()Ljava/util/List;
+	public fun toJsonString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/Reaction$Companion {
+	public final fun from (Ljava/lang/String;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;)Lapp/cash/nostrino/model/Reaction;
+}
+
 public final class app/cash/nostrino/model/TagsKt {
-	public static final fun pubKey (Ljava/util/List;)Lapp/cash/nostrino/crypto/PubKey;
+	public static final fun firstEventId (Ljava/util/List;)Lokio/ByteString;
+	public static final fun firstPubKey (Ljava/util/List;)Lapp/cash/nostrino/crypto/PubKey;
+	public static final fun lastEventId (Ljava/util/List;)Lokio/ByteString;
+	public static final fun lastPubKey (Ljava/util/List;)Lapp/cash/nostrino/crypto/PubKey;
 }
 
 public final class app/cash/nostrino/model/TextNote : app/cash/nostrino/model/EventContent {
@@ -389,6 +442,19 @@ public final class app/cash/nostrino/model/TextNote : app/cash/nostrino/model/Ev
 }
 
 public final class app/cash/nostrino/model/TextNote$Companion {
+}
+
+public final class app/cash/nostrino/model/Upvote : app/cash/nostrino/model/Reaction {
+	public fun <init> (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun component2 ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun copy (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;)Lapp/cash/nostrino/model/Upvote;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Upvote;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;ILjava/lang/Object;)Lapp/cash/nostrino/model/Upvote;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAuthorPubKey ()Lapp/cash/nostrino/crypto/PubKey;
+	public fun getEventId ()Lokio/ByteString;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class app/cash/nostrino/model/UserMetaData : app/cash/nostrino/model/EventContent {
