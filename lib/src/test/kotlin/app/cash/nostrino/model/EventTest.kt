@@ -59,5 +59,6 @@ class EventTest : StringSpec({
       }
     }
     val arbEvent: Arb<Event> by lazy { arbEventWithContent.map { it.first } }
+    val arbEventId = arbByteString32.map { it.hex() }
   }
 }
