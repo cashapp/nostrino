@@ -37,6 +37,12 @@ data class Filter(
   val pTags: Set<String>? = null,
   val limit: Int? = null
 ) {
+
+  /** Add additional author public keys to this filter */
+  fun plusAuthors(vararg authors: PubKey) = copy(
+    authors = authors.map { it.key.hex() }.plus(this.authors ?: emptySet()).toSet()
+  )
+
   companion object {
 
     /** All text notes. */

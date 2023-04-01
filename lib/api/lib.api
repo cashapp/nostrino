@@ -381,6 +381,7 @@ public final class app/cash/nostrino/model/Filter {
 	public final fun getPTags ()Ljava/util/Set;
 	public final fun getSince ()Ljava/time/Instant;
 	public fun hashCode ()I
+	public final fun plusAuthors ([Lapp/cash/nostrino/crypto/PubKey;)Lapp/cash/nostrino/model/Filter;
 	public fun toString ()Ljava/lang/String;
 }
 
