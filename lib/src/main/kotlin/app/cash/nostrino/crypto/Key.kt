@@ -16,6 +16,7 @@
 
 package app.cash.nostrino.crypto
 
+/** Common interface for both public and secret keys. */
 interface Key {
 
   fun encoded(): String

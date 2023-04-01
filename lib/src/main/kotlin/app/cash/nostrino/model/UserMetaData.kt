@@ -19,6 +19,10 @@ package app.cash.nostrino.model
 import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
 import com.squareup.moshi.Json
 
+/**
+ * User metadata (profile). Event kind 0, as defined in
+ * [nip-01](https://github.com/nostr-protocol/nips/blob/master/01.md#basic-event-kinds).
+ */
 data class UserMetaData(
   val name: String? = null,
   val about: String? = null,

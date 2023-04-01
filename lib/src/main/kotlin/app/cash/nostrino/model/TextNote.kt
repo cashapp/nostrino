@@ -16,7 +16,10 @@
 
 package app.cash.nostrino.model
 
-/** A text note that can be published via relays. Event kind 1, as defined in nip-01. */
+/**
+ * A text note that can be published via relays. Event kind 1, as defined in
+ * [nip-01](https://github.com/nostr-protocol/nips/blob/master/01.md#basic-event-kinds).
+ */
 data class TextNote(
   val text: String
 ) : EventContent {
