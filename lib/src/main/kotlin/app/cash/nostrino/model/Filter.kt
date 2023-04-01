@@ -22,7 +22,10 @@ import okio.ByteString
 import java.time.Instant
 import kotlin.time.Duration.Companion.hours
 
-/** A subscription filter, as defined in nip-01 */
+/**
+ * A subscription filter, as defined in
+ * [nip-01](https://github.com/nostr-protocol/nips/blob/master/01.md#from-client-to-relay-sending-events-and-creating-subscriptions).
+ */
 data class Filter(
   val ids: Set<String>? = null,
   val since: Instant? = null,
@@ -36,17 +39,20 @@ data class Filter(
 ) {
   companion object {
 
+    /** All text notes. */
     val globalFeedNotes = Filter(
       since = Instant.now().minusSeconds(12.hours.inWholeSeconds),
       kinds = setOf(TextNote.kind),
       limit = 500
     )
 
+    /** Text notes authored by the given public key only */
     fun userNotes(author: PubKey, since: Instant = Instant.EPOCH) = userNotes(
       authors = setOf(author),
       since = since
     )
 
+    /** Text notes authored by any of the public keys provided */
     fun userNotes(authors: Set<PubKey>, since: Instant = Instant.EPOCH) = Filter(
       since = since,
       authors = authors.map { it.key.hex() }.toSet(),
@@ -54,18 +60,25 @@ data class Filter(
       limit = 500
     )
 
+    /** Direct messages authored by the provided public key */
     fun directMessages(pubKey: PubKey, since: Instant = Instant.EPOCH) = Filter(
       since = since,
       kinds = setOf(EncryptedDm.kind),
       pTags = setOf(pubKey.key.hex())
     )
 
+    /** MetaData of the given public key */
     fun userMetaData(pubKey: PubKey, since: Instant = Instant.EPOCH) = Filter(
       since = since,
       kinds = setOf(UserMetaData.kind),
       authors = setOf(pubKey.key.hex())
     )
 
+    /**
+     * Reactions authored by the given public key
+     * and/or associated with the given event
+     * and/or in response to the given public key.
+     */
     fun reactions(
       author: PubKey? = null,
       eventId: ByteString? = null,

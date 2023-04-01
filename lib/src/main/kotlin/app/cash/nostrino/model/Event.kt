@@ -35,6 +35,9 @@ data class Event(
   val sig: ByteString
 ) {
 
+  /**
+   * Deserialise the `content` string into an instance of `EventContent` that corresponds with the event `kind`.
+   */
   fun content(): EventContent = when (this.kind) {
     TextNote.kind -> TextNote(content)
     EncryptedDm.kind -> EncryptedDm(this.tags.firstPubKey()!!, CipherText.parse(content))

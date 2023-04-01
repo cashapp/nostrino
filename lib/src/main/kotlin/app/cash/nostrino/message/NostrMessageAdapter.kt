@@ -33,6 +33,7 @@ import okio.ByteString
 import okio.ByteString.Companion.decodeHex
 import java.time.Instant
 
+/** Moshi adapters for JSON types in the protocol. */
 class NostrMessageAdapter {
 
   // === RelayMessages

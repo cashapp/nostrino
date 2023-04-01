@@ -18,6 +18,7 @@ package app.cash.nostrino.message.relay
 
 import app.cash.nostrino.model.Event
 
+/** Every event provided by the relay is associated with a subscription. This type binds both. */
 data class EventMessage(
   val subscriptionId: String,
   val event: Event
