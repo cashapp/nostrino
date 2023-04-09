@@ -39,6 +39,8 @@ data class SecKey(val key: ByteString) : Key {
 
   override fun encoded(): String = nsec
 
+  override fun hex(): String = key.hex()
+
   /** the public key derived from this secret key */
   val pubKey by lazy {
     PubKey(Secp256k1.pubKeyCompress(Secp256k1.pubkeyCreate(key.toByteArray())).copyOfRange(1, 33).toByteString())

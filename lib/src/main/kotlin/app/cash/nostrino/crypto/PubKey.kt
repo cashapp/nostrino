@@ -33,6 +33,8 @@ data class PubKey(val key: ByteString) : Key {
 
   override fun toString() = "PubKey(key=${key.hex()})"
 
+  override fun hex(): String = key.hex()
+
   companion object {
     /** Create pub key from nip-19 bech32 encoded string */
     fun parse(bech32: String): PubKey {

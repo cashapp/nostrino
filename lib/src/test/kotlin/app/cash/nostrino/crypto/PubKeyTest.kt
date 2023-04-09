@@ -55,6 +55,12 @@ class PubKeyTest : StringSpec({
         .message shouldBe "Unsupported encoding hrp=$encoding"
     }
   }
+
+  "hex form should be the hex form of the key (its a shortcut)" {
+    checkAll(arbPubKey) { pub ->
+      pub.hex() shouldBe pub.key.hex()
+    }
+  }
 }) {
   companion object {
     val arbPubKey = arbSecKey.map { it.pubKey }
