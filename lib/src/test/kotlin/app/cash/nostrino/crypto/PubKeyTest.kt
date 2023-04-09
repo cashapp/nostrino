@@ -56,6 +56,12 @@ class PubKeyTest : StringSpec({
     }
   }
 
+  "will render a short form being head 8 (after npub1) & tail 8 with colon between" {
+    checkAll(arbPubKey) { pub ->
+      pub.shortForm shouldBe pub.npub.drop(5).take(8) + ":" + pub.npub.takeLast(8)
+    }
+  }
+
   "hex form should be the hex form of the key (its a shortcut)" {
     checkAll(arbPubKey) { pub ->
       pub.hex() shouldBe pub.key.hex()
