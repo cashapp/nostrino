@@ -59,6 +59,12 @@ class SecKeyTest : StringSpec({
         .message shouldBe "Unsupported encoding hrp=$encoding"
     }
   }
+
+  "hex form should be the hex form of the key (its a shortcut)" {
+    checkAll(arbSecKey) { sec ->
+      sec.hex() shouldBe sec.key.hex()
+    }
+  }
 }) {
   companion object {
     val arbSecKey = arbitrary { SecKeyGenerator().generate() }

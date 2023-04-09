@@ -129,6 +129,7 @@ public final class app/cash/nostrino/crypto/CipherText$Companion {
 public abstract interface class app/cash/nostrino/crypto/Key {
 	public static final field Companion Lapp/cash/nostrino/crypto/Key$Companion;
 	public abstract fun encoded ()Ljava/lang/String;
+	public abstract fun hex ()Ljava/lang/String;
 }
 
 public final class app/cash/nostrino/crypto/Key$Companion {
@@ -147,6 +148,7 @@ public final class app/cash/nostrino/crypto/PubKey : app/cash/nostrino/crypto/Ke
 	public final fun getNpub ()Ljava/lang/String;
 	public final fun getShortForm ()Ljava/lang/String;
 	public fun hashCode ()I
+	public fun hex ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -167,6 +169,7 @@ public final class app/cash/nostrino/crypto/SecKey : app/cash/nostrino/crypto/Ke
 	public final fun getNsec ()Ljava/lang/String;
 	public final fun getPubKey ()Lapp/cash/nostrino/crypto/PubKey;
 	public fun hashCode ()I
+	public fun hex ()Ljava/lang/String;
 	public final fun sharedSecretWith (Lapp/cash/nostrino/crypto/PubKey;)[B
 	public final fun sign (Lokio/ByteString;)Lokio/ByteString;
 	public fun toString ()Ljava/lang/String;

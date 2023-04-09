@@ -40,6 +40,8 @@ data class PubKey(val key: ByteString) : Key {
    */
   val shortForm: String by lazy { shortBech32Regex.replace(npub, "$1:$2") }
 
+  override fun hex(): String = key.hex()
+
   companion object {
     /** Create pub key from nip-19 bech32 encoded string */
     fun parse(bech32: String): PubKey {

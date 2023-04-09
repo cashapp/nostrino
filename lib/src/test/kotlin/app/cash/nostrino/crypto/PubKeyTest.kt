@@ -61,6 +61,12 @@ class PubKeyTest : StringSpec({
       pub.shortForm shouldBe pub.npub.drop(5).take(8) + ":" + pub.npub.takeLast(8)
     }
   }
+
+  "hex form should be the hex form of the key (its a shortcut)" {
+    checkAll(arbPubKey) { pub ->
+      pub.hex() shouldBe pub.key.hex()
+    }
+  }
 }) {
   companion object {
     val arbPubKey = arbSecKey.map { it.pubKey }
