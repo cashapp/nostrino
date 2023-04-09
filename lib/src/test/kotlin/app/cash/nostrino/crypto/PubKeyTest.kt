@@ -55,6 +55,12 @@ class PubKeyTest : StringSpec({
         .message shouldBe "Unsupported encoding hrp=$encoding"
     }
   }
+
+  "will render a short form being head 8 (after npub1) & tail 8 with colon between" {
+    checkAll(arbPubKey) { pub ->
+      pub.shortForm shouldBe pub.npub.drop(5).take(8) + ":" + pub.npub.takeLast(8)
+    }
+  }
 }) {
   companion object {
     val arbPubKey = arbSecKey.map { it.pubKey }
