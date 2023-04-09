@@ -21,6 +21,8 @@ interface Key {
 
   fun encoded(): String
 
+  fun hex(): String
+
   companion object {
 
     /** Parse a bech32 encoded key. May return a pub or sec key depending upon what has been encoded. */
