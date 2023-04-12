@@ -8,7 +8,7 @@ It is a work in progress. See current [NIP support](#supported-nips).
 ## Getting Started
 
 On the [Sontaype page for Nostrino](https://central.sonatype.com/namespace/app.cash.nostrino), choose the latest version
-of `lib` and follow the instructions for inclusion in your build tool.
+of `nostr-sdk` and follow the instructions for inclusion in your build tool.
 
 ## Documentation
 
@@ -38,7 +38,7 @@ at [https://cashapp.github.io/nostrino](https://cashapp.github.io/nostrino)
 | ✅        | [19 - bech32-encoded entities](https://github.com/nostr-protocol/nips/blob/master/19.md)                                            |
 | ✅        | [20 - Command Results](https://github.com/nostr-protocol/nips/blob/master/20.md)                                                    |
 | 🗅         | [23 - Long-form Content](https://github.com/nostr-protocol/nips/blob/master/23.md)                                                  |
-| 🚧        | [25 - Reactions](https://github.com/nostr-protocol/nips/blob/master/25.md)                                                          |
+| ✅        | [25 - Reactions](https://github.com/nostr-protocol/nips/blob/master/25.md)                                                          |
 | 🗅         | [26 - Delegated Event Signing](https://github.com/nostr-protocol/nips/blob/master/26.md)                                            |
 | 🗅         | [28 - Public Chat](https://github.com/nostr-protocol/nips/blob/master/28.md)                                                        |
 | 🗅         | [33 - Parameterized Replaceable Events](https://github.com/nostr-protocol/nips/blob/master/33.md)                                   |
