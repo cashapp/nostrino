@@ -33,13 +33,13 @@ Releasing
     git commit -am "Prepare for release $RELEASE_VERSION."
     git tag -a nostrino-$RELEASE_VERSION -m "Version $RELEASE_VERSION"
     git push && git push --tags
-    # Then create PR and merge it
+    gh pr create -f && gh pr merge --auto --squash
     ``` 
 
-6. Trigger the "Publish a release" action manually. This will publish to
-[Sonatype Nexus](https://oss.sonatype.org/), closing and releasing the artifact automatically to
-promote it to Maven Central.  Note that it can take 10 to 30 minutes or more for the artifacts to
-appear on Maven Central.
+6. Wait until the PR created above is merged, then trigger the "Publish a release" action manually.
+This will publish to [Sonatype Nexus](https://oss.sonatype.org/), closing and releasing the artifact 
+automatically to promote it to Maven Central. Note that it can take 10 to 30 minutes or more for the
+artifacts to appear on Maven Central.
 
 7. Checkout `main` branch and pull the latest changes
 
