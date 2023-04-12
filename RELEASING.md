@@ -57,7 +57,7 @@ artifacts to appear on Maven Central.
       gradle.properties
     git commit -am "Prepare next development version."
     git push
-    # Then create PR and merge it
+    gh pr create -f && gh pr merge --auto --squash
     ```
 
 9. Draft a new [release](https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository) of `A.B.C` and publish it.
