@@ -4,7 +4,11 @@ Change Log
 Next release
 ----------------------------
 
+Version 0.0.2 *(2023-04-12)*
+----------------------------
+
 * NIP-25 Reactions
+* Fix: Better maven artifact name 
 
 
 Version 0.0.2 *(2023-03-25)*
