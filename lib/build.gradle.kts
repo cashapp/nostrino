@@ -26,7 +26,6 @@ dependencies {
   // Curves
   implementation(libs.acinqSecp256k1JniJvm)
   implementation(libs.acinqSecp256k1Jvm)
-  implementation(files("lib/secp256k1-kmp-jni-jvm-darwin-0.7.1.jar"))
 
   // Logging
   implementation(libs.kotlinLoggingJvm)
