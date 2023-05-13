@@ -40,7 +40,7 @@ class EventTest : StringSpec({
   }
 }) {
   companion object {
-    val arbEventContent = Arb.choice(
+    private val arbEventContent = Arb.choice(
       arbTextNote,
       arbEncryptedDm,
       arbUserMetaData,
@@ -55,7 +55,16 @@ class EventTest : StringSpec({
         arbEventContent,
         arbByteString64
       ) { id, pubKey, createdAt, content, sig ->
-        Event(id, pubKey, createdAt, content.kind, content.tags(), content.toJsonString(), sig) to content
+        val event = Event(
+          id = id,
+          pubKey = pubKey,
+          createdAt = createdAt,
+          kind = content.kind,
+          tags = content.tags.map { it.toJsonList() },
+          content = content.toJsonString(),
+          sig = sig
+        )
+        event to content
       }
     }
     val arbEvent: Arb<Event> by lazy { arbEventWithContent.map { it.first } }

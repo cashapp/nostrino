@@ -21,12 +21,11 @@ package app.cash.nostrino.model
  * [nip-01](https://github.com/nostr-protocol/nips/blob/master/01.md#basic-event-kinds).
  */
 data class TextNote(
-  val text: String
+  val text: String,
+  override val tags: List<Tag> = emptyList()
 ) : EventContent {
 
   override val kind: Int = Companion.kind
-
-  override fun tags(): List<List<String>> = emptyList() // TODO
 
   override fun toJsonString(): String = text
 

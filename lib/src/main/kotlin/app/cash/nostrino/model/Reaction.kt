@@ -8,15 +8,11 @@ sealed class Reaction(
   codePoint: Int,
   open val eventId: ByteString,
   open val authorPubKey: PubKey,
+  override val tags: List<Tag> = listOf(EventTag(eventId), PubKeyTag(authorPubKey)),
 ) : EventContent {
   private val jsonString = String(Character.toChars(codePoint))
 
   override val kind: Int = Reaction.kind
-
-  override fun tags(): List<List<String>> = listOf(
-    listOf("e", eventId.hex()),
-    listOf("p", authorPubKey.key.hex()),
-  )
 
   override fun toJsonString(): String = jsonString
 
@@ -30,10 +26,10 @@ sealed class Reaction(
      * Only the first codepoint of `content` will be interpreted, with special meaning given to `+` (upvote)
      * and `-` (downvote). Any other codepoint is accepted, but the spec assumption is that it will be an emoji.
      */
-    fun from(content: String, eventId: ByteString, key: PubKey) = when (content) {
-      "+" -> Upvote(eventId, key)
-      "-" -> Downvote(eventId, key)
-      else -> EmojiReact(content, eventId, key)
+    fun from(content: String, eventId: ByteString, key: PubKey, tags: List<Tag>) = when (content) {
+      "+" -> Upvote(eventId, key, tags)
+      "-" -> Downvote(eventId, key, tags)
+      else -> EmojiReact(content, eventId, key, tags)
     }
   }
 }
@@ -41,18 +37,21 @@ sealed class Reaction(
 /** Specialised reaction indicating an upvote. */
 data class Upvote(
   override val eventId: ByteString,
-  override val authorPubKey: PubKey
+  override val authorPubKey: PubKey,
+  override val tags: List<Tag> = listOf(EventTag(eventId), PubKeyTag(authorPubKey)),
 ) : Reaction('+'.code, eventId, authorPubKey)
 
 /** Specialised reaction indicating a downvote. */
 data class Downvote(
   override val eventId: ByteString,
-  override val authorPubKey: PubKey
+  override val authorPubKey: PubKey,
+  override val tags: List<Tag> = listOf(EventTag(eventId), PubKeyTag(authorPubKey)),
 ) : Reaction('-'.code, eventId, authorPubKey)
 
 /** Any reaction that isn't an upvote or downvote. */
 data class EmojiReact(
   val emoji: String,
   override val eventId: ByteString,
-  override val authorPubKey: PubKey
+  override val authorPubKey: PubKey,
+  override val tags: List<Tag> = listOf(EventTag(eventId), PubKeyTag(authorPubKey)),
 ) : Reaction(emoji.codePointAt(0), eventId, authorPubKey)

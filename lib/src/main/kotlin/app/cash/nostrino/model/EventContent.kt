@@ -28,18 +28,19 @@ interface EventContent {
 
   val kind: Int
 
-  fun tags(): List<List<String>>
+  val tags: List<Tag>
 
   fun toJsonString(): String
 
   fun sign(sec: SecKey): Event {
     val createdAt = Instant.now().truncatedTo(ChronoUnit.SECONDS).truncatedTo(ChronoUnit.SECONDS)
     val contentJson = toJsonString()
-    val elements = listOf(0, sec.pubKey.key.hex(), createdAt.epochSecond, kind, tags(), contentJson)
+    val tagsJson = tags.map { it.toJsonList() }
+    val elements = listOf(0, sec.pubKey.key.hex(), createdAt.epochSecond, kind, tagsJson, contentJson)
     val toJson = jsonListAdapter.toJson(elements)
     val id = toJson.encodeUtf8().sha256()
     val sig = sec.sign(id)
-    return Event(id, sec.pubKey.key, createdAt, kind, tags(), contentJson, sig)
+    return Event(id, sec.pubKey.key, createdAt, kind, tagsJson, contentJson, sig)
   }
 
   companion object {
