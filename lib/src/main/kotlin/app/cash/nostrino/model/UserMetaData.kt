@@ -31,12 +31,11 @@ data class UserMetaData(
   val banner: String? = null,
   @Json(name = "display_name")
   val displayName: String? = null,
-  val website: String? = null
+  val website: String? = null,
+  override val tags: List<Tag> = emptyList(),
 ) : EventContent {
 
   override val kind: Int = UserMetaData.kind
-
-  override fun tags(): List<List<String>> = emptyList()
 
   override fun toJsonString(): String = adapter.toJson(this)
 

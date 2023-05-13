@@ -8,7 +8,7 @@ mavenPublishGradlePlugin = "0.24.0"
 versionCatalogUpdateGradlePlugin = "0.7.0"
 versionsGradlePlugin = "0.46.0"
 
-acinqSecp256 = "0.9.0"
+acinqSecp256 = "0.10.0"
 guava = "31.1-jre"
 kotlinCoroutines = "1.6.4"
 kotlinLogging = "3.0.5"
@@ -42,7 +42,7 @@ kotest = [
 
 [plugins]
 dokka = { id = "org.jetbrains.dokka", version = "1.8.10" }
-gradleDocker = { id = "com.bmuschko.docker-remote-api", version = "9.3.0" }
+gradleDocker = { id = "com.bmuschko.docker-remote-api", version = "9.3.1" }
 kotlinBinaryCompatibilityPlugin = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinBinaryCompatibilityPlugin" }
 kotlinGradlePlugin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 mavenPublishGradlePlugin = { id = "com.vanniktech.maven.publish.base", version.ref = "mavenPublishGradlePlugin" }

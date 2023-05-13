@@ -23,14 +23,13 @@ import app.cash.nostrino.crypto.SecKey
 /** An encrypted direct message. Event kind 4, as defined in nip-04. */
 data class EncryptedDm(
   val to: PubKey,
-  val cipherText: CipherText
+  val cipherText: CipherText,
+  override val tags: List<Tag> = listOf(PubKeyTag(to)),
 ) : EventContent {
 
   constructor(from: SecKey, to: PubKey, message: String) : this(to, from.encrypt(to, message))
 
   override val kind: Int = EncryptedDm.kind
-
-  override fun tags(): List<List<String>> = listOf(listOf("p", to.key.hex()))
 
   override fun toJsonString() = cipherText.toString()
 

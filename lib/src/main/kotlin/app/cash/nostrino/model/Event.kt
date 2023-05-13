@@ -38,11 +38,16 @@ data class Event(
   /**
    * Deserialise the `content` string into an instance of `EventContent` that corresponds with the event `kind`.
    */
-  fun content(): EventContent = when (this.kind) {
-    TextNote.kind -> TextNote(content)
-    EncryptedDm.kind -> EncryptedDm(this.tags.firstPubKey()!!, CipherText.parse(content))
-    Reaction.kind -> Reaction.from(content, tags.lastEventId()!!, tags.lastPubKey()!!)
-    else -> adapters[this.kind]?.fromJson(content)!!
+  fun content(): EventContent {
+    val tags = tags.map { Tag.parseRaw(it) }
+    val taggedPubKeys by lazy { tags.filterIsInstance<PubKeyTag>().map { it.pubKey } }
+    val taggedEventIds by lazy { tags.filterIsInstance<EventTag>().map { it.eventId } }
+    return when (this.kind) {
+      TextNote.kind -> TextNote(content, tags)
+      EncryptedDm.kind -> EncryptedDm(taggedPubKeys.first(), CipherText.parse(content), tags)
+      Reaction.kind -> Reaction.from(content, taggedEventIds.last(), taggedPubKeys.last(), tags)
+      else -> adapters[this.kind]?.fromJson(content)!!.copy(tags = tags)
+    }
   }
 
   companion object {

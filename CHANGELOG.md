@@ -4,6 +4,9 @@ Change Log
 Next release
 ----------------------------
 
+* Tag type, replacing raw string usage.
+* 
+
 Version 0.0.2 *(2023-04-12)*
 ----------------------------
 
