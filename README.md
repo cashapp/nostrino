@@ -14,7 +14,6 @@ of `nostr-sdk` and follow the instructions for inclusion in your build tool.
 
 The API documentation is published with each release
 at [https://cashapp.github.io/nostrino](https://cashapp.github.io/nostrino)
-... TODO
 
 ### Supported NIPs
 
