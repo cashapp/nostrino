@@ -387,17 +387,18 @@ public final class app/cash/nostrino/model/EventTag : app/cash/nostrino/model/Ta
 public final class app/cash/nostrino/model/Filter {
 	public static final field Companion Lapp/cash/nostrino/model/Filter$Companion;
 	public fun <init> ()V
-	public fun <init> (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;)V
-	public synthetic fun <init> (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/Set;
 	public final fun component2 ()Ljava/time/Instant;
 	public final fun component3 ()Ljava/util/Set;
 	public final fun component4 ()Ljava/util/Set;
 	public final fun component5 ()Ljava/util/Set;
 	public final fun component6 ()Ljava/util/Set;
-	public final fun component7 ()Ljava/lang/Integer;
-	public final fun copy (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;)Lapp/cash/nostrino/model/Filter;
-	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Filter;Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
+	public final fun component7 ()Ljava/util/Set;
+	public final fun component8 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Filter;Ljava/util/Set;Ljava/time/Instant;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;Ljava/lang/Integer;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAuthors ()Ljava/util/Set;
 	public final fun getETags ()Ljava/util/Set;
@@ -406,6 +407,7 @@ public final class app/cash/nostrino/model/Filter {
 	public final fun getLimit ()Ljava/lang/Integer;
 	public final fun getPTags ()Ljava/util/Set;
 	public final fun getSince ()Ljava/time/Instant;
+	public final fun getTTags ()Ljava/util/Set;
 	public fun hashCode ()I
 	public final fun plusAuthors ([Lapp/cash/nostrino/crypto/PubKey;)Lapp/cash/nostrino/model/Filter;
 	public fun toString ()Ljava/lang/String;
@@ -415,6 +417,8 @@ public final class app/cash/nostrino/model/Filter$Companion {
 	public final fun directMessages (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
 	public static synthetic fun directMessages$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun getGlobalFeedNotes ()Lapp/cash/nostrino/model/Filter;
+	public final fun hashTagNotes (Ljava/util/Set;Ljava/time/Instant;I)Lapp/cash/nostrino/model/Filter;
+	public static synthetic fun hashTagNotes$default (Lapp/cash/nostrino/model/Filter$Companion;Ljava/util/Set;Ljava/time/Instant;IILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun reactions (Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
 	public static synthetic fun reactions$default (Lapp/cash/nostrino/model/Filter$Companion;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;ILjava/lang/Object;)Lapp/cash/nostrino/model/Filter;
 	public final fun userMetaData (Lapp/cash/nostrino/crypto/PubKey;Ljava/time/Instant;)Lapp/cash/nostrino/model/Filter;
