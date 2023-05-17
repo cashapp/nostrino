@@ -25,6 +25,7 @@ import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
 import app.cash.nostrino.model.TextNote
 import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
+import app.cash.turbine.test
 import io.kotest.assertions.fail
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.ints.shouldBeLessThan
@@ -182,9 +183,13 @@ class RelayClientTest : StringSpec({
       send(noteWithHashTags.sign(sec))
       send(noteWithoutHashTags.sign(sec))
 
-      val actualEvent = notes.first()
-      actualEvent.content shouldBe "never"
-      actualEvent.content() shouldBe noteWithHashTags
+      notes.test {
+        val actualEvent = awaitItem()
+        actualEvent.content shouldBe "never"
+        actualEvent.content() shouldBe noteWithHashTags
+
+        expectNoEvents()
+      }
 
       stop()
     }
