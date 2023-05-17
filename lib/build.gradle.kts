@@ -35,6 +35,7 @@ dependencies {
   testImplementation(libs.kotestAssertions)
   testImplementation(libs.kotestJunitRunnerJvm)
   testImplementation(libs.kotestProperty)
+  testImplementation(libs.turbine)
   testRuntimeOnly(libs.junitEngine)
 
   apply(plugin = libs.plugins.dokka.get().pluginId)

@@ -13,3 +13,4 @@ docker-sources/
 /gradlew.bat
 /gradle/wrapper/
 /.hermit
+local.properties

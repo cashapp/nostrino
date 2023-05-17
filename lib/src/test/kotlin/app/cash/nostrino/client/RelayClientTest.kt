@@ -20,9 +20,12 @@ package app.cash.nostrino.client
 import app.cash.nostrino.crypto.SecKeyGenerator
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Filter
+import app.cash.nostrino.model.HashTag
 import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
+import app.cash.nostrino.model.TextNote
 import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
+import app.cash.turbine.test
 import io.kotest.assertions.fail
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.ints.shouldBeLessThan
@@ -148,6 +151,45 @@ class RelayClientTest : StringSpec({
       actualEvent shouldBe event
       actualEvent.content shouldBe md.toJsonString()
       actualEvent.content() shouldBe md
+
+      stop()
+    }
+  }
+
+  "can consume events by hashtag" {
+    val sec = SecKeyGenerator().generate()
+    val noteWithoutHashTags = arbTextNote.next()
+    val noteWithHashTags = TextNote(
+      text = "never",
+      tags = listOf(
+        HashTag("gonna"),
+        HashTag("give"),
+        HashTag("you"),
+        HashTag("up")
+      )
+    )
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      subscribe(
+        Filter.hashTagNotes(
+          hashtags = setOf(
+            HashTag("give"),
+            HashTag("up"),
+          )
+        )
+      )
+
+      send(noteWithHashTags.sign(sec))
+      send(noteWithoutHashTags.sign(sec))
+
+      notes.test {
+        val actualEvent = awaitItem()
+        actualEvent.content shouldBe "never"
+        actualEvent.content() shouldBe noteWithHashTags
+
+        expectNoEvents()
+      }
 
       stop()
     }

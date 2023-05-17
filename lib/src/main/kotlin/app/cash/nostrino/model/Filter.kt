@@ -35,6 +35,8 @@ data class Filter(
   val eTags: Set<String>? = null,
   @Json(name = "#p")
   val pTags: Set<String>? = null,
+  @Json(name = "#t")
+  val tTags: Set<String>? = null,
   val limit: Int? = null
 ) {
 
@@ -78,6 +80,17 @@ data class Filter(
       since = since,
       kinds = setOf(UserMetaData.kind),
       authors = setOf(pubKey.key.hex())
+    )
+
+    fun hashTagNotes(
+      hashtags: Set<HashTag>,
+      since: Instant = Instant.EPOCH,
+      limit: Int = 500,
+    ) = Filter(
+      since = since,
+      kinds = setOf(TextNote.kind),
+      tTags = hashtags.map { it.label }.toSet(),
+      limit = limit
     )
 
     /**
