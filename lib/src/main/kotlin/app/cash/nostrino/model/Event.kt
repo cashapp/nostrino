@@ -39,7 +39,7 @@ data class Event(
   /**
    * Valid is `true` if the event has a valid signature.
    */
-  val valid: Boolean by lazy {
+  val validSignature: Boolean by lazy {
     Secp256k1.verifySchnorr(sig.toByteArray(), id.toByteArray(), pubKey.toByteArray())
   }
 

@@ -17,7 +17,6 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.SecKeyGenerator
-import app.cash.nostrino.message.NostrMessageAdapter
 import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
 import app.cash.nostrino.model.EncryptedDmTest.Companion.arbEncryptedDm
 import app.cash.nostrino.model.Primitives.arbByteString32
@@ -44,11 +43,21 @@ class EventTest : StringSpec({
   }
 
   "signed event has valid signature" {
-    val sec = SecKeyGenerator().generate()
-    val note = arbTextNote.next()
-    val event = note.sign(sec)
+    checkAll(arbTextNote) {note ->
+      val sec = SecKeyGenerator().generate()
+      val event = note.sign(sec)
+      event.validSignature shouldBe true
+    }
+  }
 
-    event.valid shouldBe true
+  "wrong public key does not have valid signature" {
+    val sec = SecKeyGenerator().generate()
+    val (pubKey) = SecKeyGenerator().generate().pubKey
+
+    val note = arbTextNote.next()
+    val event = note.sign(sec).copy(pubKey = pubKey)
+
+    event.validSignature shouldBe false
   }
 
   "parsed event has valid signature" {
@@ -65,7 +74,7 @@ class EventTest : StringSpec({
     """.trimIndent()
     val event = moshi.adapter(Event::class.java).fromJson(rawEvent)
 
-    event?.valid shouldBe true
+    event?.validSignature shouldBe true
   }
 }) {
   companion object {
