@@ -26,7 +26,7 @@ import java.time.temporal.ChronoUnit
 /** A type that can be signed and converted into an Event */
 interface EventContent {
 
-  val kind: Int
+  val kind: Kind
 
   val tags: List<Tag>
 

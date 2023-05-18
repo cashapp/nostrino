@@ -35,12 +35,11 @@ data class UserMetaData(
   override val tags: List<Tag> = emptyList(),
 ) : EventContent {
 
-  override val kind: Int = UserMetaData.kind
+  override val kind = Kind.USER_META_DATA
 
   override fun toJsonString(): String = adapter.toJson(this)
 
   companion object {
-    const val kind: Int = 0
     private val adapter by lazy { moshi.adapter(UserMetaData::class.java) }
   }
 }

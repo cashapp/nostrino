@@ -1,6 +1,7 @@
 import com.bmuschko.gradle.docker.tasks.container.DockerCreateContainer
 import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPullImage
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
@@ -70,11 +71,15 @@ val buildImage by tasks.creating(DockerBuildImage::class) {
 
 val createContainer by tasks.creating(DockerCreateContainer::class) {
   onlyIf { !relayIsRunning() }
-  dependsOn(buildImage)
-  targetImageId(buildImage.imageId)
+  dependsOn(pullImage)
+  targetImageId(pullImage.image)
   containerName.set("nostr-relay")
   hostConfig.portBindings.set(listOf("7707:8080"))
   hostConfig.autoRemove.set(true)
+}
+
+val pullImage by tasks.creating(DockerPullImage::class) {
+  image.set("scsibug/nostr-rs-relay:latest")
 }
 
 val startContainer by tasks.creating(DockerStartContainer::class) {
