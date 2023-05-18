@@ -19,6 +19,7 @@ package app.cash.nostrino.model
 import app.cash.nostrino.crypto.CipherText
 import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
 import com.squareup.moshi.Json
+import fr.acinq.secp256k1.Secp256k1
 import okio.ByteString
 import java.time.Instant
 
@@ -34,6 +35,13 @@ data class Event(
   val content: String,
   val sig: ByteString
 ) {
+
+  /**
+   * Valid is `true` if the event has a valid signature.
+   */
+  val valid: Boolean by lazy {
+    Secp256k1.verifySchnorr(sig.toByteArray(), id.toByteArray(), pubKey.toByteArray())
+  }
 
   /**
    * Deserialise the `content` string into an instance of `EventContent` that corresponds with the event `kind`.
