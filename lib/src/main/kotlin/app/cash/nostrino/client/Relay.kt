@@ -16,12 +16,12 @@
 
 package app.cash.nostrino.client
 
-import app.cash.nostrino.model.EncryptedDm
+import app.cash.nostrino.model.ENCRYPTED_DM
 import app.cash.nostrino.model.Event
 import app.cash.nostrino.model.Filter
-import app.cash.nostrino.model.Reaction
-import app.cash.nostrino.model.TextNote
-import app.cash.nostrino.model.UserMetaData
+import app.cash.nostrino.model.REACTION
+import app.cash.nostrino.model.TEXT_NOTE
+import app.cash.nostrino.model.USER_META_DATA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import java.util.UUID
@@ -56,14 +56,14 @@ abstract class Relay {
   abstract val allEvents: Flow<Event>
 
   /** The subset of allEvents that are of type TextNote */
-  val notes: Flow<Event> by lazy { allEvents.filter { it.kind == TextNote.kind } }
+  val notes: Flow<Event> by lazy { allEvents.filter { it.kind == TEXT_NOTE } }
 
   /** The subset of allEvents that are of type EncryptedDm */
-  val directMessages: Flow<Event> by lazy { allEvents.filter { it.kind == EncryptedDm.kind } }
+  val directMessages: Flow<Event> by lazy { allEvents.filter { it.kind == ENCRYPTED_DM } }
 
   /** The subset of allEvents that are of type UserMetaData */
-  val userMetaData: Flow<Event> by lazy { allEvents.filter { it.kind == UserMetaData.kind } }
+  val userMetaData: Flow<Event> by lazy { allEvents.filter { it.kind == USER_META_DATA } }
 
   /** The subset of allEvents that are of type Reaction */
-  val reactions: Flow<Event> by lazy { allEvents.filter { it.kind == Reaction.kind } }
+  val reactions: Flow<Event> by lazy { allEvents.filter { it.kind == REACTION } }
 }

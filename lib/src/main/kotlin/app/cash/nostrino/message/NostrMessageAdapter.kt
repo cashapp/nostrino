@@ -22,6 +22,7 @@ import app.cash.nostrino.message.relay.EventMessage
 import app.cash.nostrino.message.relay.Notice
 import app.cash.nostrino.message.relay.RelayMessage
 import app.cash.nostrino.model.Event
+import app.cash.nostrino.model.Kind
 import app.cash.nostrino.model.Tag
 import app.cash.nostrino.model.TextNote
 import com.squareup.moshi.FromJson
@@ -135,6 +136,13 @@ class NostrMessageAdapter {
 
   @ToJson
   fun tagToJson(tag: Tag) = tag.toJsonList()
+
+  // Kinds
+  @FromJson
+  fun kindFromJson(kind: Int) = Kind(kind)
+
+  @ToJson
+  fun kindToJson(kind: Kind) = kind.value
 
   // === primitives
 

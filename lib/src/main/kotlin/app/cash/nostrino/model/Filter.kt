@@ -30,7 +30,7 @@ data class Filter(
   val ids: Set<String>? = null,
   val since: Instant? = null,
   val authors: Set<String>? = null,
-  val kinds: Set<Int>? = null,
+  val kinds: Set<Kind>? = null,
   @Json(name = "#e")
   val eTags: Set<String>? = null,
   @Json(name = "#p")
@@ -50,7 +50,7 @@ data class Filter(
     /** All text notes. */
     val globalFeedNotes = Filter(
       since = Instant.now().minusSeconds(12.hours.inWholeSeconds),
-      kinds = setOf(TextNote.kind),
+      kinds = setOf(TEXT_NOTE),
       limit = 500
     )
 
@@ -64,21 +64,21 @@ data class Filter(
     fun userNotes(authors: Set<PubKey>, since: Instant = Instant.EPOCH) = Filter(
       since = since,
       authors = authors.map { it.key.hex() }.toSet(),
-      kinds = setOf(TextNote.kind),
+      kinds = setOf(TEXT_NOTE),
       limit = 500
     )
 
     /** Direct messages authored by the provided public key */
     fun directMessages(pubKey: PubKey, since: Instant = Instant.EPOCH) = Filter(
       since = since,
-      kinds = setOf(EncryptedDm.kind),
+      kinds = setOf(ENCRYPTED_DM),
       pTags = setOf(pubKey.key.hex())
     )
 
     /** MetaData of the given public key */
     fun userMetaData(pubKey: PubKey, since: Instant = Instant.EPOCH) = Filter(
       since = since,
-      kinds = setOf(UserMetaData.kind),
+      kinds = setOf(USER_META_DATA),
       authors = setOf(pubKey.key.hex())
     )
 
@@ -88,7 +88,7 @@ data class Filter(
       limit: Int = 500,
     ) = Filter(
       since = since,
-      kinds = setOf(TextNote.kind),
+      kinds = setOf(TEXT_NOTE),
       tTags = hashtags.map { it.label }.toSet(),
       limit = limit
     )
@@ -105,7 +105,7 @@ data class Filter(
       since: Instant = Instant.EPOCH
     ) = Filter(
       since = since,
-      kinds = setOf(Reaction.kind),
+      kinds = setOf(REACTION),
       authors = author?.let { setOf(it.key.hex()) },
       pTags = eventAuthor?.let { setOf(it.key.hex()) },
       eTags = eventId?.let { setOf(it.hex()) },

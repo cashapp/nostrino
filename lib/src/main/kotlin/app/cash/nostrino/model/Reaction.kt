@@ -12,15 +12,13 @@ sealed class Reaction(
 ) : EventContent {
   private val jsonString = String(Character.toChars(codePoint))
 
-  override val kind: Int = Reaction.kind
+  override val kind = REACTION
 
   override fun toJsonString(): String = jsonString
 
   override fun toString() = "${javaClass.simpleName}(${toJsonString()}, ${eventId.hex()}, ${authorPubKey.npub})"
 
   companion object {
-    const val kind = 7
-
     /**
      * Construct a `Reaction` from the given string, event id and public key being reacted to.
      * Only the first codepoint of `content` will be interpreted, with special meaning given to `+` (upvote)

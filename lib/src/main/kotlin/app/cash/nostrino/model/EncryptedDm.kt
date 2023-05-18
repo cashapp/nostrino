@@ -29,14 +29,10 @@ data class EncryptedDm(
 
   constructor(from: SecKey, to: PubKey, message: String) : this(to, from.encrypt(to, message))
 
-  override val kind: Int = EncryptedDm.kind
+  override val kind = ENCRYPTED_DM
 
   override fun toJsonString() = cipherText.toString()
 
   /** Providing the public key of the sender and the secret key of the recipient, decode this message */
   fun decipher(from: PubKey, to: SecKey): String = cipherText.decipher(from, to)
-
-  companion object {
-    const val kind = 4
-  }
 }

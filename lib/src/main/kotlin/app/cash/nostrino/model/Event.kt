@@ -30,7 +30,7 @@ data class Event(
   val pubKey: ByteString,
   @Json(name = "created_at")
   val createdAt: Instant,
-  val kind: Int,
+  val kind: Kind,
   val tags: List<List<String>>,
   val content: String,
   val sig: ByteString
@@ -51,16 +51,16 @@ data class Event(
     val taggedPubKeys by lazy { tags.filterIsInstance<PubKeyTag>().map { it.pubKey } }
     val taggedEventIds by lazy { tags.filterIsInstance<EventTag>().map { it.eventId } }
     return when (this.kind) {
-      TextNote.kind -> TextNote(content, tags)
-      EncryptedDm.kind -> EncryptedDm(taggedPubKeys.first(), CipherText.parse(content), tags)
-      Reaction.kind -> Reaction.from(content, taggedEventIds.last(), taggedPubKeys.last(), tags)
+      TEXT_NOTE -> TextNote(content, tags)
+      ENCRYPTED_DM -> EncryptedDm(taggedPubKeys.first(), CipherText.parse(content), tags)
+      REACTION -> Reaction.from(content, taggedEventIds.last(), taggedPubKeys.last(), tags)
       else -> adapters[this.kind]?.fromJson(content)!!.copy(tags = tags)
     }
   }
 
   companion object {
     private val adapters = mapOf(
-      UserMetaData.kind to moshi.adapter(UserMetaData::class.java),
+      USER_META_DATA to moshi.adapter(UserMetaData::class.java),
     )
   }
 }

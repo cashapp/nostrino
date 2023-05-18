@@ -201,6 +201,8 @@ public final class app/cash/nostrino/message/NostrMessageAdapter {
 	public final fun eventMessageToJson (Lapp/cash/nostrino/message/relay/EventMessage;)Ljava/util/List;
 	public final fun instantFromJson (J)Ljava/time/Instant;
 	public final fun instantToJson (Ljava/time/Instant;)J
+	public final fun kindFromJson-zAEtiF0 (I)I
+	public final fun kindToJson-XhvRUVE (I)I
 	public final fun noticeFromJson (Lcom/squareup/moshi/JsonReader;)Lapp/cash/nostrino/message/relay/Notice;
 	public final fun noticeToJson (Lapp/cash/nostrino/message/relay/Notice;)Ljava/util/List;
 	public final fun relayMessageFromJson (Lcom/squareup/moshi/JsonReader;Lcom/squareup/moshi/JsonAdapter;Lcom/squareup/moshi/JsonAdapter;Lcom/squareup/moshi/JsonAdapter;Lcom/squareup/moshi/JsonAdapter;)Lapp/cash/nostrino/message/relay/RelayMessage;
@@ -303,8 +305,6 @@ public final class app/cash/nostrino/model/EmojiReact : app/cash/nostrino/model/
 }
 
 public final class app/cash/nostrino/model/EncryptedDm : app/cash/nostrino/model/EventContent {
-	public static final field Companion Lapp/cash/nostrino/model/EncryptedDm$Companion;
-	public static final field kind I
 	public fun <init> (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/CipherText;Ljava/util/List;)V
 	public synthetic fun <init> (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/CipherText;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Lapp/cash/nostrino/crypto/SecKey;Lapp/cash/nostrino/crypto/PubKey;Ljava/lang/String;)V
@@ -316,7 +316,7 @@ public final class app/cash/nostrino/model/EncryptedDm : app/cash/nostrino/model
 	public final fun decipher (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/SecKey;)Ljava/lang/String;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCipherText ()Lapp/cash/nostrino/crypto/CipherText;
-	public fun getKind ()I
+	public fun getKind-rp9MAAU ()I
 	public fun getTags ()Ljava/util/List;
 	public final fun getTo ()Lapp/cash/nostrino/crypto/PubKey;
 	public fun hashCode ()I
@@ -325,27 +325,24 @@ public final class app/cash/nostrino/model/EncryptedDm : app/cash/nostrino/model
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class app/cash/nostrino/model/EncryptedDm$Companion {
-}
-
 public final class app/cash/nostrino/model/Event {
 	public static final field Companion Lapp/cash/nostrino/model/Event$Companion;
-	public fun <init> (Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;)V
+	public synthetic fun <init> (Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lokio/ByteString;
 	public final fun component2 ()Lokio/ByteString;
 	public final fun component3 ()Ljava/time/Instant;
-	public final fun component4 ()I
+	public final fun component4-rp9MAAU ()I
 	public final fun component5 ()Ljava/util/List;
 	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Lokio/ByteString;
 	public final fun content ()Lapp/cash/nostrino/model/EventContent;
-	public final fun copy (Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;)Lapp/cash/nostrino/model/Event;
-	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Event;Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;ILjava/lang/Object;)Lapp/cash/nostrino/model/Event;
+	public final fun copy-Km9NLV4 (Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;)Lapp/cash/nostrino/model/Event;
+	public static synthetic fun copy-Km9NLV4$default (Lapp/cash/nostrino/model/Event;Lokio/ByteString;Lokio/ByteString;Ljava/time/Instant;ILjava/util/List;Ljava/lang/String;Lokio/ByteString;ILjava/lang/Object;)Lapp/cash/nostrino/model/Event;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getContent ()Ljava/lang/String;
 	public final fun getCreatedAt ()Ljava/time/Instant;
 	public final fun getId ()Lokio/ByteString;
-	public final fun getKind ()I
+	public final fun getKind-rp9MAAU ()I
 	public final fun getPubKey ()Lokio/ByteString;
 	public final fun getSig ()Lokio/ByteString;
 	public final fun getTags ()Ljava/util/List;
@@ -359,7 +356,7 @@ public final class app/cash/nostrino/model/Event$Companion {
 
 public abstract interface class app/cash/nostrino/model/EventContent {
 	public static final field Companion Lapp/cash/nostrino/model/EventContent$Companion;
-	public abstract fun getKind ()I
+	public abstract fun getKind-rp9MAAU ()I
 	public abstract fun getTags ()Ljava/util/List;
 	public abstract fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
 	public abstract fun toJsonString ()Ljava/lang/String;
@@ -442,6 +439,29 @@ public final class app/cash/nostrino/model/HashTag : app/cash/nostrino/model/Tag
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class app/cash/nostrino/model/Kind {
+	public static final synthetic fun box-impl (I)Lapp/cash/nostrino/model/Kind;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class app/cash/nostrino/model/KindKt {
+	public static final fun getENCRYPTED_DM ()I
+	public static final fun getREACTION ()I
+	public static final fun getTEXT_NOTE ()I
+	public static final fun getUSER_META_DATA ()I
+	public static final fun getZAP_RECEIPT ()I
+	public static final fun getZAP_REQUEST ()I
+}
+
 public final class app/cash/nostrino/model/PubKeyTag : app/cash/nostrino/model/Tag {
 	public fun <init> (Lapp/cash/nostrino/crypto/PubKey;)V
 	public final fun component1 ()Lapp/cash/nostrino/crypto/PubKey;
@@ -456,12 +476,11 @@ public final class app/cash/nostrino/model/PubKeyTag : app/cash/nostrino/model/T
 
 public abstract class app/cash/nostrino/model/Reaction : app/cash/nostrino/model/EventContent {
 	public static final field Companion Lapp/cash/nostrino/model/Reaction$Companion;
-	public static final field kind I
 	public synthetic fun <init> (ILokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (ILokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getAuthorPubKey ()Lapp/cash/nostrino/crypto/PubKey;
 	public fun getEventId ()Lokio/ByteString;
-	public fun getKind ()I
+	public fun getKind-rp9MAAU ()I
 	public fun getTags ()Ljava/util/List;
 	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
 	public fun toJsonString ()Ljava/lang/String;
@@ -482,8 +501,6 @@ public final class app/cash/nostrino/model/Tag$Companion {
 }
 
 public final class app/cash/nostrino/model/TextNote : app/cash/nostrino/model/EventContent {
-	public static final field Companion Lapp/cash/nostrino/model/TextNote$Companion;
-	public static final field kind I
 	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -491,16 +508,13 @@ public final class app/cash/nostrino/model/TextNote : app/cash/nostrino/model/Ev
 	public final fun copy (Ljava/lang/String;Ljava/util/List;)Lapp/cash/nostrino/model/TextNote;
 	public static synthetic fun copy$default (Lapp/cash/nostrino/model/TextNote;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lapp/cash/nostrino/model/TextNote;
 	public fun equals (Ljava/lang/Object;)Z
-	public fun getKind ()I
+	public fun getKind-rp9MAAU ()I
 	public fun getTags ()Ljava/util/List;
 	public final fun getText ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
 	public fun toJsonString ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class app/cash/nostrino/model/TextNote$Companion {
 }
 
 public final class app/cash/nostrino/model/Upvote : app/cash/nostrino/model/Reaction {
@@ -521,7 +535,6 @@ public final class app/cash/nostrino/model/Upvote : app/cash/nostrino/model/Reac
 
 public final class app/cash/nostrino/model/UserMetaData : app/cash/nostrino/model/EventContent {
 	public static final field Companion Lapp/cash/nostrino/model/UserMetaData$Companion;
-	public static final field kind I
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -539,7 +552,7 @@ public final class app/cash/nostrino/model/UserMetaData : app/cash/nostrino/mode
 	public final fun getAbout ()Ljava/lang/String;
 	public final fun getBanner ()Ljava/lang/String;
 	public final fun getDisplayName ()Ljava/lang/String;
-	public fun getKind ()I
+	public fun getKind-rp9MAAU ()I
 	public final fun getName ()Ljava/lang/String;
 	public final fun getNip05 ()Ljava/lang/String;
 	public final fun getPicture ()Ljava/lang/String;

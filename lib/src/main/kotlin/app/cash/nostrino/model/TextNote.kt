@@ -25,11 +25,7 @@ data class TextNote(
   override val tags: List<Tag> = emptyList()
 ) : EventContent {
 
-  override val kind: Int = Companion.kind
+  override val kind = TEXT_NOTE
 
   override fun toJsonString(): String = text
-
-  companion object {
-    const val kind = 1
-  }
 }
