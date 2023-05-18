@@ -4,10 +4,16 @@ Change Log
 Next release
 ----------------------------
 
-* Tag type, replacing raw string usage.
 * 
 
-Version 0.0.2 *(2023-04-12)*
+Version 0.0.4 *(2023-05-18)*
+----------------------------
+
+* Add ability to filter notes by hashtag
+* Add event signature validation
+* Add real type for event tags
+
+Version 0.0.3 *(2023-04-12)*
 ----------------------------
 
 * NIP-25 Reactions
