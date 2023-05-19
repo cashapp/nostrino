@@ -86,7 +86,7 @@ class TagTest : StringSpec({
     val arbEventTag: Arb<EventTag> = arbByteString32.map { EventTag(it) }
     val arbPubKeyTag: Arb<PubKeyTag> = arbPubKey.map { PubKeyTag(it) }
     val arbHashTag: Arb<HashTag> = arbVanillaString.map { HashTag(it.replace(" ", "")) }
-    val arbRelaysTag: Arb<RelaysTag> = Arb.list(arbVanillaString, range = 1..Int.MAX_VALUE).map(::RelaysTag)
+    val arbRelaysTag: Arb<RelaysTag> = Arb.list(arbVanillaString, range = 1..10).map(::RelaysTag)
     val arbAmountTag: Arb<AmountTag> = Arb.long(min = 1L).map { AmountTag(it) }
     val arbLnurlTag: Arb<LnurlTag> = arbVanillaString.map(::LnurlTag)
     val arbTag: Arb<Tag> = Arb.choice(arbEventTag, arbPubKeyTag, arbHashTag, arbRelaysTag, arbAmountTag, arbLnurlTag)

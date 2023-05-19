@@ -320,6 +320,7 @@ public final class app/cash/nostrino/model/EncryptedDm : app/cash/nostrino/model
 	public fun <init> (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/CipherText;Ljava/util/List;)V
 	public synthetic fun <init> (Lapp/cash/nostrino/crypto/PubKey;Lapp/cash/nostrino/crypto/CipherText;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Lapp/cash/nostrino/crypto/SecKey;Lapp/cash/nostrino/crypto/PubKey;Ljava/lang/String;)V
+	public fun asZapRequest ()Lapp/cash/nostrino/model/ZapRequest;
 	public final fun component1 ()Lapp/cash/nostrino/crypto/PubKey;
 	public final fun component2 ()Lapp/cash/nostrino/crypto/CipherText;
 	public final fun component3 ()Ljava/util/List;
@@ -371,6 +372,7 @@ public final class app/cash/nostrino/model/Event$Companion {
 
 public abstract interface class app/cash/nostrino/model/EventContent {
 	public static final field Companion Lapp/cash/nostrino/model/EventContent$Companion;
+	public abstract fun asZapRequest ()Lapp/cash/nostrino/model/ZapRequest;
 	public abstract fun getKind ()I
 	public abstract fun getTags ()Ljava/util/List;
 	public abstract fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
@@ -382,6 +384,7 @@ public final class app/cash/nostrino/model/EventContent$Companion {
 }
 
 public final class app/cash/nostrino/model/EventContent$DefaultImpls {
+	public static fun asZapRequest (Lapp/cash/nostrino/model/EventContent;)Lapp/cash/nostrino/model/ZapRequest;
 	public static fun sign (Lapp/cash/nostrino/model/EventContent;Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
 }
 
@@ -483,6 +486,7 @@ public abstract class app/cash/nostrino/model/Reaction : app/cash/nostrino/model
 	public static final field kind I
 	public synthetic fun <init> (ILokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (ILokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun asZapRequest ()Lapp/cash/nostrino/model/ZapRequest;
 	public fun getAuthorPubKey ()Lapp/cash/nostrino/crypto/PubKey;
 	public fun getEventId ()Lokio/ByteString;
 	public fun getKind ()I
@@ -522,6 +526,7 @@ public final class app/cash/nostrino/model/TextNote : app/cash/nostrino/model/Ev
 	public static final field kind I
 	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun asZapRequest ()Lapp/cash/nostrino/model/ZapRequest;
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/util/List;
 	public final fun copy (Ljava/lang/String;Ljava/util/List;)Lapp/cash/nostrino/model/TextNote;
@@ -561,6 +566,7 @@ public final class app/cash/nostrino/model/UserMetaData : app/cash/nostrino/mode
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun asZapRequest ()Lapp/cash/nostrino/model/ZapRequest;
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
@@ -593,19 +599,20 @@ public final class app/cash/nostrino/model/UserMetaData$Companion {
 public final class app/cash/nostrino/model/ZapRequest : app/cash/nostrino/model/EventContent {
 	public static final field Companion Lapp/cash/nostrino/model/ZapRequest$Companion;
 	public static final field kind I
-	public fun <init> (Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/Long;Ljava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/Long;Ljava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun asZapRequest ()Lapp/cash/nostrino/model/ZapRequest;
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/util/List;
-	public final fun component3 ()J
+	public final fun component3 ()Ljava/lang/Long;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Lapp/cash/nostrino/crypto/PubKey;
 	public final fun component6 ()Lokio/ByteString;
 	public final fun component7 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;)Lapp/cash/nostrino/model/ZapRequest;
-	public static synthetic fun copy$default (Lapp/cash/nostrino/model/ZapRequest;Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;ILjava/lang/Object;)Lapp/cash/nostrino/model/ZapRequest;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/Long;Ljava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;)Lapp/cash/nostrino/model/ZapRequest;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/ZapRequest;Ljava/lang/String;Ljava/util/List;Ljava/lang/Long;Ljava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;ILjava/lang/Object;)Lapp/cash/nostrino/model/ZapRequest;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAmount ()J
+	public final fun getAmount ()Ljava/lang/Long;
 	public final fun getContent ()Ljava/lang/String;
 	public final fun getEventId ()Lokio/ByteString;
 	public fun getKind ()I
