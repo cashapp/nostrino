@@ -54,6 +54,12 @@ data class Event(
       TextNote.kind -> TextNote(content, tags)
       EncryptedDm.kind -> EncryptedDm(taggedPubKeys.first(), CipherText.parse(content), tags)
       Reaction.kind -> Reaction.from(content, taggedEventIds.last(), taggedPubKeys.last(), tags)
+      ZapRequest.kind -> {
+        val relays = tags.filterIsInstance<RelaysTag>().first().relays
+        val amount = tags.filterIsInstance<AmountTag>().firstOrNull()?.amount
+        val lnurl = tags.filterIsInstance<LnurlTag>().firstOrNull()?.lnurl
+        ZapRequest(content, relays, amount, lnurl, taggedPubKeys.first(), taggedEventIds.firstOrNull())
+      }
       else -> adapters[this.kind]?.fromJson(content)!!.copy(tags = tags)
     }
   }

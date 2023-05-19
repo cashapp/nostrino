@@ -25,8 +25,10 @@ import app.cash.nostrino.model.Primitives.arbInstantSeconds
 import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
 import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
+import app.cash.nostrino.model.ZapRequestTest.Companion.arbZapRequest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.choice
@@ -82,7 +84,8 @@ class EventTest : StringSpec({
       arbTextNote,
       arbEncryptedDm,
       arbUserMetaData,
-      arbReaction
+      arbReaction,
+      arbZapRequest
     )
 
     val arbEventWithContent: Arb<Pair<Event, EventContent>> by lazy {
