@@ -27,6 +27,7 @@ import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.choice

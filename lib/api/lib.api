@@ -268,6 +268,18 @@ public final class app/cash/nostrino/message/relay/Notice : app/cash/nostrino/me
 public abstract interface class app/cash/nostrino/message/relay/RelayMessage {
 }
 
+public final class app/cash/nostrino/model/AmountTag : app/cash/nostrino/model/Tag {
+	public fun <init> (J)V
+	public final fun component1 ()J
+	public final fun copy (J)Lapp/cash/nostrino/model/AmountTag;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/AmountTag;JILjava/lang/Object;)Lapp/cash/nostrino/model/AmountTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAmount ()J
+	public fun hashCode ()I
+	public fun toJsonList ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class app/cash/nostrino/model/Downvote : app/cash/nostrino/model/Reaction {
 	public fun <init> (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;)V
 	public synthetic fun <init> (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -442,6 +454,18 @@ public final class app/cash/nostrino/model/HashTag : app/cash/nostrino/model/Tag
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class app/cash/nostrino/model/LnurlTag : app/cash/nostrino/model/Tag {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/cash/nostrino/model/LnurlTag;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/LnurlTag;Ljava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/model/LnurlTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLnurl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toJsonList ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class app/cash/nostrino/model/PubKeyTag : app/cash/nostrino/model/Tag {
 	public fun <init> (Lapp/cash/nostrino/crypto/PubKey;)V
 	public final fun component1 ()Lapp/cash/nostrino/crypto/PubKey;
@@ -470,6 +494,18 @@ public abstract class app/cash/nostrino/model/Reaction : app/cash/nostrino/model
 
 public final class app/cash/nostrino/model/Reaction$Companion {
 	public final fun from (Ljava/lang/String;Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;)Lapp/cash/nostrino/model/Reaction;
+}
+
+public final class app/cash/nostrino/model/RelaysTag : app/cash/nostrino/model/Tag {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lapp/cash/nostrino/model/RelaysTag;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/RelaysTag;Ljava/util/List;ILjava/lang/Object;)Lapp/cash/nostrino/model/RelaysTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRelays ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toJsonList ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
 }
 
 public abstract interface class app/cash/nostrino/model/Tag {
@@ -552,5 +588,37 @@ public final class app/cash/nostrino/model/UserMetaData : app/cash/nostrino/mode
 }
 
 public final class app/cash/nostrino/model/UserMetaData$Companion {
+}
+
+public final class app/cash/nostrino/model/ZapRequest : app/cash/nostrino/model/EventContent {
+	public static final field Companion Lapp/cash/nostrino/model/ZapRequest$Companion;
+	public static final field kind I
+	public fun <init> (Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun component6 ()Lokio/ByteString;
+	public final fun component7 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;)Lapp/cash/nostrino/model/ZapRequest;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/ZapRequest;Ljava/lang/String;Ljava/util/List;JLjava/lang/String;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/util/List;ILjava/lang/Object;)Lapp/cash/nostrino/model/ZapRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAmount ()J
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getEventId ()Lokio/ByteString;
+	public fun getKind ()I
+	public final fun getLnurl ()Ljava/lang/String;
+	public final fun getRelays ()Ljava/util/List;
+	public fun getTags ()Ljava/util/List;
+	public final fun getTo ()Lapp/cash/nostrino/crypto/PubKey;
+	public fun hashCode ()I
+	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+	public fun toJsonString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/ZapRequest$Companion {
 }
 

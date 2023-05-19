@@ -10,8 +10,12 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.char
 import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.filterNot
+import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.list
+import io.kotest.property.arbitrary.long
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.pair
+import io.kotest.property.arbitrary.take
 import io.kotest.property.checkAll
 
 class TagTest : StringSpec({
@@ -30,6 +34,24 @@ class TagTest : StringSpec({
   "hashtag json list should be t :: label" {
     checkAll(arbHashTag) { tag ->
       tag.toJsonList() shouldBe listOf("t", tag.label)
+    }
+  }
+
+  "relays tag json list should be relays :: values" {
+    checkAll(arbRelaysTag) { tag ->
+      tag.toJsonList() shouldBe listOf("relays") + tag.relays
+    }
+  }
+
+  "amount tag json list should be amount :: value" {
+    checkAll(arbAmountTag) { tag ->
+      tag.toJsonList() shouldBe listOf("amount", tag.amount.toString())
+    }
+  }
+
+  "lnurltag json list should be t :: label" {
+    checkAll(arbLnurlTag) { tag ->
+      tag.toJsonList() shouldBe listOf("lnurl", tag.lnurl)
     }
   }
 
@@ -64,6 +86,9 @@ class TagTest : StringSpec({
     val arbEventTag: Arb<EventTag> = arbByteString32.map { EventTag(it) }
     val arbPubKeyTag: Arb<PubKeyTag> = arbPubKey.map { PubKeyTag(it) }
     val arbHashTag: Arb<HashTag> = arbVanillaString.map { HashTag(it.replace(" ", "")) }
+    val arbRelaysTag: Arb<RelaysTag> = Arb.list(arbVanillaString).map(::RelaysTag)
+    val arbAmountTag: Arb<AmountTag> = Arb.long(min = 1L).map { AmountTag(it) }
+    val arbLnurlTag: Arb<LnurlTag> = arbVanillaString.map(::LnurlTag)
     val arbTag: Arb<Tag> = Arb.choice(arbEventTag, arbPubKeyTag, arbHashTag)
   }
 }

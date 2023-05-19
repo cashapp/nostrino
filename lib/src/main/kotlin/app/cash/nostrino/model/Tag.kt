@@ -11,10 +11,14 @@ sealed interface Tag {
     fun parseRaw(strings: List<String>): Tag {
       require(strings.size >= 2) { "Invalid tag format: $strings" }
       val (tag, value) = strings
+      val values = strings.drop(1)
       return when (tag) {
         "e" -> EventTag(value.decodeHex())
         "p" -> PubKeyTag(PubKey(value.decodeHex()))
         "t" -> HashTag(value)
+        "amount" -> AmountTag(value.toLong())
+        "lnurl" -> LnurlTag(value)
+        "relays" -> RelaysTag(values)
         else -> throw IllegalArgumentException("Invalid tag format: $strings")
       }
     }
@@ -31,4 +35,16 @@ data class PubKeyTag(val pubKey: PubKey) : Tag {
 
 data class HashTag(val label: String) : Tag {
   override fun toJsonList() = listOf("t", label)
+}
+
+data class RelaysTag(val relays: List<String>) : Tag {
+  override fun toJsonList() = listOf("relays") + relays
+}
+
+data class AmountTag(val amount: Long) : Tag {
+  override fun toJsonList() = listOf("amount", amount.toString())
+}
+
+data class LnurlTag(val lnurl: String) : Tag {
+  override fun toJsonList() = listOf("lnurl", lnurl)
 }
