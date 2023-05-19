@@ -56,7 +56,7 @@ data class Event(
       Reaction.kind -> Reaction.from(content, taggedEventIds.last(), taggedPubKeys.last(), tags)
       ZapRequest.kind -> {
         val relays = tags.filterIsInstance<RelaysTag>().first().relays
-        val amount = tags.filterIsInstance<AmountTag>().first().amount
+        val amount = tags.filterIsInstance<AmountTag>().firstOrNull()?.amount
         val lnurl = tags.filterIsInstance<LnurlTag>().firstOrNull()?.lnurl
         ZapRequest(content, relays, amount, lnurl, taggedPubKeys.first(), taggedEventIds.firstOrNull())
       }
