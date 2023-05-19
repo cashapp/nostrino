@@ -89,6 +89,6 @@ class TagTest : StringSpec({
     val arbRelaysTag: Arb<RelaysTag> = Arb.list(arbVanillaString).map(::RelaysTag)
     val arbAmountTag: Arb<AmountTag> = Arb.long(min = 1L).map { AmountTag(it) }
     val arbLnurlTag: Arb<LnurlTag> = arbVanillaString.map(::LnurlTag)
-    val arbTag: Arb<Tag> = Arb.choice(arbEventTag, arbPubKeyTag, arbHashTag)
+    val arbTag: Arb<Tag> = Arb.choice(arbEventTag, arbPubKeyTag, arbHashTag, arbRelaysTag, arbAmountTag, arbLnurlTag)
   }
 }
