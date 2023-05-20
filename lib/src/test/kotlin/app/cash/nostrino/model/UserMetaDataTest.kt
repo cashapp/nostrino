@@ -16,7 +16,7 @@
 
 package app.cash.nostrino.model
 
-import app.cash.nostrino.crypto.SecKeyTest.Companion.arbSecKey
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
 import app.cash.nostrino.model.ArbEventContent.arbUserMetaData
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe

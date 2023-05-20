@@ -17,8 +17,8 @@
 package app.cash.nostrino.client
 
 import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
+import app.cash.nostrino.model.ArbEvent.arbEvent
 import app.cash.nostrino.model.Event
-import app.cash.nostrino.model.EventTest.Companion.arbEvent
 import app.cash.nostrino.model.Filter
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly

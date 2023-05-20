@@ -16,27 +16,21 @@
 
 package app.cash.nostrino.model
 
-import app.cash.nostrino.ArbPrimitive.arbByteString32
-import app.cash.nostrino.ArbPrimitive.arbUUID
-import app.cash.nostrino.message.NostrMessageAdapter
 import app.cash.nostrino.message.relay.CommandResult
 import app.cash.nostrino.message.relay.EndOfStoredEvents
 import app.cash.nostrino.message.relay.EventMessage
 import app.cash.nostrino.message.relay.Notice
 import app.cash.nostrino.message.relay.RelayMessage
-import app.cash.nostrino.model.EventTest.Companion.arbEvent
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import app.cash.nostrino.model.ArbEvent.arbCommandResult
+import app.cash.nostrino.model.ArbEvent.arbEndOfStoredEvents
+import app.cash.nostrino.model.ArbEvent.arbEvent
+import app.cash.nostrino.model.ArbEvent.arbEventMessage
+import app.cash.nostrino.model.ArbEvent.arbNotice
+import app.cash.nostrino.model.ArbEvent.arbRelayMessage
+import app.cash.nostrino.model.ArbEvent.moshi
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldStartWith
-import io.kotest.property.Arb
-import io.kotest.property.arbitrary.bind
-import io.kotest.property.arbitrary.boolean
-import io.kotest.property.arbitrary.choice
-import io.kotest.property.arbitrary.map
-import io.kotest.property.arbitrary.orNull
-import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
 class NostrMessageAdapterTest : StringSpec({
@@ -91,34 +85,4 @@ class NostrMessageAdapterTest : StringSpec({
       adapter.fromJson(adapter.toJson(it)) shouldBe it
     }
   }
-}) {
-  companion object {
-    val moshi = Moshi.Builder()
-      .add(NostrMessageAdapter())
-      .addLast(KotlinJsonAdapterFactory())
-      .build()
-
-    val arbSubscriptionId = arbUUID.map { it.toString() }
-    val arbEndOfStoredEvents = arbSubscriptionId.map { EndOfStoredEvents(it) }
-    val arbNotice = Arb.string().map { Notice(it) }
-    val arbCommandResult = Arb.bind(
-      arbByteString32,
-      Arb.boolean(),
-      Arb.string().orNull()
-    ) { id, success, message ->
-      CommandResult(id, success, message)
-    }
-
-    val arbEventMessage: Arb<EventMessage> =
-      Arb.bind(arbSubscriptionId, arbEvent) { subscriptionId, event ->
-        EventMessage(subscriptionId, event)
-      }
-
-    val arbRelayMessage = Arb.choice(
-      arbEndOfStoredEvents,
-      arbCommandResult,
-      arbEventMessage,
-      arbNotice
-    )
-  }
-}
+})

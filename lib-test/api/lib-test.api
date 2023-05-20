@@ -10,13 +10,23 @@ public final class app/cash/nostrino/ArbPrimitive {
 
 public final class app/cash/nostrino/crypto/ArbKeys {
 	public static final field INSTANCE Lapp/cash/nostrino/crypto/ArbKeys;
+	public final fun getArbHash ()Lio/kotest/property/Arb;
 	public final fun getArbPubKey ()Lio/kotest/property/Arb;
 	public final fun getArbSecKey ()Lio/kotest/property/Arb;
 }
 
 public final class app/cash/nostrino/model/ArbEvent {
 	public static final field INSTANCE Lapp/cash/nostrino/model/ArbEvent;
+	public final fun getArbCommandResult ()Lio/kotest/property/Arb;
+	public final fun getArbEndOfStoredEvents ()Lio/kotest/property/Arb;
+	public final fun getArbEvent ()Lio/kotest/property/Arb;
 	public final fun getArbEventId ()Lio/kotest/property/Arb;
+	public final fun getArbEventMessage ()Lio/kotest/property/Arb;
+	public final fun getArbEventWithContent ()Lio/kotest/property/Arb;
+	public final fun getArbNotice ()Lio/kotest/property/Arb;
+	public final fun getArbRelayMessage ()Lio/kotest/property/Arb;
+	public final fun getArbSubscriptionId ()Lio/kotest/property/Arb;
+	public final fun getMoshi ()Lcom/squareup/moshi/Moshi;
 }
 
 public final class app/cash/nostrino/model/ArbEventContent {

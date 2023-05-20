@@ -5,8 +5,11 @@ dependencies {
   implementation(project(":lib"))
   implementation(libs.kotestProperty)
 
-  // For primitive types
+  // ByteStrings
   implementation(libs.okIo)
+
+  // JSON
+  implementation(libs.moshi)
 
   // Basic test libraries:
   testImplementation(libs.kotestAssertions)

@@ -1,6 +1,6 @@
 package app.cash.nostrino.model
 
-import app.cash.nostrino.crypto.SecKeyTest
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
 import app.cash.nostrino.model.ArbEventContent.arbReaction
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
@@ -22,6 +22,6 @@ class ReactionTest : StringSpec({
   }
 }) {
   companion object {
-    private val testData = Arb.pair(arbReaction, SecKeyTest.arbSecKey)
+    private val testData = Arb.pair(arbReaction, arbSecKey)
   }
 }

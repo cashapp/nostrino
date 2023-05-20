@@ -3,6 +3,7 @@ package app.cash.nostrino.model
 import app.cash.nostrino.ArbPrimitive
 import app.cash.nostrino.ArbPrimitive.arbByteString32
 import app.cash.nostrino.ArbPrimitive.arbEmoji
+import app.cash.nostrino.ArbPrimitive.arbInstantSeconds
 import app.cash.nostrino.crypto.ArbKeys.arbPubKey
 import app.cash.nostrino.crypto.ArbKeys.arbSecKey
 import app.cash.nostrino.model.ArbEvent.arbEventId
@@ -22,18 +23,6 @@ object ArbEventContent {
 
   val arbEncryptedDm: Arb<EncryptedDm> = Arb.triple(arbSecKey, arbSecKey, Arb.string()).map { (from, to, message) ->
     EncryptedDm(from, to.pubKey, message)
-  }
-
-  val arbFilter: Arb<Filter> = Arb.bind(
-    Arb.set(arbEventId).orNull(),
-    ArbPrimitive.arbInstantSeconds.orNull(),
-    Arb.set(arbPubKey.map { it.key.hex() }).orNull(),
-  ) { ids, since, authors ->
-    Filter(
-      ids = ids,
-      since = since,
-      authors = authors,
-    )
   }
 
   val arbReaction = Arb.triple(arbByteString32, arbPubKey, arbEmoji)
@@ -71,6 +60,18 @@ object ArbEventContent {
     ArbTags.arbEventTag
   ) { content, relays, amount, lnurl, pubKey, event ->
     ZapRequest(content, relays.relays, amount.amount, lnurl.lnurl, pubKey.pubKey, event.eventId)
+  }
+
+  val arbFilter: Arb<Filter> = Arb.bind(
+    Arb.set(arbEventId).orNull(),
+    arbInstantSeconds.orNull(),
+    Arb.set(arbPubKey.map { it.key.hex() }).orNull(),
+  ) { ids, since, authors ->
+    Filter(
+      ids = ids,
+      since = since,
+      authors = authors,
+    )
   }
 
 }

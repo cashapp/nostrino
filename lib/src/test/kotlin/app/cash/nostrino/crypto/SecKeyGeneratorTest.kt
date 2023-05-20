@@ -17,14 +17,11 @@
 
 package app.cash.nostrino.crypto
 
+import app.cash.nostrino.crypto.ArbKeys.arbHash
 import fr.acinq.secp256k1.Secp256k1
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.property.Arb
-import io.kotest.property.arbitrary.map
-import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
-import okio.ByteString.Companion.toByteString
 
 class SecKeyGeneratorTest : StringSpec({
 
@@ -35,10 +32,4 @@ class SecKeyGeneratorTest : StringSpec({
       Secp256k1.get().verifySchnorr(sig.toByteArray(), hash.toByteArray(), sec.pubKey.key.toByteArray()) shouldBe true
     }
   }
-}) {
-  companion object {
-    private val arbHash = Arb.string().map {
-      it.toByteArray(Charsets.UTF_8).toByteString().sha256()
-    }
-  }
-}
+})

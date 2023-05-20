@@ -16,12 +16,12 @@
 
 package app.cash.nostrino.crypto
 
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldMatch
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.arbitrary
 import io.kotest.property.arbitrary.stringPattern
 import io.kotest.property.checkAll
 import okio.ByteString.Companion.toByteString
@@ -65,8 +65,4 @@ class SecKeyTest : StringSpec({
       sec.hex() shouldBe sec.key.hex()
     }
   }
-}) {
-  companion object {
-    val arbSecKey = arbitrary { SecKeyGenerator().generate() }
-  }
-}
+})
