@@ -18,12 +18,12 @@
 package app.cash.nostrino.client
 
 import app.cash.nostrino.crypto.SecKeyGenerator
+import app.cash.nostrino.model.ArbEventContent.arbReaction
+import app.cash.nostrino.model.ArbEventContent.arbTextNote
+import app.cash.nostrino.model.ArbEventContent.arbUserMetaData
 import app.cash.nostrino.model.ArbTags.arbHashTag
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Filter
-import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
-import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
-import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
 import app.cash.turbine.test
 import io.kotest.assertions.fail
 import io.kotest.core.spec.style.StringSpec

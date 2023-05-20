@@ -21,11 +21,11 @@ import app.cash.nostrino.ArbPrimitive.arbByteString64
 import app.cash.nostrino.ArbPrimitive.arbInstantSeconds
 import app.cash.nostrino.crypto.SecKeyGenerator
 import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
+import app.cash.nostrino.model.ArbEventContent.arbReaction
+import app.cash.nostrino.model.ArbEventContent.arbTextNote
+import app.cash.nostrino.model.ArbEventContent.arbUserMetaData
+import app.cash.nostrino.model.ArbEventContent.arbZapRequest
 import app.cash.nostrino.model.EncryptedDmTest.Companion.arbEncryptedDm
-import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
-import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
-import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
-import app.cash.nostrino.model.ZapRequestTest.Companion.arbZapRequest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb

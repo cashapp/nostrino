@@ -17,14 +17,11 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.SecKeyTest.Companion.arbSecKey
-import app.cash.nostrino.model.ArbTags.arbTag
+import app.cash.nostrino.model.ArbEventContent.arbTextNote
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.list
-import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.pair
-import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
 class TextNoteTest : StringSpec({
@@ -39,10 +36,6 @@ class TextNoteTest : StringSpec({
   }
 }) {
   companion object {
-    val arbTextNote: Arb<TextNote> = Arb.pair(
-      Arb.string(minSize = 1),
-      Arb.list(arbTag, 0..5)
-    ).map { (content, tags) -> TextNote(content, tags) }
     private val testData = Arb.pair(arbTextNote, arbSecKey)
   }
 }
