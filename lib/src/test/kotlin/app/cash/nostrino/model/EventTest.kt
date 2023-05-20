@@ -21,11 +21,11 @@ import app.cash.nostrino.ArbPrimitive.arbByteString64
 import app.cash.nostrino.ArbPrimitive.arbInstantSeconds
 import app.cash.nostrino.crypto.SecKeyGenerator
 import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
+import app.cash.nostrino.model.ArbEventContent.arbEncryptedDm
 import app.cash.nostrino.model.ArbEventContent.arbReaction
 import app.cash.nostrino.model.ArbEventContent.arbTextNote
 import app.cash.nostrino.model.ArbEventContent.arbUserMetaData
 import app.cash.nostrino.model.ArbEventContent.arbZapRequest
-import app.cash.nostrino.model.EncryptedDmTest.Companion.arbEncryptedDm
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -108,6 +108,5 @@ class EventTest : StringSpec({
       }
     }
     val arbEvent: Arb<Event> by lazy { arbEventWithContent.map { it.first } }
-    val arbEventId = arbByteString32.map { it.hex() }
   }
 }

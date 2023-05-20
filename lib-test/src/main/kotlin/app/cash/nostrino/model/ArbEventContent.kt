@@ -1,27 +1,42 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.ArbPrimitive
+import app.cash.nostrino.ArbPrimitive.arbByteString32
+import app.cash.nostrino.ArbPrimitive.arbEmoji
 import app.cash.nostrino.crypto.ArbKeys.arbPubKey
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
+import app.cash.nostrino.model.ArbEvent.arbEventId
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.choose
-import io.kotest.property.arbitrary.element
 import io.kotest.property.arbitrary.flatMap
 import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.orNull
 import io.kotest.property.arbitrary.pair
+import io.kotest.property.arbitrary.set
 import io.kotest.property.arbitrary.string
 import io.kotest.property.arbitrary.triple
 
 object ArbEventContent {
 
-  private val emojis: List<Int> by lazy {
-    ArbEventContent::class.java.getResource("/emojis.txt").readText()
-      .lines().filterNot { it.isEmpty() }.map { it.codePointAt(0) }
+  val arbEncryptedDm: Arb<EncryptedDm> = Arb.triple(arbSecKey, arbSecKey, Arb.string()).map { (from, to, message) ->
+    EncryptedDm(from, to.pubKey, message)
   }
-  private val arbEmoji = Arb.element(emojis)
-  val arbReaction = Arb.triple(ArbPrimitive.arbByteString32, arbPubKey, arbEmoji)
+
+  val arbFilter: Arb<Filter> = Arb.bind(
+    Arb.set(arbEventId).orNull(),
+    ArbPrimitive.arbInstantSeconds.orNull(),
+    Arb.set(arbPubKey.map { it.key.hex() }).orNull(),
+  ) { ids, since, authors ->
+    Filter(
+      ids = ids,
+      since = since,
+      authors = authors,
+    )
+  }
+
+  val arbReaction = Arb.triple(arbByteString32, arbPubKey, arbEmoji)
     .flatMap { (e, p, c) ->
       Arb.choose(
         3 to Upvote(e, p),

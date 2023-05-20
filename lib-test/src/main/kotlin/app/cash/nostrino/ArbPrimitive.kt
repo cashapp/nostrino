@@ -3,6 +3,7 @@ package app.cash.nostrino
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.arbitrary
 import io.kotest.property.arbitrary.byte
+import io.kotest.property.arbitrary.element
 import io.kotest.property.arbitrary.instant
 import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
@@ -19,6 +20,11 @@ object ArbPrimitive {
     .map { it.toByteArray().toByteString() }
   val arbByteString64: Arb<ByteString> = Arb.list(Arb.byte(), 64..64)
     .map { it.toByteArray().toByteString() }
+  private val emojis: List<Int> by lazy {
+    ArbPrimitive::class.java.getResource("/emojis.txt").readText()
+      .lines().filterNot { it.isEmpty() }.map { it.codePointAt(0) }
+  }
+  val arbEmoji = Arb.element(emojis)
   val arbInstantSeconds: Arb<Instant> =
     Arb.instant(Instant.EPOCH, Instant.now().plus(5000, ChronoUnit.DAYS))
       .map { it.truncatedTo(ChronoUnit.SECONDS) }
