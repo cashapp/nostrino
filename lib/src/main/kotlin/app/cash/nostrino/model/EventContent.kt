@@ -43,6 +43,11 @@ interface EventContent {
     return Event(id, sec.pubKey.key, createdAt, kind, tagsJson, contentJson, sig)
   }
 
+
+  fun asZapRequest(): ZapRequest? =
+    if (this is ZapRequest) this
+    else null
+
   companion object {
     val jsonListAdapter: JsonAdapter<List<*>> = moshi.adapter(List::class.java)
   }
