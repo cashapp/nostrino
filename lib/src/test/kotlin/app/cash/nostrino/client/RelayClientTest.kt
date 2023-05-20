@@ -53,10 +53,14 @@ class RelayClientTest : StringSpec({
       subscribe(Filter.userNotes(sec.pubKey))
       send(event)
 
-      val actualEvent = notes.first()
-      actualEvent shouldBe event
-      actualEvent.content shouldBe note.text
-      actualEvent.content() shouldBe note
+      notes.test {
+        with(awaitItem()) {
+          this shouldBe event
+          this.content shouldBe note.text
+          this.content() shouldBe note
+        }
+        expectNoEvents()
+      }
 
       stop()
     }
@@ -74,10 +78,14 @@ class RelayClientTest : StringSpec({
       subscribe(Filter.directMessages(alice.pubKey))
       send(event)
 
-      val actualEvent = directMessages.first()
-      actualEvent shouldBe event
-      actualEvent.content shouldBe dm.cipherText.toString()
-      actualEvent.content() shouldBe dm
+      directMessages.test {
+        with(awaitItem()) {
+          this shouldBe event
+          this.content shouldBe dm.cipherText.toString()
+          this.content() shouldBe dm
+        }
+        expectNoEvents()
+      }
 
       stop()
     }
@@ -94,10 +102,14 @@ class RelayClientTest : StringSpec({
       subscribe(Filter.reactions(author = alice.pubKey))
       send(event)
 
-      val actualEvent = reactions.first()
-      actualEvent shouldBe event
-      actualEvent.content shouldBe reaction.toJsonString()
-      actualEvent.content() shouldBe reaction
+      reactions.test {
+        with(awaitItem()) {
+          this shouldBe event
+          this.content shouldBe reaction.toJsonString()
+          this.content() shouldBe reaction
+        }
+        expectNoEvents()
+      }
 
       stop()
     }
@@ -114,10 +126,14 @@ class RelayClientTest : StringSpec({
       subscribe(Filter.reactions(eventId = reaction.eventId))
       send(event)
 
-      val actualEvent = reactions.first()
-      actualEvent shouldBe event
-      actualEvent.content shouldBe reaction.toJsonString()
-      actualEvent.content() shouldBe reaction
+      reactions.test {
+        with(awaitItem()) {
+          this shouldBe event
+          this.content shouldBe reaction.toJsonString()
+          this.content() shouldBe reaction
+        }
+        expectNoEvents()
+      }
 
       stop()
     }
@@ -134,10 +150,14 @@ class RelayClientTest : StringSpec({
       subscribe(Filter.reactions(eventAuthor = reaction.authorPubKey))
       send(event)
 
-      val actualEvent = reactions.first()
-      actualEvent shouldBe event
-      actualEvent.content shouldBe reaction.toJsonString()
-      actualEvent.content() shouldBe reaction
+      reactions.test {
+        with(awaitItem()) {
+          this shouldBe event
+          this.content shouldBe reaction.toJsonString()
+          this.content() shouldBe reaction
+        }
+        expectNoEvents()
+      }
 
       stop()
     }
@@ -153,10 +173,14 @@ class RelayClientTest : StringSpec({
       subscribe(Filter.userMetaData(sec.pubKey))
       send(event)
 
-      val actualEvent = userMetaData.first()
-      actualEvent shouldBe event
-      actualEvent.content shouldBe md.toJsonString()
-      actualEvent.content() shouldBe md
+      userMetaData.test {
+        with(awaitItem()) {
+          this shouldBe event
+          this.content shouldBe md.toJsonString()
+          this.content() shouldBe md
+        }
+        expectNoEvents()
+      }
 
       stop()
     }
@@ -180,10 +204,10 @@ class RelayClientTest : StringSpec({
       send(noteWithoutHashTags.sign(sec))
 
       notes.test {
-        val actualEvent = awaitItem()
-        actualEvent.content shouldBe noteWithHashTags.text
-        actualEvent.content() shouldBe noteWithHashTags
-
+        with(awaitItem()) {
+          this.content shouldBe noteWithHashTags.text
+          this.content() shouldBe noteWithHashTags
+        }
         expectNoEvents()
       }
 
