@@ -1,0 +1,26 @@
+public final class app/cash/nostrino/ArbPrimitive {
+	public static final field INSTANCE Lapp/cash/nostrino/ArbPrimitive;
+	public final fun getArbByteString32 ()Lio/kotest/property/Arb;
+	public final fun getArbByteString64 ()Lio/kotest/property/Arb;
+	public final fun getArbInstantSeconds ()Lio/kotest/property/Arb;
+	public final fun getArbUUID ()Lio/kotest/property/Arb;
+	public final fun getArbVanillaString ()Lio/kotest/property/Arb;
+}
+
+public final class app/cash/nostrino/crypto/ArbKeys {
+	public static final field INSTANCE Lapp/cash/nostrino/crypto/ArbKeys;
+	public final fun getArbPubKey ()Lio/kotest/property/Arb;
+	public final fun getArbSecKey ()Lio/kotest/property/Arb;
+}
+
+public final class app/cash/nostrino/model/ArbTags {
+	public static final field INSTANCE Lapp/cash/nostrino/model/ArbTags;
+	public final fun getArbAmountTag ()Lio/kotest/property/Arb;
+	public final fun getArbEventTag ()Lio/kotest/property/Arb;
+	public final fun getArbHashTag ()Lio/kotest/property/Arb;
+	public final fun getArbLnurlTag ()Lio/kotest/property/Arb;
+	public final fun getArbPubKeyTag ()Lio/kotest/property/Arb;
+	public final fun getArbRelaysTag ()Lio/kotest/property/Arb;
+	public final fun getArbTag ()Lio/kotest/property/Arb;
+}
+

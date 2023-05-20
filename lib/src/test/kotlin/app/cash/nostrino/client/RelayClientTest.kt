@@ -18,23 +18,18 @@
 package app.cash.nostrino.client
 
 import app.cash.nostrino.crypto.SecKeyGenerator
+import app.cash.nostrino.model.ArbTags.arbHashTag
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Filter
-import app.cash.nostrino.model.HashTag
-import app.cash.nostrino.model.Primitives.arbByteString32
 import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
-import app.cash.nostrino.model.TagTest.Companion.arbHashTag
-import app.cash.nostrino.model.TextNote
 import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
 import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
-import app.cash.nostrino.model.UserMetaDataTest.Companion.arbVanillaString
 import app.cash.turbine.test
 import io.kotest.assertions.fail
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.ints.shouldBeLessThan
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.next
 import io.kotest.property.arbitrary.set
 import kotlinx.coroutines.delay

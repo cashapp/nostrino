@@ -16,6 +16,8 @@
 
 package app.cash.nostrino.model
 
+import app.cash.nostrino.ArbPrimitive.arbByteString32
+import app.cash.nostrino.ArbPrimitive.arbUUID
 import app.cash.nostrino.message.NostrMessageAdapter
 import app.cash.nostrino.message.relay.CommandResult
 import app.cash.nostrino.message.relay.EndOfStoredEvents
@@ -23,8 +25,6 @@ import app.cash.nostrino.message.relay.EventMessage
 import app.cash.nostrino.message.relay.Notice
 import app.cash.nostrino.message.relay.RelayMessage
 import app.cash.nostrino.model.EventTest.Companion.arbEvent
-import app.cash.nostrino.model.Primitives.arbByteString32
-import app.cash.nostrino.model.Primitives.arbUUID
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.kotest.core.spec.style.StringSpec

@@ -1,8 +1,8 @@
 package app.cash.nostrino.model
 
+import app.cash.nostrino.ArbPrimitive.arbInstantSeconds
 import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
 import app.cash.nostrino.model.EventTest.Companion.arbEventId
-import app.cash.nostrino.model.Primitives.arbInstantSeconds
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb

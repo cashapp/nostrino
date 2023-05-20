@@ -1,8 +1,8 @@
 package app.cash.nostrino.model
 
+import app.cash.nostrino.ArbPrimitive.arbByteString32
 import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
 import app.cash.nostrino.crypto.SecKeyTest
-import app.cash.nostrino.model.Primitives.arbByteString32
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe

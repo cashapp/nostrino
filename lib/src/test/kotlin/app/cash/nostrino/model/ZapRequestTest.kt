@@ -2,11 +2,11 @@ package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.SecKeyTest.Companion.arbSecKey
 import app.cash.nostrino.message.NostrMessageAdapter
-import app.cash.nostrino.model.TagTest.Companion.arbAmountTag
-import app.cash.nostrino.model.TagTest.Companion.arbEventTag
-import app.cash.nostrino.model.TagTest.Companion.arbLnurlTag
-import app.cash.nostrino.model.TagTest.Companion.arbPubKeyTag
-import app.cash.nostrino.model.TagTest.Companion.arbRelaysTag
+import app.cash.nostrino.model.ArbTags.arbAmountTag
+import app.cash.nostrino.model.ArbTags.arbEventTag
+import app.cash.nostrino.model.ArbTags.arbLnurlTag
+import app.cash.nostrino.model.ArbTags.arbPubKeyTag
+import app.cash.nostrino.model.ArbTags.arbRelaysTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
