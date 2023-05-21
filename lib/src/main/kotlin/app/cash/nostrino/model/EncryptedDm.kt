@@ -20,7 +20,10 @@ import app.cash.nostrino.crypto.CipherText
 import app.cash.nostrino.crypto.PubKey
 import app.cash.nostrino.crypto.SecKey
 
-/** An encrypted direct message. Event kind 4, as defined in nip-04. */
+/**
+ * An encrypted direct message. Event kind 4, as defined in
+ * [nip-04](https://github.com/nostr-protocol/nips/blob/master/04.md).
+ */
 data class EncryptedDm(
   val to: PubKey,
   val cipherText: CipherText,

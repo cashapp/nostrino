@@ -20,7 +20,10 @@ package app.cash.nostrino.model
 import app.cash.nostrino.crypto.PubKey
 import okio.ByteString
 
-/** A reaction to an event. Event kind 7 as defined in [nip-25](https://github.com/nostr-protocol/nips/blob/master/25.md#nip-25). */
+/**
+ * A reaction to an event. Event kind 7, as defined in
+ * [nip-25](https://github.com/nostr-protocol/nips/blob/master/25.md#nip-25).
+ */
 sealed class Reaction(
   codePoint: Int,
   open val eventId: ByteString,
