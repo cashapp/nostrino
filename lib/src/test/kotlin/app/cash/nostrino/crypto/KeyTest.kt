@@ -16,8 +16,8 @@
 
 package app.cash.nostrino.crypto
 
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
 import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
-import app.cash.nostrino.crypto.SecKeyTest.Companion.arbSecKey
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb

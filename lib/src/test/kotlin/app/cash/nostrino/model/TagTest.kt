@@ -1,21 +1,20 @@
 package app.cash.nostrino.model
 
-import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
-import app.cash.nostrino.model.Primitives.arbByteString32
-import app.cash.nostrino.model.UserMetaDataTest.Companion.arbVanillaString
+import app.cash.nostrino.model.ArbTags.arbAmountTag
+import app.cash.nostrino.model.ArbTags.arbEventTag
+import app.cash.nostrino.model.ArbTags.arbHashTag
+import app.cash.nostrino.model.ArbTags.arbLnurlTag
+import app.cash.nostrino.model.ArbTags.arbPubKeyTag
+import app.cash.nostrino.model.ArbTags.arbRelaysTag
+import app.cash.nostrino.model.ArbTags.arbTag
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.char
-import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.filterNot
-import io.kotest.property.arbitrary.int
-import io.kotest.property.arbitrary.list
-import io.kotest.property.arbitrary.long
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.pair
-import io.kotest.property.arbitrary.take
 import io.kotest.property.checkAll
 
 class TagTest : StringSpec({
@@ -80,15 +79,4 @@ class TagTest : StringSpec({
     }
   }
 
-}) {
-
-  companion object {
-    val arbEventTag: Arb<EventTag> = arbByteString32.map { EventTag(it) }
-    val arbPubKeyTag: Arb<PubKeyTag> = arbPubKey.map { PubKeyTag(it) }
-    val arbHashTag: Arb<HashTag> = arbVanillaString.map { HashTag(it.replace(" ", "")) }
-    val arbRelaysTag: Arb<RelaysTag> = Arb.list(arbVanillaString, range = 1..10).map(::RelaysTag)
-    val arbAmountTag: Arb<AmountTag> = Arb.long(min = 1L).map { AmountTag(it) }
-    val arbLnurlTag: Arb<LnurlTag> = arbVanillaString.map(::LnurlTag)
-    val arbTag: Arb<Tag> = Arb.choice(arbEventTag, arbPubKeyTag, arbHashTag, arbRelaysTag, arbAmountTag, arbLnurlTag)
-  }
-}
+})

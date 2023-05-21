@@ -12,3 +12,4 @@ gradleEnterprise {
 }
 
 include(":lib")
+include(":lib-test")

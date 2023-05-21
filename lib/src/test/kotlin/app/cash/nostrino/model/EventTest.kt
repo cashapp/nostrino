@@ -18,21 +18,10 @@ package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.SecKeyGenerator
 import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
-import app.cash.nostrino.model.EncryptedDmTest.Companion.arbEncryptedDm
-import app.cash.nostrino.model.Primitives.arbByteString32
-import app.cash.nostrino.model.Primitives.arbByteString64
-import app.cash.nostrino.model.Primitives.arbInstantSeconds
-import app.cash.nostrino.model.ReactionTest.Companion.arbReaction
-import app.cash.nostrino.model.TextNoteTest.Companion.arbTextNote
-import app.cash.nostrino.model.UserMetaDataTest.Companion.arbUserMetaData
-import app.cash.nostrino.model.ZapRequestTest.Companion.arbZapRequest
+import app.cash.nostrino.model.ArbEvent.arbEventWithContent
+import app.cash.nostrino.model.ArbEventContent.arbTextNote
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
-import io.kotest.property.Arb
-import io.kotest.property.arbitrary.bind
-import io.kotest.property.arbitrary.choice
-import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.next
 import io.kotest.property.checkAll
 
@@ -78,37 +67,4 @@ class EventTest : StringSpec({
 
     event?.validSignature shouldBe true
   }
-}) {
-  companion object {
-    private val arbEventContent = Arb.choice(
-      arbTextNote,
-      arbEncryptedDm,
-      arbUserMetaData,
-      arbReaction,
-      arbZapRequest
-    )
-
-    val arbEventWithContent: Arb<Pair<Event, EventContent>> by lazy {
-      Arb.bind(
-        arbByteString32,
-        arbByteString32,
-        arbInstantSeconds,
-        arbEventContent,
-        arbByteString64
-      ) { id, pubKey, createdAt, content, sig ->
-        val event = Event(
-          id = id,
-          pubKey = pubKey,
-          createdAt = createdAt,
-          kind = content.kind,
-          tags = content.tags.map { it.toJsonList() },
-          content = content.toJsonString(),
-          sig = sig
-        )
-        event to content
-      }
-    }
-    val arbEvent: Arb<Event> by lazy { arbEventWithContent.map { it.first } }
-    val arbEventId = arbByteString32.map { it.hex() }
-  }
-}
+})

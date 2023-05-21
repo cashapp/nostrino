@@ -1,19 +1,13 @@
 package app.cash.nostrino.model
 
-import app.cash.nostrino.crypto.SecKeyTest.Companion.arbSecKey
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
 import app.cash.nostrino.message.NostrMessageAdapter
-import app.cash.nostrino.model.TagTest.Companion.arbAmountTag
-import app.cash.nostrino.model.TagTest.Companion.arbEventTag
-import app.cash.nostrino.model.TagTest.Companion.arbLnurlTag
-import app.cash.nostrino.model.TagTest.Companion.arbPubKeyTag
-import app.cash.nostrino.model.TagTest.Companion.arbRelaysTag
+import app.cash.nostrino.model.ArbEventContent.arbZapRequest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.pair
-import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
 class ZapRequestTest : StringSpec({
@@ -25,7 +19,6 @@ class ZapRequestTest : StringSpec({
       event.tags shouldBe zapRequest.tags.map { it.toJsonList() }
     }
   }
-
 
   "can be deserialised" {
     val rawEvent = """
@@ -52,16 +45,6 @@ class ZapRequestTest : StringSpec({
 
 }) {
   companion object {
-    val arbZapRequest = Arb.bind(
-      Arb.string(minSize = 1),
-      arbRelaysTag,
-      arbAmountTag,
-      arbLnurlTag,
-      arbPubKeyTag,
-      arbEventTag
-    ) { content, relays, amount, lnurl, pubKey, event ->
-      ZapRequest(content, relays.relays, amount.amount, lnurl.lnurl, pubKey.pubKey, event.eventId)
-    }
     private val testData = Arb.pair(arbZapRequest, arbSecKey)
   }
 }

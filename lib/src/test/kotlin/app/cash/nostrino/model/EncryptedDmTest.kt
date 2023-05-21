@@ -16,12 +16,11 @@
 
 package app.cash.nostrino.model
 
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
 import app.cash.nostrino.crypto.SecKey
-import app.cash.nostrino.crypto.SecKeyTest.Companion.arbSecKey
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
 import io.kotest.property.arbitrary.triple
 import io.kotest.property.checkAll
@@ -39,9 +38,5 @@ class EncryptedDmTest : StringSpec({
 }) {
   companion object {
     private val arbTestData: Arb<Triple<SecKey, SecKey, String>> = Arb.triple(arbSecKey, arbSecKey, Arb.string())
-
-    val arbEncryptedDm: Arb<EncryptedDm> = arbTestData.map { (from, to, message) ->
-      EncryptedDm(from, to.pubKey, message)
-    }
   }
 }

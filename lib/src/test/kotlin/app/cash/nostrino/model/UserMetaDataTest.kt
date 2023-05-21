@@ -16,14 +16,12 @@
 
 package app.cash.nostrino.model
 
-import app.cash.nostrino.crypto.SecKeyTest.Companion.arbSecKey
+import app.cash.nostrino.crypto.ArbKeys.arbSecKey
+import app.cash.nostrino.model.ArbEventContent.arbUserMetaData
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.bind
-import io.kotest.property.arbitrary.orNull
 import io.kotest.property.arbitrary.pair
-import io.kotest.property.arbitrary.stringPattern
 import io.kotest.property.checkAll
 
 class UserMetaDataTest : StringSpec({
@@ -38,18 +36,6 @@ class UserMetaDataTest : StringSpec({
   }
 }) {
   companion object {
-    val arbVanillaString = Arb.stringPattern("[a-zA-Z0-9 ]+")
-    val arbUserMetaData = Arb.bind(
-      arbVanillaString.orNull(),
-      arbVanillaString.orNull(),
-      arbVanillaString.orNull(),
-      arbVanillaString.orNull(),
-      arbVanillaString.orNull(),
-      arbVanillaString.orNull(),
-      arbVanillaString.orNull()
-    ) { name, about, picture, nip05, banner, displayName, website ->
-      UserMetaData(name, about, picture, nip05, banner, displayName, website)
-    }
     private val testData = Arb.pair(arbUserMetaData, arbSecKey)
   }
 }

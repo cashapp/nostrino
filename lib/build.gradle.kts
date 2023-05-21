@@ -3,8 +3,8 @@ import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import org.jetbrains.dokka.gradle.DokkaTask
-import java.net.URL
 import java.net.ServerSocket
+import java.net.URL
 
 plugins {
   `java-library`
@@ -32,6 +32,7 @@ dependencies {
   testRuntimeOnly(libs.slf4jSimple)
 
   // Basic test libraries:
+  testImplementation(project(":lib-test"))
   testImplementation(libs.kotestAssertions)
   testImplementation(libs.kotestJunitRunnerJvm)
   testImplementation(libs.kotestProperty)
