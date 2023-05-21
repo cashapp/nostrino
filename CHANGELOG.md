@@ -4,6 +4,7 @@ Change Log
 Next release
 ----------------------------
 
+* Add support for event deletion requests events.
 * Add support for Zap requests as part of NIP-57
 
 Version 0.0.4 *(2023-05-18)*
