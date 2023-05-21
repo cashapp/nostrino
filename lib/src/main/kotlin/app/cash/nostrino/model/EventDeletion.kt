@@ -19,6 +19,10 @@ package app.cash.nostrino.model
 
 import okio.ByteString
 
+/**
+ * An event deletion request message. Event kind 5, as defined in
+ * [nip-09](https://github.com/nostr-protocol/nips/blob/master/09.md).
+ */
 data class EventDeletion(
   val message: String = "",
   val eventIds: Set<ByteString>,

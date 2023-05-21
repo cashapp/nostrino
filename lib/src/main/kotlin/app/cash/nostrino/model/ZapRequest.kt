@@ -20,6 +20,10 @@ package app.cash.nostrino.model
 import app.cash.nostrino.crypto.PubKey
 import okio.ByteString
 
+/**
+ * Zap request. Event kind 9734, as defined in
+ * [nip-57](https://github.com/nostr-protocol/nips/blob/master/57.md).
+ */
 data class ZapRequest(
   val content: String,
   val relays: List<String>,
