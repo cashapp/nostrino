@@ -4,7 +4,11 @@ Change Log
 Next release
 ----------------------------
 
+Version 0.0.5 *(2023-05-21)*
+----------------------------
+
 * Add support for Zap requests as part of NIP-57
+* Release nostr-sdk-test package, which provides kotest-property Arb(itrary) builders for testing applications using nostr-sdk. 
 
 Version 0.0.4 *(2023-05-18)*
 ----------------------------
