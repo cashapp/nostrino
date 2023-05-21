@@ -28,12 +28,12 @@ import io.kotest.property.arbitrary.map
 
 object ArbTags {
 
-  val arbEventTag: Arb<EventTag> = arbByteString32.map { EventTag(it) }
-  val arbPubKeyTag: Arb<PubKeyTag> = arbPubKey.map { PubKeyTag(it) }
-  val arbHashTag: Arb<HashTag> = arbVanillaString.map { HashTag(it.replace(" ", "")) }
-  val arbRelaysTag: Arb<RelaysTag> = Arb.list(arbVanillaString, range = 1..10).map(::RelaysTag)
-  val arbAmountTag: Arb<AmountTag> = Arb.long(min = 1L).map { AmountTag(it) }
-  val arbLnurlTag: Arb<LnurlTag> = arbVanillaString.map(::LnurlTag)
-  val arbTag: Arb<Tag> = Arb.choice(arbEventTag, arbPubKeyTag, arbHashTag, arbRelaysTag, arbAmountTag, arbLnurlTag)
+  val arbEventTag: Arb<EventTag> by lazy { arbByteString32.map { EventTag(it) } }
+  val arbPubKeyTag: Arb<PubKeyTag> by lazy { arbPubKey.map { PubKeyTag(it) } }
+  val arbHashTag: Arb<HashTag> by lazy { arbVanillaString.map { HashTag(it.replace(" ", "")) } }
+  val arbRelaysTag: Arb<RelaysTag> by lazy { Arb.list(arbVanillaString, range = 1..10).map(::RelaysTag) }
+  val arbAmountTag: Arb<AmountTag> by lazy { Arb.long(min = 1L).map { AmountTag(it) } }
+  val arbLnUrlTag: Arb<LnUrlTag> by lazy { arbVanillaString.map(::LnUrlTag) }
+  val arbTag: Arb<Tag> by lazy { Arb.choice(arbEventTag, arbPubKeyTag, arbHashTag, arbRelaysTag, arbAmountTag, arbLnUrlTag) }
 
 }

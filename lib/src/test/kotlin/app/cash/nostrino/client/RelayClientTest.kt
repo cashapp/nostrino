@@ -23,6 +23,7 @@ import app.cash.nostrino.model.ArbEventContent.arbTextNote
 import app.cash.nostrino.model.ArbEventContent.arbUserMetaData
 import app.cash.nostrino.model.ArbTags.arbHashTag
 import app.cash.nostrino.model.EncryptedDm
+import app.cash.nostrino.model.EventDeletion
 import app.cash.nostrino.model.Filter
 import app.cash.turbine.test
 import io.kotest.assertions.fail
@@ -33,7 +34,6 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.next
 import io.kotest.property.arbitrary.set
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class RelayClientTest : StringSpec({
@@ -203,6 +203,26 @@ class RelayClientTest : StringSpec({
           this.content shouldBe noteWithHashTags.text
           this.content() shouldBe noteWithHashTags
         }
+        expectNoEvents()
+      }
+
+      stop()
+    }
+  }
+
+  "can issue event deletion requests" {
+    val sec = SecKeyGenerator().generate()
+    val note = arbTextNote.next().sign(sec)
+    val deletion = EventDeletion("redact!", setOf(note.id))
+
+    with(RelayClient("ws://localhost:7707")) {
+      start()
+      send(note)
+      send(deletion.sign(sec))
+
+      subscribe(Filter.userNotes(sec.pubKey))
+
+      notes.test {
         expectNoEvents()
       }
 

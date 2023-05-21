@@ -17,29 +17,19 @@
 
 package app.cash.nostrino.model
 
-import app.cash.nostrino.crypto.PubKey
 import okio.ByteString
 
-data class ZapRequest(
-  val content: String,
-  val relays: List<String>,
-  val amount: Long?,
-  val lnurl: String?,
-  val to: PubKey,
-  val eventId: ByteString?,
-  override val tags: List<Tag> = listOfNotNull(
-    RelaysTag(relays),
-    amount?.let(::AmountTag),
-    lnurl?.let(::LnUrlTag),
-    PubKeyTag(to),
-    eventId?.let(::EventTag)
-  )
+data class EventDeletion(
+  val message: String = "",
+  val eventIds: Set<ByteString>,
+  override val tags: List<Tag> = eventIds.map { EventTag(it) }
 ) : EventContent {
-  override val kind = Companion.kind
 
-  override fun toJsonString() = content
+  override val kind: Int = EventDeletion.kind
+
+  override fun toJsonString(): String = message
 
   companion object {
-    const val kind = 9734
+    const val kind = 5
   }
 }
