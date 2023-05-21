@@ -20,12 +20,12 @@ at [https://cashapp.github.io/nostrino](https://cashapp.github.io/nostrino)
 | Supported | NIP                                                                                                                              |
 |:---------:|----------------------------------------------------------------------------------------------------------------------------------|
 | ✅        | [01 - Basic protocol flow description](https://github.com/nostr-protocol/nips/blob/master/01.md)                                 |
-| 🗅         | [02 - Contact List and Petnames](https://github.com/nostr-protocol/nips/blob/master/02.md)                                       |
+| 🚧        | [02 - Contact List and Petnames](https://github.com/nostr-protocol/nips/blob/master/02.md)                                       |
 | 🗅         | [03 - OpenTimestamps Attestations for Events](https://github.com/nostr-protocol/nips/blob/master/03.md)                          |
 | ✅        | [04 - Encrypted Direct Message](https://github.com/nostr-protocol/nips/blob/master/04.md)                                        |
 | 🗅         | [05 - Mapping Nostr keys to DNS-based internet identifiers](https://github.com/nostr-protocol/nips/blob/master/05.md)            |
 | 🗅         | [06 - Basic key derivation from mnemonic seed phrase](https://github.com/nostr-protocol/nips/blob/master/06.md)                  |
-| 🗅         | [09 - Event Deletion](https://github.com/nostr-protocol/nips/blob/master/09.md)                                                  |
+| ✅        | [09 - Event Deletion](https://github.com/nostr-protocol/nips/blob/master/09.md)                                                  |
 | 🗅         | [10 - Conventions for clients' use of `e` and `p` tags in text events](https://github.com/nostr-protocol/nips/blob/master/10.md) |
 | 🗅         | [11 - Relay Information Document](https://github.com/nostr-protocol/nips/blob/master/11.md)                                      |
 | 🗅         | [12 - Generic Tag Queries](https://github.com/nostr-protocol/nips/blob/master/12.md)                                             |
@@ -48,7 +48,7 @@ at [https://cashapp.github.io/nostrino](https://cashapp.github.io/nostrino)
 | 🗅         | [50 - Keywords filter](https://github.com/nostr-protocol/nips/blob/master/50.md)                                                 |
 | 🗅         | [56 - Reporting](https://github.com/nostr-protocol/nips/blob/master/56.md)                                                       |
 | 🗅         | [65 - Relay List Metadata](https://github.com/nostr-protocol/nips/blob/master/65.md)                                             |
-| 🚧       | [57 - Lightning Zaps](https://github.com/nostr-protocol/nips/blob/master/57.md)                                                  |
+| ✅       | [57 - Lightning Zaps](https://github.com/nostr-protocol/nips/blob/master/57.md)                                                  |
 
 
 

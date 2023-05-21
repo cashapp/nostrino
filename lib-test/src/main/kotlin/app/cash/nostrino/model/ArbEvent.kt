@@ -2,6 +2,7 @@ package app.cash.nostrino.model
 
 import app.cash.nostrino.ArbPrimitive
 import app.cash.nostrino.ArbPrimitive.arbByteString32
+import app.cash.nostrino.ArbPrimitive.arbUUID
 import app.cash.nostrino.message.NostrMessageAdapter
 import app.cash.nostrino.message.relay.CommandResult
 import app.cash.nostrino.message.relay.EndOfStoredEvents
@@ -23,14 +24,18 @@ object ArbEvent {
     .addLast(KotlinJsonAdapterFactory())
     .build()
 
-  val arbEventId = arbByteString32.map { it.hex() }
-  private val arbEventContent = Arb.choice(
-    ArbEventContent.arbTextNote,
-    ArbEventContent.arbEncryptedDm,
-    ArbEventContent.arbUserMetaData,
-    ArbEventContent.arbReaction,
-    ArbEventContent.arbZapRequest
-  )
+  val arbEventId by lazy { arbByteString32.map { it.hex() } }
+
+  private val arbEventContent: Arb<EventContent> by lazy {
+    Arb.choice(
+      ArbEventContent.arbTextNote,
+      ArbEventContent.arbEncryptedDm,
+      ArbEventContent.arbEventDeletion,
+      ArbEventContent.arbUserMetaData,
+      ArbEventContent.arbReaction,
+      ArbEventContent.arbZapRequest
+    )
+  }
 
   val arbEventWithContent: Arb<Pair<Event, EventContent>> by lazy {
     Arb.bind(
@@ -54,7 +59,7 @@ object ArbEvent {
   }
   val arbEvent: Arb<Event> by lazy { arbEventWithContent.map { it.first } }
 
-  val arbSubscriptionId = ArbPrimitive.arbUUID.map { it.toString() }
+  val arbSubscriptionId = arbUUID.map { it.toString() }
   val arbEndOfStoredEvents = arbSubscriptionId.map { EndOfStoredEvents(it) }
   val arbNotice = Arb.string().map { Notice(it) }
   val arbCommandResult = Arb.bind(

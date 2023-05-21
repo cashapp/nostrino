@@ -17,7 +17,7 @@ sealed interface Tag {
         "p" -> PubKeyTag(PubKey(value.decodeHex()))
         "t" -> HashTag(value)
         "amount" -> AmountTag(value.toLong())
-        "lnurl" -> LnurlTag(value)
+        "lnurl" -> LnUrlTag(value)
         "relays" -> RelaysTag(values)
         else -> throw IllegalArgumentException("Invalid tag format: $strings")
       }
@@ -45,6 +45,6 @@ data class AmountTag(val amount: Long) : Tag {
   override fun toJsonList() = listOf("amount", amount.toString())
 }
 
-data class LnurlTag(val lnurl: String) : Tag {
+data class LnUrlTag(val lnurl: String) : Tag {
   override fun toJsonList() = listOf("lnurl", lnurl)
 }

@@ -13,7 +13,7 @@ data class ZapRequest(
   override val tags: List<Tag> = listOfNotNull(
     RelaysTag(relays),
     amount?.let(::AmountTag),
-    lnurl?.let(::LnurlTag),
+    lnurl?.let(::LnUrlTag),
     PubKeyTag(to),
     eventId?.let(::EventTag)
   )

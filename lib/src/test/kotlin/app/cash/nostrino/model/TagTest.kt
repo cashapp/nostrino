@@ -3,7 +3,7 @@ package app.cash.nostrino.model
 import app.cash.nostrino.model.ArbTags.arbAmountTag
 import app.cash.nostrino.model.ArbTags.arbEventTag
 import app.cash.nostrino.model.ArbTags.arbHashTag
-import app.cash.nostrino.model.ArbTags.arbLnurlTag
+import app.cash.nostrino.model.ArbTags.arbLnUrlTag
 import app.cash.nostrino.model.ArbTags.arbPubKeyTag
 import app.cash.nostrino.model.ArbTags.arbRelaysTag
 import app.cash.nostrino.model.ArbTags.arbTag
@@ -49,7 +49,7 @@ class TagTest : StringSpec({
   }
 
   "lnurltag json list should be t :: label" {
-    checkAll(arbLnurlTag) { tag ->
+    checkAll(arbLnUrlTag) { tag ->
       tag.toJsonList() shouldBe listOf("lnurl", tag.lnurl)
     }
   }
