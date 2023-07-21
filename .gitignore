@@ -4,7 +4,6 @@
 build/
 *.iml
 *.swp
-polyrepo-settings.gradle
 dev/
 docker-sources/
 # This repo uses a hermit-managed gradle, so we don't want any gradle wrapper files checked in. For details,
