@@ -23,6 +23,7 @@ import app.cash.nostrino.ArbPrimitive.arbInstantSeconds
 import app.cash.nostrino.ArbPrimitive.arbVanillaString
 import app.cash.nostrino.crypto.ArbKeys.arbPubKey
 import app.cash.nostrino.crypto.ArbKeys.arbSecKey
+import app.cash.nostrino.model.ArbEvent.arbEvent
 import app.cash.nostrino.model.ArbEvent.arbEventId
 import app.cash.nostrino.model.ArbTags.arbAmountTag
 import app.cash.nostrino.model.ArbTags.arbEventTag
@@ -98,6 +99,18 @@ object ArbEventContent {
       arbEventTag
     ) { content, relays, amount, lnurl, pubKey, event ->
       ZapRequest(content, relays.relays, amount.amount, lnurl.lnurl, pubKey.pubKey, event.eventId)
+    }
+  }
+
+  val arbZapReceipt: Arb<ZapReceipt> by lazy {
+    Arb.bind(
+      arbPubKeyTag,
+      arbEventTag,
+      arbVanillaString,
+      arbEvent,
+      arbByteString32
+    ) { pubkey, eventTag, bolt11, event, preimage ->
+      ZapReceipt(pubkey.pubKey, eventTag.eventId, bolt11, event.copy(kind = ZapRequest.kind), preimage)
     }
   }
 
