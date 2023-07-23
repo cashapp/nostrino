@@ -55,7 +55,7 @@ class ZapReceiptTest : StringSpec({
           "sig": "b0a3c5c984ceb777ac455b2f659505df51585d5fd97a0ec1fdb5f3347d392080d4b420240434a3afd909207195dac1e2f7e3df26ba862a45afd8bfe101c2b1cc"
       }
     """.trimIndent()
-    val event = NostrMessageAdapter.moshi.adapter(Event::class.java).fromJson(rawEvent)
+    val event = Event.fromJson(rawEvent)
 
     event?.content().shouldBeInstanceOf<ZapReceipt>()
   }

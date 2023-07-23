@@ -82,9 +82,17 @@ data class Event(
     }
   }
 
+  fun toJson(): String {
+    return moshi.adapter(Event::class.java).toJson(this)
+  }
+
   companion object {
     private val adapters = mapOf(
       UserMetaData.kind to moshi.adapter(UserMetaData::class.java),
     )
+
+    fun fromJson(json: String): Event? {
+      return moshi.adapter(Event::class.java).fromJson(json)
+    }
   }
 }

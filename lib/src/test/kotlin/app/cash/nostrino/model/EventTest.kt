@@ -63,8 +63,20 @@ class EventTest : StringSpec({
         "tags": []
       }
     """.trimIndent()
-    val event = moshi.adapter(Event::class.java).fromJson(rawEvent)
+    val event = Event.fromJson(rawEvent)
 
     event?.validSignature shouldBe true
+  }
+
+  "toJson returns valid event json" {
+    checkAll(arbTextNote) {note ->
+      val sec = SecKeyGenerator().generate()
+      val event = note.sign(sec)
+
+      val json = event.toJson()
+
+      val parsedEvent = Event.fromJson(json)!!
+      parsedEvent shouldBe event
+    }
   }
 })
