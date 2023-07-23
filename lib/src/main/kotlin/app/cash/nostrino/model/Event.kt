@@ -67,11 +67,11 @@ data class Event(
         val bolt11 = tags.filterIsInstance<Bolt11Tag>().firstOrNull()?.bolt11
         val description = tags.filterIsInstance<ZapReceiptDescriptionTag>().firstOrNull()?.description
 
-        require(bolt11 != null) {
+        requireNotNull(bolt11 ) {
           "ZapReceipt event must have a bolt11 tag"
         }
 
-        require(description != null) {
+        requireNotNull(description) {
           "ZapReceipt event must have a description tag"
         }
 
