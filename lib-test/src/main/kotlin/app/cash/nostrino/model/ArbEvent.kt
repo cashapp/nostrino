@@ -43,7 +43,7 @@ object ArbEvent {
 
   val arbEventId by lazy { arbByteString32.map { it.hex() } }
 
-  private val arbEventContent: Arb<EventContent> by lazy {
+  val arbEventContent: Arb<EventContent> by lazy {
     Arb.choice(
       ArbEventContent.arbTextNote,
       ArbEventContent.arbEncryptedDm,

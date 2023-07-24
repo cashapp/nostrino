@@ -18,7 +18,6 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.ArbKeys.arbSecKey
-import app.cash.nostrino.message.NostrMessageAdapter
 import app.cash.nostrino.model.ArbEventContent.arbZapRequest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -55,7 +54,7 @@ class ZapRequestTest : StringSpec({
          "sig": "f2cb581a84ed10e4dc84937bd98e27acac71ab057255f6aa8dfa561808c981fe8870f4a03c1e3666784d82a9c802d3704e174371aa13d63e2aeaf24ff5374d9d"
        }
     """.trimIndent()
-    val event = NostrMessageAdapter.moshi.adapter(Event::class.java).fromJson(rawEvent)
+    val event = Event.fromJson(rawEvent)
 
     event?.content().shouldBeInstanceOf<ZapRequest>()
   }

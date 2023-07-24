@@ -40,7 +40,7 @@ sealed interface Tag {
         "bolt11" -> Bolt11Tag(value)
         "preimage" -> PreimageTag(value.decodeHex())
         "description" -> {
-          val event = moshi.adapter(Event::class.java).fromJson(value)
+          val event = Event.fromJson(value)
           require(event != null) { "Invalid tag format: $strings" }
 
           ZapReceiptDescriptionTag(event)
@@ -86,6 +86,6 @@ data class PreimageTag(val preimage: ByteString) : Tag {
 
 data class ZapReceiptDescriptionTag(val description: Event) : Tag {
   override fun toJsonList(): List<String> = listOf(
-    "description", moshi.adapter(Event::class.java).toJson(description),
+    "description", description.toJson(),
   )
 }

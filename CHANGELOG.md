@@ -4,6 +4,7 @@ Change Log
 Next release
 ----------------------------
 * Add support for Zap receipts as part of NIP-57
+* Add support for serializing and deserializing events
 
 Version 0.0.5 *(2023-05-21)*
 ----------------------------

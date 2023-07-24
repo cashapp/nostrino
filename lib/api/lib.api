@@ -376,10 +376,12 @@ public final class app/cash/nostrino/model/Event {
 	public final fun getTags ()Ljava/util/List;
 	public final fun getValidSignature ()Z
 	public fun hashCode ()I
+	public final fun toJson ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class app/cash/nostrino/model/Event$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lapp/cash/nostrino/model/Event;
 }
 
 public abstract interface class app/cash/nostrino/model/EventContent {
