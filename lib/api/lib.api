@@ -280,6 +280,18 @@ public final class app/cash/nostrino/model/AmountTag : app/cash/nostrino/model/T
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class app/cash/nostrino/model/Bolt11Tag : app/cash/nostrino/model/Tag {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/cash/nostrino/model/Bolt11Tag;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/Bolt11Tag;Ljava/lang/String;ILjava/lang/Object;)Lapp/cash/nostrino/model/Bolt11Tag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBolt11 ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toJsonList ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class app/cash/nostrino/model/Downvote : app/cash/nostrino/model/Reaction {
 	public fun <init> (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;)V
 	public synthetic fun <init> (Lokio/ByteString;Lapp/cash/nostrino/crypto/PubKey;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -494,6 +506,18 @@ public final class app/cash/nostrino/model/LnUrlTag : app/cash/nostrino/model/Ta
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class app/cash/nostrino/model/PreimageTag : app/cash/nostrino/model/Tag {
+	public fun <init> (Lokio/ByteString;)V
+	public final fun component1 ()Lokio/ByteString;
+	public final fun copy (Lokio/ByteString;)Lapp/cash/nostrino/model/PreimageTag;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/PreimageTag;Lokio/ByteString;ILjava/lang/Object;)Lapp/cash/nostrino/model/PreimageTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPreimage ()Lokio/ByteString;
+	public fun hashCode ()I
+	public fun toJsonList ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class app/cash/nostrino/model/PubKeyTag : app/cash/nostrino/model/Tag {
 	public fun <init> (Lapp/cash/nostrino/crypto/PubKey;)V
 	public final fun component1 ()Lapp/cash/nostrino/crypto/PubKey;
@@ -619,6 +643,49 @@ public final class app/cash/nostrino/model/UserMetaData : app/cash/nostrino/mode
 }
 
 public final class app/cash/nostrino/model/UserMetaData$Companion {
+}
+
+public final class app/cash/nostrino/model/ZapReceipt : app/cash/nostrino/model/EventContent {
+	public static final field Companion Lapp/cash/nostrino/model/ZapReceipt$Companion;
+	public static final field kind I
+	public fun <init> (Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/lang/String;Lapp/cash/nostrino/model/Event;Lokio/ByteString;Ljava/util/List;)V
+	public synthetic fun <init> (Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/lang/String;Lapp/cash/nostrino/model/Event;Lokio/ByteString;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun asZapRequest ()Lapp/cash/nostrino/model/ZapRequest;
+	public final fun component1 ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun component2 ()Lokio/ByteString;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lapp/cash/nostrino/model/Event;
+	public final fun component5 ()Lokio/ByteString;
+	public final fun component6 ()Ljava/util/List;
+	public final fun copy (Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/lang/String;Lapp/cash/nostrino/model/Event;Lokio/ByteString;Ljava/util/List;)Lapp/cash/nostrino/model/ZapReceipt;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/ZapReceipt;Lapp/cash/nostrino/crypto/PubKey;Lokio/ByteString;Ljava/lang/String;Lapp/cash/nostrino/model/Event;Lokio/ByteString;Ljava/util/List;ILjava/lang/Object;)Lapp/cash/nostrino/model/ZapReceipt;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBolt11 ()Ljava/lang/String;
+	public final fun getEventId ()Lokio/ByteString;
+	public fun getKind ()I
+	public final fun getPreimage ()Lokio/ByteString;
+	public fun getTags ()Ljava/util/List;
+	public final fun getTo ()Lapp/cash/nostrino/crypto/PubKey;
+	public final fun getZapRequest ()Lapp/cash/nostrino/model/Event;
+	public fun hashCode ()I
+	public fun sign (Lapp/cash/nostrino/crypto/SecKey;)Lapp/cash/nostrino/model/Event;
+	public fun toJsonString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/nostrino/model/ZapReceipt$Companion {
+}
+
+public final class app/cash/nostrino/model/ZapReceiptDescriptionTag : app/cash/nostrino/model/Tag {
+	public fun <init> (Lapp/cash/nostrino/model/Event;)V
+	public final fun component1 ()Lapp/cash/nostrino/model/Event;
+	public final fun copy (Lapp/cash/nostrino/model/Event;)Lapp/cash/nostrino/model/ZapReceiptDescriptionTag;
+	public static synthetic fun copy$default (Lapp/cash/nostrino/model/ZapReceiptDescriptionTag;Lapp/cash/nostrino/model/Event;ILjava/lang/Object;)Lapp/cash/nostrino/model/ZapReceiptDescriptionTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDescription ()Lapp/cash/nostrino/model/Event;
+	public fun hashCode ()I
+	public fun toJsonList ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class app/cash/nostrino/model/ZapRequest : app/cash/nostrino/model/EventContent {

@@ -61,6 +61,23 @@ data class Event(
         val lnUrl = tags.filterIsInstance<LnUrlTag>().firstOrNull()?.lnurl
         ZapRequest(content, relays, amount, lnUrl, taggedPubKeys.first(), taggedEventIds.firstOrNull())
       }
+
+      ZapReceipt.kind -> {
+        val preimage = tags.filterIsInstance<PreimageTag>().firstOrNull()?.preimage
+        val bolt11 = tags.filterIsInstance<Bolt11Tag>().firstOrNull()?.bolt11
+        val description = tags.filterIsInstance<ZapReceiptDescriptionTag>().firstOrNull()?.description
+
+        requireNotNull(bolt11 ) {
+          "ZapReceipt event must have a bolt11 tag"
+        }
+
+        requireNotNull(description) {
+          "ZapReceipt event must have a description tag"
+        }
+
+        ZapReceipt(taggedPubKeys.first(), taggedEventIds.firstOrNull(), bolt11, description, preimage)
+      }
+
       else -> adapters[this.kind]?.fromJson(content)!!.copy(tags = tags)
     }
   }

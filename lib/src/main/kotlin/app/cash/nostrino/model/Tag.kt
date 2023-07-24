@@ -18,6 +18,7 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.PubKey
+import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
 import okio.ByteString
 import okio.ByteString.Companion.decodeHex
 
@@ -36,6 +37,15 @@ sealed interface Tag {
         "amount" -> AmountTag(value.toLong())
         "lnurl" -> LnUrlTag(value)
         "relays" -> RelaysTag(values)
+        "bolt11" -> Bolt11Tag(value)
+        "preimage" -> PreimageTag(value.decodeHex())
+        "description" -> {
+          val event = moshi.adapter(Event::class.java).fromJson(value)
+          require(event != null) { "Invalid tag format: $strings" }
+
+          ZapReceiptDescriptionTag(event)
+        }
+
         else -> throw IllegalArgumentException("Invalid tag format: $strings")
       }
     }
@@ -64,4 +74,18 @@ data class AmountTag(val amount: Long) : Tag {
 
 data class LnUrlTag(val lnurl: String) : Tag {
   override fun toJsonList() = listOf("lnurl", lnurl)
+}
+
+data class Bolt11Tag(val bolt11: String) : Tag {
+  override fun toJsonList() = listOf("bolt11", bolt11)
+}
+
+data class PreimageTag(val preimage: ByteString) : Tag {
+  override fun toJsonList() = listOf("preimage", preimage.hex())
+}
+
+data class ZapReceiptDescriptionTag(val description: Event) : Tag {
+  override fun toJsonList(): List<String> = listOf(
+    "description", moshi.adapter(Event::class.java).toJson(description),
+  )
 }
