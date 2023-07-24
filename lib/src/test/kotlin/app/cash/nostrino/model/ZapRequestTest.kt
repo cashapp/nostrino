@@ -18,7 +18,6 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.ArbKeys.arbSecKey
-import app.cash.nostrino.message.NostrMessageAdapter
 import app.cash.nostrino.model.ArbEventContent.arbZapRequest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
