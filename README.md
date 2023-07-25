@@ -48,8 +48,7 @@ at [https://cashapp.github.io/nostrino](https://cashapp.github.io/nostrino)
 | 🗅         | [50 - Keywords filter](https://github.com/nostr-protocol/nips/blob/master/50.md)                                                 |
 | 🗅         | [56 - Reporting](https://github.com/nostr-protocol/nips/blob/master/56.md)                                                       |
 | 🗅         | [65 - Relay List Metadata](https://github.com/nostr-protocol/nips/blob/master/65.md)                                             |
-| ✅       | [57 - Lightning Zaps](https://github.com/nostr-protocol/nips/blob/master/57.md)                                                  |
-
+| ✅        | [57 - Lightning Zaps](https://github.com/nostr-protocol/nips/blob/master/57.md)                                                  |
 
 
 ## Building
