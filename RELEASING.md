@@ -36,7 +36,8 @@ derived from [this guide](https://keepachangelog.com/en/1.0.0/)
     gh pr create -f && gh pr merge --auto --squash
     ``` 
 
-6. Wait until the PR created above is merged, then trigger the "Publish a release" action manually.
+6. Wait until the PR created above is merged, then trigger the
+[Publish a release](https://github.com/cashapp/nostrino/actions/workflows/Release.yml) action against the new tag.
 This will publish to [Sonatype Nexus](https://oss.sonatype.org/), closing and releasing the artifact 
 automatically to promote it to Maven Central. Note that it can take 10 to 30 minutes or more for the
 artifacts to appear on Maven Central.
@@ -60,8 +61,8 @@ artifacts to appear on Maven Central.
     gh pr create -f && gh pr merge --auto --squash
     ```
 
-9. Draft a new [release](https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository) of `A.B.C` and publish it.
-    - (Trialing) Copy release notes added to `CHANGELOG.md` in step 1 into Github release.
+9. [Draft a new release](https://github.com/cashapp/nostrino/releases/new) of `A.B.C` and publish it. Copy release 
+notes added to `CHANGELOG.md` in step 1 into the release description.
 
 ## Troubleshooting
 
