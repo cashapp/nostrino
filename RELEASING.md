@@ -16,8 +16,8 @@ Releasing
     git checkout -b release-$RELEASE_VERSION
     ```
 
-3. Update `CHANGELOG.md` with changes since the last release. This
-   step is manual and somewhat tedious. Follow the existing `CHANGELOG.md` format.
+3. Update `CHANGELOG.md` with changes since the last release. Follow the existing `CHANGELOG.md` format, which is
+derived from [this guide](https://keepachangelog.com/en/1.0.0/)
 
 4. Update documentation and Gradle properties with `RELEASE_VERSION`
 
