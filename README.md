@@ -1,6 +1,6 @@
 Nostrino is a Nostr SDK for Kotlin.
 
-[<img src="https://img.shields.io/maven-central/v/app.cash.nostrino/nostr-sdk.svg?label=latest%20release"/>](https://mvnrepository.com/artifact/app.cash.nostrino/nostr-sdk)
+[<img src="https://img.shields.io/nexus/r/app.cash.nostrino/nostr-sdk.svg?label=latest%20release&server=https%3A%2F%2Foss.sonatype.org"/>](https://central.sonatype.com/namespace/app.cash.nostrino)
 
 It is a work in progress. See current [NIP support](#supported-nips).
 
