@@ -35,6 +35,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -55,18 +58,21 @@ class RelayClient(
   private val jsonListAdapter = moshi.adapter(List::class.java)
   private val queuedMessages = MutableSharedFlow<String>(replay = 512)
   private val listener = RelayListener(url, this)
-  private val receivedMessages: Flow<RelayMessage> by lazy { listener.messages() }
   private val subscriptions: MutableMap<Subscription, Set<Filter>> = Collections.synchronizedMap(mutableMapOf())
 
-  private var connectionState = Disconnected
+  private var _connectionState = MutableStateFlow(Disconnected)
+  val connectionState : StateFlow<ConnectionState> get() = _connectionState.asStateFlow() // TODO add tests
+
   private var messageSendingJob: Job? = null
   private var socket: WebSocket? = null
 
+  override val relayMessages: Flow<RelayMessage> by lazy { listener.messages() }
+
   override fun start() {
-    if (connectionState == Disconnected) {
+    if (connectionState.value == Disconnected) {
       logger.info { "Connecting to $url" }
       socket = client.newWebSocket(Request.Builder().url(url).build(), listener)
-      connectionState = Connecting
+      _connectionState.value = Connecting
     }
   }
 
@@ -79,6 +85,8 @@ class RelayClient(
       Disconnected -> connect()
       Disconnecting -> stopTalking()
     }
+
+    _connectionState.value = newState
   }
 
   override fun stop() {
@@ -101,7 +109,7 @@ class RelayClient(
     send(listOf("CLOSE", subscription.id))
   }
 
-  override val allEvents: Flow<Event> by lazy { receivedMessages.filterIsInstance<EventMessage>().map { it.event } }
+  override val allEvents: Flow<Event> by lazy { relayMessages.filterIsInstance<EventMessage>().map { it.event } }
 
   private fun send(message: List<Any>) {
     queuedMessages.tryEmit(jsonListAdapter.toJson(message))

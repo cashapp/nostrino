@@ -16,6 +16,8 @@
 
 package app.cash.nostrino.client
 
+import app.cash.nostrino.message.relay.RelayMessage
+import app.cash.nostrino.message.relay.EventMessage
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Event
 import app.cash.nostrino.model.Filter
@@ -52,18 +54,21 @@ abstract class Relay {
   /** Unsubscribe from a subscription */
   abstract fun unsubscribe(subscription: Subscription)
 
-  /** All events transmitted by this relay for our active subscriptions */
+  /** All messages transmitted by this relay for our active subscriptions */
+  abstract val relayMessages : Flow<RelayMessage>
+
+  /** The subset of [RelayMessage] that only contain messages of type [EventMessage] */
   abstract val allEvents: Flow<Event>
 
-  /** The subset of allEvents that are of type TextNote */
+  /** The subset of [allEvents] that are of type [TextNote] */
   val notes: Flow<Event> by lazy { allEvents.filter { it.kind == TextNote.kind } }
 
-  /** The subset of allEvents that are of type EncryptedDm */
+  /** The subset of [allEvents] that are of type [EncryptedDm] */
   val directMessages: Flow<Event> by lazy { allEvents.filter { it.kind == EncryptedDm.kind } }
 
-  /** The subset of allEvents that are of type UserMetaData */
+  /** The subset of [allEvents] that are of type [UserMetaData] */
   val userMetaData: Flow<Event> by lazy { allEvents.filter { it.kind == UserMetaData.kind } }
 
-  /** The subset of allEvents that are of type Reaction */
+  /** The subset of [allEvents] that are of type [Reaction] */
   val reactions: Flow<Event> by lazy { allEvents.filter { it.kind == Reaction.kind } }
 }
