@@ -13,3 +13,4 @@ docker-sources/
 /gradle/wrapper/
 /.hermit
 local.properties
+**.DS_Store

@@ -18,6 +18,7 @@ public abstract class app/cash/nostrino/client/Relay {
 	public final fun getDirectMessages ()Lkotlinx/coroutines/flow/Flow;
 	public final fun getNotes ()Lkotlinx/coroutines/flow/Flow;
 	public final fun getReactions ()Lkotlinx/coroutines/flow/Flow;
+	public abstract fun getRelayMessages ()Lkotlinx/coroutines/flow/Flow;
 	public final fun getUserMetaData ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun send (Lapp/cash/nostrino/model/Event;)V
 	public abstract fun start ()V
@@ -34,6 +35,8 @@ public final class app/cash/nostrino/client/RelayClient : app/cash/nostrino/clie
 	public fun <init> (Ljava/lang/String;Lokhttp3/OkHttpClient;)V
 	public synthetic fun <init> (Ljava/lang/String;Lokhttp3/OkHttpClient;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getAllEvents ()Lkotlinx/coroutines/flow/Flow;
+	public final fun getConnectionState ()Lkotlinx/coroutines/flow/StateFlow;
+	public fun getRelayMessages ()Lkotlinx/coroutines/flow/Flow;
 	public fun send (Lapp/cash/nostrino/model/Event;)V
 	public fun start ()V
 	public fun stop ()V
@@ -68,6 +71,7 @@ public final class app/cash/nostrino/client/RelaySet : app/cash/nostrino/client/
 	public static synthetic fun copy$default (Lapp/cash/nostrino/client/RelaySet;Ljava/util/Set;ILjava/lang/Object;)Lapp/cash/nostrino/client/RelaySet;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getAllEvents ()Lkotlinx/coroutines/flow/Flow;
+	public fun getRelayMessages ()Lkotlinx/coroutines/flow/Flow;
 	public final fun getRelays ()Ljava/util/Set;
 	public fun hashCode ()I
 	public fun send (Lapp/cash/nostrino/model/Event;)V

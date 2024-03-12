@@ -16,6 +16,8 @@
 
 package app.cash.nostrino.client
 
+import app.cash.nostrino.message.relay.EventMessage
+import app.cash.nostrino.message.relay.RelayMessage
 import app.cash.nostrino.model.Event
 import app.cash.nostrino.model.Filter
 import com.google.common.cache.CacheBuilder
@@ -23,6 +25,7 @@ import com.google.common.cache.CacheLoader
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.map
@@ -45,16 +48,25 @@ data class RelaySet(
   override fun unsubscribe(subscription: Subscription) = relays.forEach { it.unsubscribe(subscription) }
 
   @OptIn(ExperimentalCoroutinesApi::class)
-  override val allEvents: Flow<Event> by lazy {
+  override val relayMessages: Flow<RelayMessage> by lazy {
     val cache = CacheBuilder.newBuilder()
       .maximumSize(4096)
       .build<ByteString, Boolean>(CacheLoader.from { _ -> false })
-    relays.map { it.allEvents }.asFlow()
+
+    relays.map { it.relayMessages }.asFlow()
       .flattenMerge()
-      .filterNot { cache.get(it.id) }
+      .filterNot {
+        it is EventMessage && cache.get(it.event.id)
+      }
       .map {
-        cache.put(it.id, true)
+        if(it is EventMessage) {
+          cache.put(it.event.id, true)
+        }
         it
       }
+  }
+
+  override val allEvents: Flow<Event> by lazy {
+    relayMessages.filterIsInstance<EventMessage>().map { it.event }
   }
 }

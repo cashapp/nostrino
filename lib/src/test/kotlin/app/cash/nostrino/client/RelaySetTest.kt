@@ -17,11 +17,19 @@
 package app.cash.nostrino.client
 
 import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
+import app.cash.nostrino.message.relay.EventMessage
+import app.cash.nostrino.message.relay.RelayMessage
 import app.cash.nostrino.model.ArbEvent.arbEvent
+import app.cash.nostrino.model.ArbEvent.arbEventMessage
+import app.cash.nostrino.model.ArbEvent.arbRelayMessage
+import app.cash.nostrino.model.ArbEvent.arbSubscriptionId
 import app.cash.nostrino.model.Event
 import app.cash.nostrino.model.Filter
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.collections.shouldBeSameSizeAs
+import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.list
@@ -29,10 +37,11 @@ import io.kotest.property.arbitrary.next
 import io.kotest.property.checkAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
 class RelaySetTest : StringSpec({
-
   fun relaySet(): RelaySet = RelaySet(
     setOf(FakeRelay(), FakeRelay(), FakeRelay())
   )
@@ -94,6 +103,8 @@ class RelaySetTest : StringSpec({
         FakeRelay(events.drop(4).take(2).toMutableList())
       )
     )
+    set.subscribe(Filter.globalFeedNotes)
+
     set.allEvents.toList() shouldContainExactly events
   }
 
@@ -128,6 +139,19 @@ class RelaySetTest : StringSpec({
     set.send(events.first())
     set.allEvents.toList() shouldContainExactly events
   }
+
+  "merge relay messages into a single flow" {
+    val events = Arb.list(arbEvent, 20..20).next().distinct().take(6).toMutableList()
+    val set = RelaySet(
+      setOf(
+        FakeRelay(events),
+        FakeRelay(events),
+        FakeRelay(events)
+      )
+    )
+
+    set.relayMessages.toList().filterIsInstance<EventMessage>().map { it.event } shouldBeEqual events
+  }
 })
 
 class FakeRelay(val sent: MutableList<Event> = mutableListOf()) : Relay() {
@@ -156,6 +180,12 @@ class FakeRelay(val sent: MutableList<Event> = mutableListOf()) : Relay() {
   override fun unsubscribe(subscription: Subscription) {
     unsubscriptions.add(subscription)
   }
+
+  override val relayMessages: Flow<RelayMessage>
+    get() = sent.asSequence()
+      .zip(arbSubscriptionId.samples())
+      .map { (event, id) -> EventMessage(id.value, event) }
+      .asFlow()
 
   override val allEvents: Flow<Event> = sent.asFlow()
 }
