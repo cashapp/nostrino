@@ -16,10 +16,6 @@
 
 package app.cash.nostrino.client
 
-import app.cash.nostrino.message.relay.EventMessage
-import app.cash.nostrino.message.relay.RelayMessage
-import app.cash.nostrino.model.Event
-import app.cash.nostrino.model.Filter
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +25,10 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.map
+import app.cash.nostrino.message.relay.EventMessage
+import app.cash.nostrino.message.relay.RelayMessage
+import app.cash.nostrino.model.Event
+import app.cash.nostrino.model.Filter
 import okio.ByteString
 
 data class RelaySet(

@@ -18,6 +18,7 @@
 package app.cash.nostrino.crypto
 
 import okio.ByteString
+import kotlin.jvm.JvmStatic
 
 object Bech32Serde {
 

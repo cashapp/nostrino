@@ -18,7 +18,6 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.PubKey
-import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
 import okio.ByteString
 import okio.ByteString.Companion.decodeHex
 

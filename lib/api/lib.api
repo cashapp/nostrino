@@ -4,6 +4,7 @@ public final class app/cash/nostrino/client/ConnectionState : java/lang/Enum {
 	public static final field Disconnected Lapp/cash/nostrino/client/ConnectionState;
 	public static final field Disconnecting Lapp/cash/nostrino/client/ConnectionState;
 	public static final field Failing Lapp/cash/nostrino/client/ConnectionState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lapp/cash/nostrino/client/ConnectionState;
 	public static fun values ()[Lapp/cash/nostrino/client/ConnectionState;
 }
@@ -107,6 +108,7 @@ public final class app/cash/nostrino/crypto/Bech32Serde$Encoding : java/lang/Enu
 	public static final field Bech32m Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
 	public static final field Beck32WithoutChecksum Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
 	public final fun getConstant ()I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
 	public static fun values ()[Lapp/cash/nostrino/crypto/Bech32Serde$Encoding;
 }

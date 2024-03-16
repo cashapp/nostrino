@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   alias(libs.plugins.kotlinGradlePlugin) apply false
+  alias(libs.plugins.kotlinMultiplatform) apply false
   alias(libs.plugins.kotlinBinaryCompatibilityPlugin) apply false
   alias(libs.plugins.mavenPublishGradlePlugin) apply false
   alias(libs.plugins.versionsGradlePlugin)
@@ -12,12 +13,14 @@ plugins {
 }
 
 repositories {
+  google()
   mavenCentral()
   gradlePluginPortal()
 }
 
 buildscript {
   repositories {
+    google()
     mavenCentral()
   }
 }
@@ -25,37 +28,20 @@ buildscript {
 subprojects {
   buildscript {
     repositories {
+      google()
       mavenCentral()
       gradlePluginPortal()
     }
   }
 
   repositories {
+    google()
     mavenCentral()
   }
 
-  apply(plugin = "java")
-  apply(plugin = "kotlin")
   apply(plugin = rootProject.project.libs.plugins.kotlinBinaryCompatibilityPlugin.get().pluginId)
   apply(plugin = rootProject.project.libs.plugins.mavenPublishGradlePlugin.get().pluginId)
 
-  configure<JavaPluginExtension> {
-    withSourcesJar()
-    withJavadocJar()
-  }
-
-  plugins.withId("com.vanniktech.maven.publish.base") {
-    val publishingExtension = extensions.getByType(PublishingExtension::class.java)
-    configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
-      pomFromGradleProperties()
-      publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.DEFAULT, true)
-      signAllPublications()
-    }
-
-    publishingExtension.publications.create<MavenPublication>("maven") {
-      from(components["java"])
-    }
-  }
 
   apply(plugin = "version-catalog")
 
@@ -63,13 +49,13 @@ subprojects {
   plugins.withType<KotlinPluginWrapper> {
     val compileKotlin by tasks.getting(KotlinCompile::class) {
       kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
         allWarningsAsErrors = true
       }
     }
     val compileTestKotlin by tasks.getting(KotlinCompile::class) {
       kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
         allWarningsAsErrors = true
       }
     }

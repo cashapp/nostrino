@@ -21,13 +21,13 @@ import app.cash.nostrino.client.ConnectionState.Connected
 import app.cash.nostrino.client.ConnectionState.Disconnected
 import app.cash.nostrino.client.ConnectionState.Disconnecting
 import app.cash.nostrino.client.ConnectionState.Failing
-import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
-import app.cash.nostrino.message.relay.RelayMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.runBlocking
+import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
+import app.cash.nostrino.message.relay.RelayMessage
 import mu.KotlinLogging
 import okhttp3.Response
 import okhttp3.WebSocket
