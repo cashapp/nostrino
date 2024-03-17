@@ -1,3 +1,6 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
+
 plugins {
   alias(libs.plugins.kotlinMultiplatform)
   alias(libs.plugins.kotestMultiplatform)
@@ -36,11 +39,14 @@ kotlin {
   }
 }
 
-plugins.withId("com.vanniktech.maven.publish.base") {
-  configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
-    coordinates("app.cash.nostrino", "nostr-sdk-kmm", "0.0.7-SNAPSHOT")
-    // pomFromGradleProperties() // TODO use pom
-    // publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.DEFAULT, true)
-    signAllPublications()
-  }
+// Publishing
+mavenPublishing {
+  configure(
+    KotlinMultiplatform(
+      javadocJar = JavadocJar.Dokka("dokkaHtml"),
+    )
+  )
+  pomFromGradleProperties()
+  publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.DEFAULT, true)
+  signAllPublications()
 }

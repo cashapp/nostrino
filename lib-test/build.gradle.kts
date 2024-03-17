@@ -13,24 +13,6 @@ plugins {
   id("com.bmuschko.docker-remote-api") version "9.3.0"
 }
 
-configure<JavaPluginExtension> {
-  withSourcesJar()
-  withJavadocJar()
-}
-
-plugins.withId("com.vanniktech.maven.publish.base") {
-  val publishingExtension = extensions.getByType(PublishingExtension::class.java)
-  configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
-    pomFromGradleProperties()
-    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.DEFAULT, true)
-    signAllPublications()
-  }
-
-  publishingExtension.publications.create<MavenPublication>("maven") {
-    from(components["java"])
-  }
-}
-
 dependencies {
   implementation(project(":lib"))
   implementation(libs.kotestProperty)
@@ -111,3 +93,22 @@ fun relayIsRunning() =
   } catch (_: java.io.IOException) {
     true
   }
+
+// Publishing
+
+configure<JavaPluginExtension> {
+  withSourcesJar()
+  withJavadocJar()
+}
+
+mavenPublishing {
+  val publishingExtension = extensions.getByType(PublishingExtension::class.java)
+
+  pomFromGradleProperties()
+  publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.DEFAULT, true)
+  signAllPublications()
+
+  publishingExtension.publications.create<MavenPublication>("maven") {
+    from(components["java"])
+  }
+}

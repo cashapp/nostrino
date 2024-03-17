@@ -13,14 +13,12 @@ plugins {
 }
 
 repositories {
-  google()
   mavenCentral()
   gradlePluginPortal()
 }
 
 buildscript {
   repositories {
-    google()
     mavenCentral()
   }
 }
@@ -28,14 +26,12 @@ buildscript {
 subprojects {
   buildscript {
     repositories {
-      google()
       mavenCentral()
       gradlePluginPortal()
     }
   }
 
   repositories {
-    google()
     mavenCentral()
   }
 
