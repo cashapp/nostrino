@@ -29,7 +29,7 @@ import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-import java.util.*
+import java.util.UUID
 
 object ArbPrimitive {
 

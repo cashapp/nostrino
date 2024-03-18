@@ -1,98 +1,52 @@
-import com.bmuschko.gradle.docker.tasks.container.DockerCreateContainer
-import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
-import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
-import org.jetbrains.dokka.gradle.DokkaTask
-import java.net.ServerSocket
-import java.net.URL
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
 
 plugins {
-  `java-library`
-  id("com.bmuschko.docker-remote-api") version "9.3.0"
+  alias(libs.plugins.kotlinMultiplatform)
+  alias(libs.plugins.kotestMultiplatform)
 }
 
-dependencies {
-  implementation(libs.kotlinxCoroutines)
+kotlin {
+  jvmToolchain(17)
 
-  // Comms/IO
-  implementation(libs.okHttp)
+  jvm()
+  iosX64()
+  iosArm64()
+  iosSimulatorArm64()
+  linuxX64()
 
-  // JSON
-  implementation(libs.moshi)
+  sourceSets {
 
-  // Cache
-  implementation(libs.guava)
+    commonMain {
+      dependencies {
+        implementation(libs.acinqSecp256k1)
+        implementation(libs.kotlinxCoroutines)
+        implementation(libs.okIo)
+      }
+    }
 
-  // Curves
-  implementation(libs.acinqSecp256k1JniJvm)
-  implementation(libs.acinqSecp256k1Jvm)
-
-  // Logging
-  implementation(libs.kotlinLoggingJvm)
-  testRuntimeOnly(libs.slf4jSimple)
-
-  // Basic test libraries:
-  testImplementation(project(":lib-test"))
-  testImplementation(libs.kotestAssertions)
-  testImplementation(libs.kotestJunitRunnerJvm)
-  testImplementation(libs.kotestProperty)
-  testImplementation(libs.turbine)
-  testRuntimeOnly(libs.junitEngine)
-
-  apply(plugin = libs.plugins.dokka.get().pluginId)
-}
-
-tasks.withType<DokkaTask>().configureEach {
-  dokkaSourceSets {
-    named("main") {
-      moduleName.set("Nostrino Nostr SDK")
-
-      // Includes custom documentation
-      includes.from("module.md")
-
-      // Points source links to GitHub
-      sourceLink {
-        localDirectory.set(file("src/main/kotlin"))
-        remoteUrl.set(URL("https://github.com/cashapp/nostrino/tree/master/lib/src/main/kotlin"))
-        remoteLineSuffix.set("#L")
+    jvmMain {
+      dependencies {
+        api(libs.okHttp)
+        implementation(libs.acinqSecp256k1Jvm)
+        implementation(libs.acinqSecp256k1JniJvm)
+        implementation(libs.moshi)
+        implementation(libs.kotlinLoggingJvm)
+        implementation(libs.guava)
+        apply(plugin = libs.plugins.dokka.get().pluginId)
       }
     }
   }
 }
 
-val createDockerfile by tasks.creating(Dockerfile::class) {
-  from("scsibug/nostr-rs-relay:latest")
+// Publishing
+mavenPublishing {
+  configure(
+    KotlinMultiplatform(
+      javadocJar = JavadocJar.Dokka("dokkaHtml"),
+    )
+  )
+  pomFromGradleProperties()
+  publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.DEFAULT, true)
+  signAllPublications()
 }
-
-val buildImage by tasks.creating(DockerBuildImage::class) {
-  dependsOn(createDockerfile)
-  images.add("scsibug/nostr-rs-relay:latest")
-}
-
-val createContainer by tasks.creating(DockerCreateContainer::class) {
-  onlyIf { !relayIsRunning() }
-  dependsOn(buildImage)
-  targetImageId(buildImage.imageId)
-  containerName.set("nostr-relay")
-  hostConfig.portBindings.set(listOf("7707:8080"))
-  hostConfig.autoRemove.set(true)
-}
-
-val startContainer by tasks.creating(DockerStartContainer::class) {
-  onlyIf { !relayIsRunning() }
-  dependsOn(createContainer)
-  targetContainerId(createContainer.containerId)
-}
-
-tasks.withType<Test>().configureEach {
-  dependsOn(startContainer)
-}
-
-fun relayIsRunning() =
-  try {
-    val s = ServerSocket(7707)
-    s.close()
-    false
-  } catch (_: java.io.IOException) {
-    true
-  }

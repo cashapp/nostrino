@@ -28,6 +28,7 @@ import app.cash.nostrino.model.ArbEvent.arbEventMessage
 import app.cash.nostrino.model.ArbEvent.arbNotice
 import app.cash.nostrino.model.ArbEvent.arbRelayMessage
 import app.cash.nostrino.model.ArbEvent.moshi
+import app.cash.nostrino.model.Event
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldStartWith

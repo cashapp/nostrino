@@ -16,16 +16,15 @@
 
 package app.cash.nostrino.client
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
 import app.cash.nostrino.message.relay.RelayMessage
-import app.cash.nostrino.message.relay.EventMessage
 import app.cash.nostrino.model.EncryptedDm
 import app.cash.nostrino.model.Event
 import app.cash.nostrino.model.Filter
 import app.cash.nostrino.model.Reaction
 import app.cash.nostrino.model.TextNote
 import app.cash.nostrino.model.UserMetaData
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 import java.util.UUID
 
 abstract class Relay {

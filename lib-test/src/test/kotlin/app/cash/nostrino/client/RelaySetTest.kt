@@ -20,14 +20,10 @@ import app.cash.nostrino.crypto.PubKeyTest.Companion.arbPubKey
 import app.cash.nostrino.message.relay.EventMessage
 import app.cash.nostrino.message.relay.RelayMessage
 import app.cash.nostrino.model.ArbEvent.arbEvent
-import app.cash.nostrino.model.ArbEvent.arbEventMessage
-import app.cash.nostrino.model.ArbEvent.arbRelayMessage
 import app.cash.nostrino.model.ArbEvent.arbSubscriptionId
 import app.cash.nostrino.model.Event
 import app.cash.nostrino.model.Filter
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.collections.shouldBeSameSizeAs
-import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
@@ -37,8 +33,6 @@ import io.kotest.property.arbitrary.next
 import io.kotest.property.checkAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
 class RelaySetTest : StringSpec({

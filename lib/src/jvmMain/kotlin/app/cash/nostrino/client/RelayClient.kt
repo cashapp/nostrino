@@ -22,11 +22,6 @@ import app.cash.nostrino.client.ConnectionState.Connecting
 import app.cash.nostrino.client.ConnectionState.Disconnected
 import app.cash.nostrino.client.ConnectionState.Disconnecting
 import app.cash.nostrino.client.ConnectionState.Failing
-import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
-import app.cash.nostrino.message.relay.EventMessage
-import app.cash.nostrino.message.relay.RelayMessage
-import app.cash.nostrino.model.Event
-import app.cash.nostrino.model.Filter
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +37,11 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
+import app.cash.nostrino.message.relay.EventMessage
+import app.cash.nostrino.message.relay.RelayMessage
+import app.cash.nostrino.model.Event
+import app.cash.nostrino.model.Filter
 import mu.KotlinLogging
 import okhttp3.OkHttpClient
 import okhttp3.Request

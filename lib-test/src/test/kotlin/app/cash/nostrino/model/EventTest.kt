@@ -17,7 +17,6 @@
 package app.cash.nostrino.model
 
 import app.cash.nostrino.crypto.SecKeyGenerator
-import app.cash.nostrino.message.NostrMessageAdapter.Companion.moshi
 import app.cash.nostrino.model.ArbEvent.arbEventContent
 import app.cash.nostrino.model.ArbEvent.arbEventWithContent
 import app.cash.nostrino.model.ArbEventContent.arbTextNote
