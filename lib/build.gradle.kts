@@ -22,6 +22,7 @@ kotlin {
         implementation(libs.acinqSecp256k1)
         implementation(libs.kotlinxCoroutines)
         implementation(libs.okIo)
+        implementation(libs.secureRandom)
       }
     }
 

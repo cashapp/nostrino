@@ -19,6 +19,11 @@ package app.cash.nostrino.model
 import app.cash.nostrino.crypto.CipherText
 import app.cash.nostrino.crypto.PubKey
 import app.cash.nostrino.crypto.SecKey
+import okio.ByteString.Companion.toByteString
+import java.security.SecureRandom
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * An encrypted direct message. Event kind 4, as defined in
@@ -30,7 +35,7 @@ data class EncryptedDm(
   override val tags: List<Tag> = listOf(PubKeyTag(to)),
 ) : EventContent {
 
-  constructor(from: SecKey, to: PubKey, message: String) : this(to, from.encrypt(to, message))
+  constructor(from: SecKey, to: PubKey, message: String) : this(to, from.encryptMessage(to, message))
 
   override val kind: Int = EncryptedDm.kind
 
@@ -42,4 +47,14 @@ data class EncryptedDm(
   companion object {
     const val kind = 4
   }
+}
+
+fun SecKey.encryptMessage(to: PubKey, plainText: String): CipherText {
+  val random = SecureRandom()
+  val iv = ByteArray(16)
+  random.nextBytes(iv)
+  val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+  cipher.init(Cipher.ENCRYPT_MODE, SecretKeySpec(sharedSecretWith(to), "AES"), IvParameterSpec(iv))
+  val encrypted = cipher.doFinal(plainText.toByteArray())
+  return CipherText(encrypted.toByteString(), iv.toByteString())
 }

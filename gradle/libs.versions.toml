@@ -12,6 +12,7 @@ mavenPublishGradlePlugin = "0.25.3"
 moshi = "1.15.0"
 okHttp = "5.0.0-alpha.11"
 okIo = "3.4.0"
+secureRandom = "0.3.1"
 slf4j = "2.0.7"
 versionCatalogUpdateGradlePlugin = "0.8.1"
 versionsGradlePlugin = "0.47.0"
@@ -32,6 +33,7 @@ kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", 
 moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 okHttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttp" }
 okIo = { module = "com.squareup.okio:okio", version.ref = "okIo" }
+secureRandom = { module = "org.kotlincrypto:secure-random", version.ref = "secureRandom" }
 slf4jSimple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 turbine = "app.cash.turbine:turbine:1.0.0"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

@@ -21,10 +21,6 @@ import fr.acinq.secp256k1.Hex
 import fr.acinq.secp256k1.Secp256k1
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
-import java.security.SecureRandom
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
 
 /**
  * Nostr secret key.
@@ -58,15 +54,7 @@ data class SecKey(val key: ByteString) : Key {
     ).copyOfRange(1, 33)
 
   /** Generate cipher text of the provided plain text, intended for the provided pub key */
-  fun encrypt(to: PubKey, plainText: String): CipherText {
-    val random = SecureRandom()
-    val iv = ByteArray(16)
-    random.nextBytes(iv)
-    val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
-    cipher.init(Cipher.ENCRYPT_MODE, SecretKeySpec(sharedSecretWith(to), "AES"), IvParameterSpec(iv))
-    val encrypted = cipher.doFinal(plainText.toByteArray())
-    return CipherText(encrypted.toByteString(), iv.toByteString())
-  }
+
 
   companion object {
     /** Create secret key from nip-19 bech32 encoded string */
