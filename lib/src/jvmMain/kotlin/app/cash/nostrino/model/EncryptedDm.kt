@@ -35,7 +35,7 @@ data class EncryptedDm(
   override val tags: List<Tag> = listOf(PubKeyTag(to)),
 ) : EventContent {
 
-  constructor(from: SecKey, to: PubKey, message: String) : this(to, from.encryptMessage(to, message))
+  constructor(from: SecKey, to: PubKey, message: String) : this(to, from.encrypt(to, message))
 
   override val kind: Int = EncryptedDm.kind
 
@@ -49,7 +49,7 @@ data class EncryptedDm(
   }
 }
 
-fun SecKey.encryptMessage(to: PubKey, plainText: String): CipherText {
+fun SecKey.encrypt(to: PubKey, plainText: String): CipherText {
   val random = SecureRandom()
   val iv = ByteArray(16)
   random.nextBytes(iv)
